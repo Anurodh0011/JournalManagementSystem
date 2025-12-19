@@ -524,13 +524,10 @@
       <PackagePath>wwwroot\JournalManagementSystem.styles.css</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\scopedcss\projectbundle\JournalManagementSystem.bundle.scp.css">
-      <PackagePath>wwwroot\JournalManagementSystem.6phyl0avoy.bundle.scp.css</PackagePath>
+      <PackagePath>wwwroot\JournalManagementSystem.caes0fn15r.bundle.scp.css</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\Components\Layout\MainLayout.razor.css">
       <PackagePath>Components\Layout\MainLayout.razor.css</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\Components\Layout\NavMenu.razor.css">
-      <PackagePath>Components\Layout\NavMenu.razor.css</PackagePath>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

@@ -101,7 +101,6 @@ C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\
 C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\rjsmrazor.dswa.cache.json
 C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\rjsmcshtml.dswa.cache.json
 C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\scopedcss\Components\Layout\MainLayout.razor.rz.scp.css
-C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\scopedcss\Components\Layout\NavMenu.razor.rz.scp.css
 C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\scopedcss\bundle\JournalManagementSystem.styles.css
 C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\scopedcss\projectbundle\JournalManagementSystem.bundle.scp.css
 C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\staticwebassets.build.json
@@ -218,3 +217,4 @@ C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\
 C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\Microsoft.Extensions.Localization.dll
 C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\Microsoft.Extensions.Localization.Abstractions.dll
 C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\MudBlazor.dll
+C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\JournalManagementSystem.sourcelink.json

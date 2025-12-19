@@ -1,0 +1,58 @@
+﻿@page "/"
+@using MudBlazor
+
+<MudText Typo="Typo.h4" GutterBottom="true">Dashboard</MudText>
+
+<MudGrid Spacing="3">
+    <!-- Current Streak -->
+    <MudItem xs="12" sm="6" md="3">
+        <MudPaper Elevation="2" Class="pa-4">
+            <MudText Typo="Typo.subtitle2">Current Streak</MudText>
+            <MudText Typo="Typo.h3" Color="Color.Primary">5 🔥</MudText>
+        </MudPaper>
+    </MudItem>
+
+    <!-- Longest Streak -->
+    <MudItem xs="12" sm="6" md="3">
+        <MudPaper Elevation="2" Class="pa-4">
+            <MudText Typo="Typo.subtitle2">Longest Streak</MudText>
+            <MudText Typo="Typo.h3">12</MudText>
+        </MudPaper>
+    </MudItem>
+
+    <!-- Most Frequent Mood -->
+    <MudItem xs="12" sm="6" md="3">
+        <MudPaper Elevation="2" Class="pa-4">
+            <MudText Typo="Typo.subtitle2">Most Frequent Mood</MudText>
+            <MudChip T="string"  Color="Color.Success" Variant="Variant.Filled">Happy</MudChip>
+        </MudPaper>
+    </MudItem>
+
+    <!-- Total Journals -->
+    <MudItem xs="12" sm="6" md="3">
+        <MudPaper Elevation="2" Class="pa-4">
+            <MudText Typo="Typo.subtitle2">Total Entries</MudText>
+            <MudText Typo="Typo.h3">48</MudText>
+        </MudPaper>
+    </MudItem>
+</MudGrid>
+
+<MudDivider Class="my-6" />
+
+<MudGrid Spacing="3">
+    <!-- Mood Distribution Placeholder -->
+    <MudItem xs="12" md="6">
+        <MudPaper Elevation="2" Class="pa-4" Style="height:300px">
+            <MudText Typo="Typo.h6">Mood Distribution</MudText>
+            <MudText Color="Color.Secondary">(Chart will be added later)</MudText>
+        </MudPaper>
+    </MudItem>
+
+    <!-- Word Count Trend Placeholder -->
+    <MudItem xs="12" md="6">
+        <MudPaper Elevation="2" Class="pa-4" Style="height:300px">
+            <MudText Typo="Typo.h6">Word Count Trend</MudText>
+            <MudText Color="Color.Secondary">(Chart will be added later)</MudText>
+        </MudPaper>
+    </MudItem>
+</MudGrid>

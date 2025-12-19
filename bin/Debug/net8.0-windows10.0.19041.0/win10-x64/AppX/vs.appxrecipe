@@ -30,13 +30,13 @@
     <AppXManifest Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2025-12-18T17:31:44.651</Modified>
+      <Modified>2025-12-19T02:17:41.771</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2025-12-18T17:30:09.138</Modified>
+      <Modified>2025-12-18T17:50:45.023</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\JournalManagementSystem.runtimeconfig.json">
       <PackagePath>JournalManagementSystem.runtimeconfig.json</PackagePath>
@@ -44,11 +44,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\JournalManagementSystem.dll">
       <PackagePath>JournalManagementSystem.dll</PackagePath>
-      <Modified>2025-12-18T17:31:44.417</Modified>
+      <Modified>2025-12-19T02:17:40.434</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\apphost.exe">
       <PackagePath>JournalManagementSystem.exe</PackagePath>
-      <Modified>2025-12-18T17:31:44.417</Modified>
+      <Modified>2025-12-19T02:17:40.517</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\Resources\Raw\AboutAssets.txt">
       <PackagePath>AboutAssets.txt</PackagePath>
@@ -672,7 +672,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\staticwebassets.build.endpoints.json">
       <PackagePath>JournalManagementSystem.staticwebassets.endpoints.json</PackagePath>
-      <Modified>2025-12-18T17:30:02.465</Modified>
+      <Modified>2025-12-18T17:47:12.818</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\.nuget\packages\microsoft.maui.controls.compatibility\8.0.100\lib\net8.0-windows10.0.19041\Microsoft.Maui.Controls.Compatibility.pri">
       <PackagePath>Microsoft.Maui.Controls.Compatibility.pri</PackagePath>
@@ -696,18 +696,14 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\scopedcss\bundle\JournalManagementSystem.styles.css">
       <PackagePath>wwwroot\JournalManagementSystem.styles.css</PackagePath>
-      <Modified>2025-12-18T17:24:05.641</Modified>
+      <Modified>2025-12-18T17:47:12.813</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\scopedcss\projectbundle\JournalManagementSystem.bundle.scp.css">
-      <PackagePath>wwwroot\JournalManagementSystem.6phyl0avoy.bundle.scp.css</PackagePath>
-      <Modified>2025-12-18T17:24:05.644</Modified>
+      <PackagePath>wwwroot\JournalManagementSystem.caes0fn15r.bundle.scp.css</PackagePath>
+      <Modified>2025-12-18T17:47:12.815</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\Components\Layout\MainLayout.razor.css">
       <PackagePath>Components\Layout\MainLayout.razor.css</PackagePath>
-      <Modified>2025-12-18T17:23:46.938</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\Components\Layout\NavMenu.razor.css">
-      <PackagePath>Components\Layout\NavMenu.razor.css</PackagePath>
       <Modified>2025-12-18T17:23:46.938</Modified>
     </AppxPackagedFile>
   </ItemGroup>

@@ -1,25 +1,115 @@
 ﻿@inherits LayoutComponentBase
-@* Required *@
-<MudThemeProvider />
+@using MudBlazor
+
+<MudThemeProvider Theme="_theme" IsDarkMode="_isDarkMode" />
+<MudDialogProvider />
+<MudSnackbarProvider />
 <MudPopoverProvider />
 
-@* Needed for dialogs *@
-<MudDialogProvider />
+<MudLayout>
 
-@* Needed for snackbars *@
-<MudSnackbarProvider />
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+    <!-- SIDEBAR -->
+    <MudDrawer @bind-Open="_drawerOpen"
+               Variant="DrawerVariant.Mini"
+               MiniVariantWidth="64px"
+               Elevation="1">
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
+        <MudDrawerHeader Class="d-flex align-center px-3">
+            @if (_drawerOpen)
+            {
+                <MudText Typo="Typo.h6">Daily Journal</MudText>
+            }
+        </MudDrawerHeader>
 
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
+        <MudNavMenu>
+            <MudNavLink Href="/dashboard" Icon="@Icons.Material.Filled.Dashboard">
+                @if (_drawerOpen) { <span>Dashboard</span> }
+            </MudNavLink>
+
+            <MudNavLink Href="/journals" Icon="@Icons.Material.Filled.MenuBook">
+                @if (_drawerOpen) { <span>Journals</span> }
+            </MudNavLink>
+
+            <MudNavLink Href="/calendar" Icon="@Icons.Material.Filled.CalendarMonth">
+                @if (_drawerOpen) { <span>Calendar</span> }
+            </MudNavLink>
+
+            <MudNavLink Href="/settings" Icon="@Icons.Material.Filled.Settings">
+                @if (_drawerOpen) { <span>Settings</span> }
+            </MudNavLink>
+        </MudNavMenu>
+    </MudDrawer>
+
+    <!-- TOP BAR -->
+    <MudAppBar Elevation="1" Color="Color.Primary">
+
+        <MudIconButton Icon="@Icons.Material.Filled.Menu"
+                       Color="Color.Inherit"
+                       Edge="Edge.Start"
+                       OnClick="ToggleDrawer" />
+
+        <MudSpacer />
+
+        <!-- Theme Toggle -->
+        <MudIconButton Icon="@(_isDarkMode ? Icons.Material.Filled.DarkMode : Icons.Material.Filled.LightMode)"
+                       Color="Color.Inherit"
+                       OnClick="ToggleTheme" />
+
+        <!-- User Menu -->
+        <MudMenu AnchorOrigin="Origin.BottomRight">
+            <ActivatorContent>
+                <MudButton Variant="Variant.Text"
+                           Color="Color.Inherit"
+                           EndIcon="@Icons.Material.Filled.KeyboardArrowDown">
+                    <MudAvatar Icon="@Icons.Material.Filled.Person"
+                               Size="Size.Small"
+                               Class="mr-2" />
+                    @UserName
+                </MudButton>
+            </ActivatorContent>
+            <ChildContent>
+            <MudMenuItem Color="Color.Error" OnClick="Logout">
+                Logout
+            </MudMenuItem>
+
+            </ChildContent>
+        </MudMenu>
+
+    </MudAppBar>
+
+    <!-- MAIN CONTENT -->
+    <MudMainContent Class="pa-4">
+        @Body
+    </MudMainContent>
+
+</MudLayout>
+
+@code {
+    private bool _drawerOpen = true;
+    private bool _isDarkMode = false;
+
+    private string UserName = "John Doe";
+
+    private MudTheme _theme = new()
+    {
+        LayoutProperties = new LayoutProperties
+        {
+            DefaultBorderRadius = "6px"
+        }
+    };
+
+    private void ToggleDrawer()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+    private void ToggleTheme()
+    {
+        _isDarkMode = !_isDarkMode;
+    }
+
+    private void Logout()
+    {
+        // TODO: Clear session and navigate to login
+    }
+}
