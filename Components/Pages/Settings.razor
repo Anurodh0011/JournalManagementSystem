@@ -1,0 +1,55 @@
+﻿@page "/settings"
+@using MudBlazor
+
+<MudText Typo="Typo.h4" GutterBottom="true">Settings</MudText>
+
+<MudGrid Spacing="3">
+    <!-- Account Settings -->
+    <MudItem xs="12" md="6">
+        <MudPaper Elevation="2" Class="pa-4">
+            <MudText Typo="Typo.h6" GutterBottom="true">Account</MudText>
+
+            <MudTextField T="string" Label="Username" Required="true" @bind-Value="Username" Variant="Variant.Outlined" RequiredError="User name is required!" OnlyValidateIfDirty="true" />
+            <MudTextField T="string" Label="Password" Required="true" @bind-Value="Password" Variant="Variant.Outlined" RequiredError="Password is required!" OnlyValidateIfDirty="true" />
+            <MudButton Class="mt-2" Variant="Variant.Filled" Color="Color.Primary" OnClick="UpdateUsername">
+                Update Username
+            </MudButton>
+        </MudPaper>
+    </MudItem>
+
+
+</MudGrid>
+
+@code {
+    private string Username { get; set; } = "john_doe";
+    public string Password { get; set; } = "superstrong123";
+
+    bool isShow;
+    InputType PasswordInput = InputType.Password;
+    string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+
+    void ButtonTestclick()
+    {
+        @if (isShow)
+        {
+            isShow = false;
+            PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+            PasswordInput = InputType.Password;
+        }
+        else
+        {
+            isShow = true;
+            PasswordInputIcon = Icons.Material.Filled.Visibility;
+            PasswordInput = InputType.Text;
+        }
+    }
+
+    private void UpdateUsername()
+    {
+        // TODO: Update username in database
+    }
+    private void UpdatePassword()
+    {
+        // Todo
+    }
+}

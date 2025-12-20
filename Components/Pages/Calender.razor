@@ -1,0 +1,45 @@
+﻿@page "/calendar"
+@using MudBlazor
+
+<MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center" Class="mb-4">
+    <MudText Typo="Typo.h4">Calendar</MudText>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add">
+        Create Today’s Journal
+    </MudButton>
+</MudStack>
+
+<MudPaper Elevation="2" Class="pa-4">
+    <MudCalendar PickerMonth="@_currentMonth"
+                 OnDayClicked="OnDayClicked"
+                 ShowWeekNumbers="false">
+        <DayTemplate>
+            <MudStack AlignItems="AlignItems.Center">
+                <MudText>Day</MudText>
+                
+            </MudStack>
+        </DayTemplate>
+    </MudCalendar>
+</MudPaper>
+
+<MudPaper Elevation="1" Class="pa-4 mt-4">
+    <MudText Typo="Typo.subtitle1">Current Streak</MudText>
+    <MudText Typo="Typo.h5" Color="Color.Primary">@CurrentStreak 🔥</MudText>
+</MudPaper>
+
+@code {
+    private DateTime _currentMonth = DateTime.Today;
+
+    // Placeholder values
+    private int CurrentStreak = 3;
+
+    private bool HasJournal(DateTime date)
+    {
+        // TODO: Replace with DB lookup
+        return date.Day % 2 == 0;
+    }
+
+    private void OnDayClicked(DateTime date)
+    {
+        // TODO: Navigate to journal detail page for selected date
+    }
+}

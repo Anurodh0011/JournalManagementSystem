@@ -1,0 +1,141 @@
+﻿@page "/journals"
+@using MudBlazor
+
+<MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center" Class="mb-4">
+    <MudText Typo="Typo.h4">Journals</MudText>
+
+    <MudStack Row="true" Spacing="2">
+        <MudToggleIconButton @bind-Toggled="_isTableView"
+                             ToggledIcon="@Icons.Material.Filled.TableRows"
+                             UntoggledIcon="@Icons.Material.Filled.ViewModule"
+                             Color="Color.Primary" />
+
+        <MudButton Variant="Variant.Filled"
+                   Color="Color.Primary"
+                   StartIcon="@Icons.Material.Filled.Add"
+                   OnClick="OpenCreateDialog">
+            Create Journal
+        </MudButton>
+    </MudStack>
+</MudStack>
+
+<!-- Search & Filters -->
+<MudPaper Class="pa-4 mb-4" Elevation="1">
+    <MudGrid Spacing="2">
+        <MudItem xs="12" md="4">
+            <MudTextField @bind-Value="Search" Label="Search" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Secondary" />
+        </MudItem>
+        <MudItem xs="12" md="4">
+            <MudDateRangePicker Label="Date Range" />
+        </MudItem>
+
+        @* <MudItem xs="12" md="4">
+            <MudSelect Label="Mood" Variant="Variant.Outlined" MultiSelection="true">
+                <MudSelectItem Value="Happy">Happy</MudSelectItem>
+                <MudSelectItem Value="Calm">Calm</MudSelectItem>
+                <MudSelectItem Value="Sad">Sad</MudSelectItem>
+            </MudSelect>
+        </MudItem> *@
+    </MudGrid>
+</MudPaper>
+
+@if (_isTableView)
+{
+    <!-- TABLE VIEW -->
+    <MudTable Items="_journals" Hover="true" Elevation="1">
+        <HeaderContent>
+            <MudTh>Title</MudTh>
+            <MudTh>Date</MudTh>
+            <MudTh>Primary Mood</MudTh>
+            <MudTh>Tags</MudTh>
+            <MudTh>Actions</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd>@context.Title</MudTd>
+            <MudTd>@context.CreatedAt.ToShortDateString()</MudTd>
+            <MudTd>
+                <MudChip T="string" Color="Color.Success">@context.PrimaryMood</MudChip>
+            </MudTd>
+            <MudTd>
+                @foreach (var tag in context.Tags)
+                {
+                    <MudChip T="string" Size="Size.Small">@tag</MudChip>
+                }
+            </MudTd>
+            <MudTd>
+                <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Primary" />
+                <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" />
+                <MudIconButton Icon="@Icons.Material.Filled.PictureAsPdf" />
+            </MudTd>
+        </RowTemplate>
+    </MudTable>
+}
+else
+{
+    <!-- CARD VIEW -->
+    <MudGrid Spacing="3">
+        @foreach (var journal in _journals)
+        {
+            <MudItem xs="12" sm="6" md="4">
+                <MudCard>
+                    <MudCardContent>
+                        <MudText Typo="Typo.h6">@journal.Title</MudText>
+                        <MudText Typo="Typo.caption">@journal.CreatedAt.ToShortDateString()</MudText>
+                        <MudDivider Class="my-2" />
+                        <MudChip T="string" Color="Color.Success">@journal.PrimaryMood</MudChip>
+                        <MudStack Row="true" Spacing="1" Class="mt-2">
+                            @foreach (var tag in journal.Tags)
+                            {
+                                <MudChip T="string" Size="Size.Small">@tag</MudChip>
+                            }
+                        </MudStack>
+                    </MudCardContent>
+                    <MudCardActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Primary" />
+                        <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" />
+                        <MudIconButton Icon="@Icons.Material.Filled.PictureAsPdf" />
+                    </MudCardActions>
+                </MudCard>
+            </MudItem>
+        }
+    </MudGrid>
+}
+
+@code {
+    [Inject] IDialogService DialogService { get; set; }
+    public string Search { get; set; }
+
+    private bool _isTableView = true;
+
+    private List<JournalVm> _journals = new()
+    {
+        new JournalVm
+        {
+            Title = "A Productive Day",
+            CreatedAt = DateTime.Today,
+            PrimaryMood = "Happy",
+            Tags = new List<string>{"Work", "Planning"}
+        },
+        new JournalVm
+        {
+            Title = "Evening Reflection",
+            CreatedAt = DateTime.Today.AddDays(-1),
+            PrimaryMood = "Calm",
+            Tags = new List<string>{"Personal", "Reflection"}
+        }
+    };
+
+    private async Task OpenCreateDialog()
+    {
+        var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Medium, FullWidth = true };
+        // await DialogService.ShowAsync<CreateJournalDialog>("Create Journal", options);
+    }
+
+    public class JournalVm
+    {
+        public string Title { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public string PrimaryMood { get; set; }
+        public List<string> Tags { get; set; }
+    }
+}
