@@ -1,10 +1,6 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\anuro\\OneDrive\\Desktop\\AD Coursework\\JournalManagementSystem\\obj\\Debug\\net8.0-windows10.0.19041.0\\win10-x64\\scopedcss\\bundle\\JournalManagementSystem.styles.css",
-      "PackagePath": "staticwebassets\\JournalManagementSystem.styles.css"
-    },
-    {
       "Id": "C:\\Users\\anuro\\OneDrive\\Desktop\\AD Coursework\\JournalManagementSystem\\wwwroot\\css\\app.css",
       "PackagePath": "staticwebassets\\css\\app.css"
     },

@@ -12,12 +12,12 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>dex3usdpik</Fingerprint>
-      <Integrity>K1bY5kgLeD7nMlhLfmEK3TdjOVTQGBzyOIF4YwRlzuQ=</Integrity>
+      <Fingerprint>3r8b2a0bt1</Fingerprint>
+      <Integrity>8ZRc1sGeVrPBx4lD717BgRaQekyh78QKV9SKsdt638U=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <FileLength>3339</FileLength>
-      <LastWriteTime>Thu, 18 Dec 2025 17:23:46 GMT</LastWriteTime>
+      <FileLength>3</FileLength>
+      <LastWriteTime>Sat, 20 Dec 2025 11:57:42 GMT</LastWriteTime>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\app.css'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\bootstrap\bootstrap.min.css'))">
@@ -92,33 +92,13 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>chpwhdt3ix</Fingerprint>
-      <Integrity>ACIFZcXkS4nxDDsBSTp3vV8Qyku7/15qyxA5B11NlmQ=</Integrity>
+      <Fingerprint>q0uwr7u4si</Fingerprint>
+      <Integrity>BkmpLnNldIeZrxjWw7yEHEH+Ld6Pf0iDuGenv6UdzXA=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <FileLength>1227</FileLength>
-      <LastWriteTime>Thu, 18 Dec 2025 17:27:30 GMT</LastWriteTime>
+      <FileLength>1513</FileLength>
+      <LastWriteTime>Sun, 21 Dec 2025 11:22:14 GMT</LastWriteTime>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\index.html'))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\JournalManagementSystem.styles.css'))">
-      <SourceType>Package</SourceType>
-      <SourceId>JournalManagementSystem</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>/</BasePath>
-      <RelativePath>JournalManagementSystem.styles.css</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>CurrentProject</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName>ScopedCss</AssetTraitName>
-      <AssetTraitValue>ApplicationBundle</AssetTraitValue>
-      <Fingerprint>caes0fn15r</Fingerprint>
-      <Integrity>rHyyazIkdw2ZT2gM9HwN99HO7qlb0a7XNQPcDIeuFeI=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <FileLength>1796</FileLength>
-      <LastWriteTime>Thu, 18 Dec 2025 17:47:12 GMT</LastWriteTime>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\JournalManagementSystem.styles.css'))</OriginalItemSpec>
     </StaticWebAsset>
   </ItemGroup>
 </Project>

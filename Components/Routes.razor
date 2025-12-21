@@ -3,4 +3,18 @@
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(Layout.MainLayout)" />
         <FocusOnNavigate RouteData="@routeData" Selector="h1" />
     </Found>
+    <NotFound>
+        <PageTitle>Not found</PageTitle>
+        <LayoutView Layout="@typeof(Layout.MainLayout)">
+            <div class="p-4">
+                <h1>Page not found</h1>
+                <p>Sorry, there's nothing at this address.</p>
+                <MudButton To="/dashboard"
+                           Style="@($"background:{Colors.Teal.Darken3}; color:white;")"
+                           Variant="Variant.Filled">
+                    Go Dashboard
+                </MudButton>
+            </div>
+        </LayoutView>
+    </NotFound>
 </Router>

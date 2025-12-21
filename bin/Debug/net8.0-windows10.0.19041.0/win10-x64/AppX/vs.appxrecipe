@@ -30,25 +30,25 @@
     <AppXManifest Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2025-12-19T02:23:32.294</Modified>
+      <Modified>2025-12-21T11:24:33.146</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2025-12-18T17:50:45.023</Modified>
+      <Modified>2025-12-21T11:24:32.938</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\JournalManagementSystem.runtimeconfig.json">
       <PackagePath>JournalManagementSystem.runtimeconfig.json</PackagePath>
-      <Modified>2025-12-18T17:30:09.067</Modified>
+      <Modified>2025-12-21T11:24:32.653</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\JournalManagementSystem.dll">
       <PackagePath>JournalManagementSystem.dll</PackagePath>
-      <Modified>2025-12-19T02:23:31.015</Modified>
+      <Modified>2025-12-21T11:24:31.846</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\apphost.exe">
       <PackagePath>JournalManagementSystem.exe</PackagePath>
-      <Modified>2025-12-19T02:23:31.140</Modified>
+      <Modified>2025-12-21T11:24:31.896</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\Resources\Raw\AboutAssets.txt">
       <PackagePath>AboutAssets.txt</PackagePath>
@@ -56,7 +56,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\wwwroot\css\app.css">
       <PackagePath>wwwroot\css\app.css</PackagePath>
-      <Modified>2025-12-18T17:23:46.928</Modified>
+      <Modified>2025-12-20T11:57:42.146</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\wwwroot\css\bootstrap\bootstrap.min.css">
       <PackagePath>wwwroot\css\bootstrap\bootstrap.min.css</PackagePath>
@@ -72,239 +72,239 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\wwwroot\index.html">
       <PackagePath>wwwroot\index.html</PackagePath>
-      <Modified>2025-12-18T17:27:30.931</Modified>
+      <Modified>2025-12-21T11:22:14.995</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-100.png">
       <PackagePath>splashSplashScreen.scale-100.png</PackagePath>
-      <Modified>2025-12-18T17:24:08.799</Modified>
+      <Modified>2025-12-21T11:24:29.916</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-125.png">
       <PackagePath>splashSplashScreen.scale-125.png</PackagePath>
-      <Modified>2025-12-18T17:24:08.820</Modified>
+      <Modified>2025-12-21T11:24:29.931</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-150.png">
       <PackagePath>splashSplashScreen.scale-150.png</PackagePath>
-      <Modified>2025-12-18T17:24:08.851</Modified>
+      <Modified>2025-12-21T11:24:29.951</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-200.png">
       <PackagePath>splashSplashScreen.scale-200.png</PackagePath>
-      <Modified>2025-12-18T17:24:08.888</Modified>
+      <Modified>2025-12-21T11:24:29.980</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-400.png">
       <PackagePath>splashSplashScreen.scale-400.png</PackagePath>
-      <Modified>2025-12-18T17:24:09.027</Modified>
+      <Modified>2025-12-21T11:24:30.092</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\f\OpenSans-Regular.ttf">
       <PackagePath>OpenSans-Regular.ttf</PackagePath>
       <Modified>2025-12-18T17:23:46.921</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appicon.ico">
-      <PackagePath>appicon.ico</PackagePath>
-      <Modified>2025-12-18T17:24:10.378</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLargeTile.scale-100.png">
-      <PackagePath>appiconLargeTile.scale-100.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLargeTile.scale-125.png">
-      <PackagePath>appiconLargeTile.scale-125.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLargeTile.scale-150.png">
-      <PackagePath>appiconLargeTile.scale-150.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLargeTile.scale-400.png">
+      <PackagePath>appiconLargeTile.scale-400.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.836</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLargeTile.scale-200.png">
       <PackagePath>appiconLargeTile.scale-200.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
+      <Modified>2025-12-21T11:24:30.836</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLargeTile.scale-400.png">
-      <PackagePath>appiconLargeTile.scale-400.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLargeTile.scale-150.png">
+      <PackagePath>appiconLargeTile.scale-150.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.836</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-lightunplated_targetsize-16.png">
-      <PackagePath>appiconLogo.altform-lightunplated_targetsize-16.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLargeTile.scale-125.png">
+      <PackagePath>appiconLargeTile.scale-125.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.836</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-lightunplated_targetsize-24.png">
-      <PackagePath>appiconLogo.altform-lightunplated_targetsize-24.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-lightunplated_targetsize-256.png">
-      <PackagePath>appiconLogo.altform-lightunplated_targetsize-256.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-lightunplated_targetsize-32.png">
-      <PackagePath>appiconLogo.altform-lightunplated_targetsize-32.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-lightunplated_targetsize-48.png">
-      <PackagePath>appiconLogo.altform-lightunplated_targetsize-48.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-unplated_targetsize-16.png">
-      <PackagePath>appiconLogo.altform-unplated_targetsize-16.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.377</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-unplated_targetsize-24.png">
-      <PackagePath>appiconLogo.altform-unplated_targetsize-24.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.377</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-unplated_targetsize-256.png">
-      <PackagePath>appiconLogo.altform-unplated_targetsize-256.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-unplated_targetsize-32.png">
-      <PackagePath>appiconLogo.altform-unplated_targetsize-32.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-unplated_targetsize-48.png">
-      <PackagePath>appiconLogo.altform-unplated_targetsize-48.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.scale-100.png">
-      <PackagePath>appiconLogo.scale-100.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.378</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.scale-125.png">
-      <PackagePath>appiconLogo.scale-125.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.378</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.scale-150.png">
-      <PackagePath>appiconLogo.scale-150.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.378</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.scale-200.png">
-      <PackagePath>appiconLogo.scale-200.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.378</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.scale-400.png">
-      <PackagePath>appiconLogo.scale-400.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.378</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.targetsize-16.png">
-      <PackagePath>appiconLogo.targetsize-16.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.378</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.targetsize-24.png">
-      <PackagePath>appiconLogo.targetsize-24.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.378</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.targetsize-256.png">
-      <PackagePath>appiconLogo.targetsize-256.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.377</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.targetsize-32.png">
-      <PackagePath>appiconLogo.targetsize-32.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.378</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.targetsize-48.png">
-      <PackagePath>appiconLogo.targetsize-48.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.378</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconMediumTile.scale-100.png">
-      <PackagePath>appiconMediumTile.scale-100.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconMediumTile.scale-125.png">
-      <PackagePath>appiconMediumTile.scale-125.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconMediumTile.scale-150.png">
-      <PackagePath>appiconMediumTile.scale-150.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconMediumTile.scale-200.png">
-      <PackagePath>appiconMediumTile.scale-200.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconMediumTile.scale-400.png">
-      <PackagePath>appiconMediumTile.scale-400.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconSmallTile.scale-100.png">
-      <PackagePath>appiconSmallTile.scale-100.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconSmallTile.scale-125.png">
-      <PackagePath>appiconSmallTile.scale-125.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconSmallTile.scale-150.png">
-      <PackagePath>appiconSmallTile.scale-150.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconSmallTile.scale-200.png">
-      <PackagePath>appiconSmallTile.scale-200.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconSmallTile.scale-400.png">
-      <PackagePath>appiconSmallTile.scale-400.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconStoreLogo.scale-100.png">
-      <PackagePath>appiconStoreLogo.scale-100.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconStoreLogo.scale-125.png">
-      <PackagePath>appiconStoreLogo.scale-125.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconStoreLogo.scale-150.png">
-      <PackagePath>appiconStoreLogo.scale-150.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconStoreLogo.scale-200.png">
-      <PackagePath>appiconStoreLogo.scale-200.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconStoreLogo.scale-400.png">
-      <PackagePath>appiconStoreLogo.scale-400.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconWideTile.scale-100.png">
-      <PackagePath>appiconWideTile.scale-100.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconWideTile.scale-125.png">
-      <PackagePath>appiconWideTile.scale-125.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconWideTile.scale-150.png">
-      <PackagePath>appiconWideTile.scale-150.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconWideTile.scale-200.png">
-      <PackagePath>appiconWideTile.scale-200.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLargeTile.scale-100.png">
+      <PackagePath>appiconLargeTile.scale-100.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.836</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconWideTile.scale-400.png">
       <PackagePath>appiconWideTile.scale-400.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.363</Modified>
+      <Modified>2025-12-21T11:24:30.836</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-100.png">
-      <PackagePath>dotnet_bot.scale-100.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.378</Modified>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconWideTile.scale-200.png">
+      <PackagePath>appiconWideTile.scale-200.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.836</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-125.png">
-      <PackagePath>dotnet_bot.scale-125.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.378</Modified>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconWideTile.scale-150.png">
+      <PackagePath>appiconWideTile.scale-150.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.836</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-150.png">
-      <PackagePath>dotnet_bot.scale-150.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.378</Modified>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconWideTile.scale-125.png">
+      <PackagePath>appiconWideTile.scale-125.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.836</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-200.png">
-      <PackagePath>dotnet_bot.scale-200.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.378</Modified>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconWideTile.scale-100.png">
+      <PackagePath>appiconWideTile.scale-100.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.836</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconMediumTile.scale-400.png">
+      <PackagePath>appiconMediumTile.scale-400.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.836</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconMediumTile.scale-200.png">
+      <PackagePath>appiconMediumTile.scale-200.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.841</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconMediumTile.scale-150.png">
+      <PackagePath>appiconMediumTile.scale-150.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.841</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconMediumTile.scale-125.png">
+      <PackagePath>appiconMediumTile.scale-125.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.841</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconMediumTile.scale-100.png">
+      <PackagePath>appiconMediumTile.scale-100.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.841</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconSmallTile.scale-400.png">
+      <PackagePath>appiconSmallTile.scale-400.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.841</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconSmallTile.scale-200.png">
+      <PackagePath>appiconSmallTile.scale-200.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.841</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconSmallTile.scale-150.png">
+      <PackagePath>appiconSmallTile.scale-150.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.841</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconSmallTile.scale-125.png">
+      <PackagePath>appiconSmallTile.scale-125.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.841</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconSmallTile.scale-100.png">
+      <PackagePath>appiconSmallTile.scale-100.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.841</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconStoreLogo.scale-400.png">
+      <PackagePath>appiconStoreLogo.scale-400.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.841</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconStoreLogo.scale-200.png">
+      <PackagePath>appiconStoreLogo.scale-200.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.841</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconStoreLogo.scale-150.png">
+      <PackagePath>appiconStoreLogo.scale-150.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.841</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconStoreLogo.scale-125.png">
+      <PackagePath>appiconStoreLogo.scale-125.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.841</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconStoreLogo.scale-100.png">
+      <PackagePath>appiconStoreLogo.scale-100.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.841</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-lightunplated_targetsize-256.png">
+      <PackagePath>appiconLogo.altform-lightunplated_targetsize-256.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.846</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-lightunplated_targetsize-48.png">
+      <PackagePath>appiconLogo.altform-lightunplated_targetsize-48.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.846</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-lightunplated_targetsize-32.png">
+      <PackagePath>appiconLogo.altform-lightunplated_targetsize-32.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.846</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-lightunplated_targetsize-24.png">
+      <PackagePath>appiconLogo.altform-lightunplated_targetsize-24.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.846</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-lightunplated_targetsize-16.png">
+      <PackagePath>appiconLogo.altform-lightunplated_targetsize-16.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.846</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-unplated_targetsize-256.png">
+      <PackagePath>appiconLogo.altform-unplated_targetsize-256.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.846</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-unplated_targetsize-48.png">
+      <PackagePath>appiconLogo.altform-unplated_targetsize-48.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.846</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-unplated_targetsize-32.png">
+      <PackagePath>appiconLogo.altform-unplated_targetsize-32.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.846</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-unplated_targetsize-24.png">
+      <PackagePath>appiconLogo.altform-unplated_targetsize-24.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.846</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-unplated_targetsize-16.png">
+      <PackagePath>appiconLogo.altform-unplated_targetsize-16.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.846</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.targetsize-256.png">
+      <PackagePath>appiconLogo.targetsize-256.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.846</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.targetsize-48.png">
+      <PackagePath>appiconLogo.targetsize-48.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.846</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.targetsize-32.png">
+      <PackagePath>appiconLogo.targetsize-32.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.846</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.targetsize-24.png">
+      <PackagePath>appiconLogo.targetsize-24.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.846</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.targetsize-16.png">
+      <PackagePath>appiconLogo.targetsize-16.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.846</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.scale-400.png">
+      <PackagePath>appiconLogo.scale-400.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.846</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.scale-200.png">
+      <PackagePath>appiconLogo.scale-200.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.846</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.scale-150.png">
+      <PackagePath>appiconLogo.scale-150.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.846</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.scale-125.png">
+      <PackagePath>appiconLogo.scale-125.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.846</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.scale-100.png">
+      <PackagePath>appiconLogo.scale-100.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.846</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appicon.ico">
+      <PackagePath>appicon.ico</PackagePath>
+      <Modified>2025-12-21T11:24:30.846</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-400.png">
       <PackagePath>dotnet_bot.scale-400.png</PackagePath>
-      <Modified>2025-12-18T17:24:10.378</Modified>
+      <Modified>2025-12-21T11:24:30.846</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-200.png">
+      <PackagePath>dotnet_bot.scale-200.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.846</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-150.png">
+      <PackagePath>dotnet_bot.scale-150.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.846</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-125.png">
+      <PackagePath>dotnet_bot.scale-125.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.846</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-100.png">
+      <PackagePath>dotnet_bot.scale-100.png</PackagePath>
+      <Modified>2025-12-21T11:24:30.846</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\JournalManagementSystem.deps.json">
       <PackagePath>JournalManagementSystem.deps.json</PackagePath>
-      <Modified>2025-12-18T17:30:09.055</Modified>
+      <Modified>2025-12-21T11:24:32.625</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\.nuget\packages\microsoft.windows.sdk.net.ref\10.0.19041.57\lib\net8.0\Microsoft.Windows.SDK.NET.dll">
       <PackagePath>Microsoft.Windows.SDK.NET.dll</PackagePath>
@@ -672,7 +672,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\staticwebassets.build.endpoints.json">
       <PackagePath>JournalManagementSystem.staticwebassets.endpoints.json</PackagePath>
-      <Modified>2025-12-18T17:47:12.818</Modified>
+      <Modified>2025-12-21T11:24:23.208</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\.nuget\packages\microsoft.maui.controls.compatibility\8.0.100\lib\net8.0-windows10.0.19041\Microsoft.Maui.Controls.Compatibility.pri">
       <PackagePath>Microsoft.Maui.Controls.Compatibility.pri</PackagePath>
@@ -693,18 +693,6 @@
     <AppxPackagedFile Include="C:\Users\anuro\.nuget\packages\mudblazor\8.15.0\staticwebassets\MudBlazor.min.js">
       <PackagePath>wwwroot\_content\MudBlazor\MudBlazor.min.js</PackagePath>
       <Modified>2025-11-23T03:42:52.000</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\scopedcss\bundle\JournalManagementSystem.styles.css">
-      <PackagePath>wwwroot\JournalManagementSystem.styles.css</PackagePath>
-      <Modified>2025-12-18T17:47:12.813</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\scopedcss\projectbundle\JournalManagementSystem.bundle.scp.css">
-      <PackagePath>wwwroot\JournalManagementSystem.caes0fn15r.bundle.scp.css</PackagePath>
-      <Modified>2025-12-18T17:47:12.815</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\Components\Layout\MainLayout.razor.css">
-      <PackagePath>Components\Layout\MainLayout.razor.css</PackagePath>
-      <Modified>2025-12-18T17:23:46.938</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
