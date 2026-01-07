@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\anuro\\OneDrive\\Desktop\\AD Coursework\\JournalManagementSystem\\JournalManagementSystem.csproj": {}
+    "C:\\Users\\anuro\\OneDrive\\Desktop\\Coursework\\AD Coursework\\JournalManagementSystem\\JournalManagementSystem.csproj": {}
   },
   "projects": {
-    "C:\\Users\\anuro\\OneDrive\\Desktop\\AD Coursework\\JournalManagementSystem\\JournalManagementSystem.csproj": {
+    "C:\\Users\\anuro\\OneDrive\\Desktop\\Coursework\\AD Coursework\\JournalManagementSystem\\JournalManagementSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\anuro\\OneDrive\\Desktop\\AD Coursework\\JournalManagementSystem\\JournalManagementSystem.csproj",
+        "projectUniqueName": "C:\\Users\\anuro\\OneDrive\\Desktop\\Coursework\\AD Coursework\\JournalManagementSystem\\JournalManagementSystem.csproj",
         "projectName": "JournalManagementSystem",
-        "projectPath": "C:\\Users\\anuro\\OneDrive\\Desktop\\AD Coursework\\JournalManagementSystem\\JournalManagementSystem.csproj",
+        "projectPath": "C:\\Users\\anuro\\OneDrive\\Desktop\\Coursework\\AD Coursework\\JournalManagementSystem\\JournalManagementSystem.csproj",
         "packagesPath": "C:\\Users\\anuro\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\anuro\\OneDrive\\Desktop\\AD Coursework\\JournalManagementSystem\\obj\\",
+        "outputPath": "C:\\Users\\anuro\\OneDrive\\Desktop\\Coursework\\AD Coursework\\JournalManagementSystem\\obj\\",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "fallbackFolders": [
@@ -86,12 +86,16 @@
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.20, )",
+              "version": "[8.0.22, )",
               "autoReferenced": true
             },
             "MudBlazor": {
               "target": "Package",
               "version": "[8.15.0, )"
+            },
+            "sqlite-net-pcl": {
+              "target": "Package",
+              "version": "[1.9.172, )"
             }
           },
           "imports": [
@@ -135,7 +139,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308/PortableRuntimeIdentifierGraph.json"
         },
         "net8.0-ios18.0": {
           "targetAlias": "net8.0-ios",
@@ -159,12 +163,16 @@
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.20, )",
+              "version": "[8.0.22, )",
               "autoReferenced": true
             },
             "MudBlazor": {
               "target": "Package",
               "version": "[8.15.0, )"
+            },
+            "sqlite-net-pcl": {
+              "target": "Package",
+              "version": "[1.9.172, )"
             }
           },
           "imports": [
@@ -196,7 +204,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308/PortableRuntimeIdentifierGraph.json"
         },
         "net8.0-maccatalyst18.0": {
           "targetAlias": "net8.0-maccatalyst",
@@ -220,12 +228,16 @@
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.20, )",
+              "version": "[8.0.22, )",
               "autoReferenced": true
             },
             "MudBlazor": {
               "target": "Package",
               "version": "[8.15.0, )"
+            },
+            "sqlite-net-pcl": {
+              "target": "Package",
+              "version": "[1.9.172, )"
             }
           },
           "imports": [
@@ -258,7 +270,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308/PortableRuntimeIdentifierGraph.json"
         },
         "net8.0-windows10.0.19041": {
           "targetAlias": "net8.0-windows10.0.19041.0",
@@ -282,6 +294,10 @@
             "MudBlazor": {
               "target": "Package",
               "version": "[8.15.0, )"
+            },
+            "sqlite-net-pcl": {
+              "target": "Package",
+              "version": "[1.9.172, )"
             }
           },
           "imports": [
@@ -309,7 +325,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308\\RuntimeIdentifierGraph.json"
         }
       },
       "runtimes": {

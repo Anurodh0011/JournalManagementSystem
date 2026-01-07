@@ -14,7 +14,8 @@
     <MudDrawer @bind-Open="_drawerOpen"
                Variant="DrawerVariant.Mini"
                MiniVariantWidth="72px"
-               Elevation="1">
+               Elevation="1"
+               Disabled="IsLocked">
 
         <!-- USER SUMMARY -->
         <MudPaper Class="mx-2 pa-3 my-2" Elevation="0">
@@ -37,10 +38,10 @@
             {
                 @if (item.Children != null && item.Children.Count > 0)
                 {
-                    <MudNavGroup Title="@(_drawerOpen? item.Title: null)" Icon="@item.Icon" Expanded="true">
+                    <MudNavGroup Title="@(_drawerOpen? item.Title: null)" Icon="@item.Icon" Expanded="true" Disabled="IsLocked">
                         @foreach (var child in item.Children)
                         {
-                            <MudNavLink Href="@child.Href" Match="NavLinkMatch.Prefix" Icon="@child.Icon" Disabled="@child.Disabled">
+                            <MudNavLink Href="@child.Href" Match="NavLinkMatch.Prefix" Icon="@child.Icon" Disabled="child.Disabled || IsLocked">
                                 @if (_drawerOpen)
                                 {
                                     <span>@child.Title</span>
@@ -51,7 +52,7 @@
                 }
                 else
                 {
-                    <MudNavLink Href="@item.Href" Match="NavLinkMatch.Prefix" Icon="@item.Icon" Disabled="@item.Disabled">
+                    <MudNavLink Href="@item.Href" Match="NavLinkMatch.Prefix" Icon="@item.Icon" Disabled="item.Disabled || IsLocked">
                         @if (_drawerOpen)
                         {
                             <span>@item.Title</span>
@@ -89,15 +90,18 @@
         <MudIconButton Icon="@Icons.Material.Filled.ArrowBack"
                        Edge="Edge.Start"
                        Color="Color.Inherit"
+                       Disabled = "IsLocked"
                        OnClick="GoBack" />
         <MudIconButton Icon="@Icons.Material.Filled.ArrowForward"
                        Edge="Edge.Start"
+                       Disabled= "IsLocked"
                        Color="Color.Inherit"
                        OnClick="GoNext" />
 
 
         <MudIconButton Icon="@Icons.Material.Filled.Menu"
                        Edge="Edge.Start"
+                       Disabled="IsLocked"
                        Color="Color.Inherit"
                        OnClick="ToggleDrawer" />
 
@@ -109,6 +113,7 @@
 
         <MudButton Variant="Variant.Filled"
                    Color="Color.Secondary"
+                   Disabled="IsLocked"
                    StartIcon="@Icons.Material.Filled.Add">
             New Entry
         </MudButton>
@@ -117,7 +122,7 @@
                        Color="Color.Inherit"
                        OnClick="ToggleTheme" />
 
-        <MudMenu AnchorOrigin="Origin.BottomRight">
+        <MudMenu AnchorOrigin="Origin.BottomRight" Disabled="IsLocked">
             <ActivatorContent>
                 <MudButton Variant="Variant.Text"
                            Color="Color.Inherit"
@@ -247,6 +252,10 @@
     {
         await JS.InvokeVoidAsync("history.forward");
     }
+
+    private bool IsLocked =>
+    Navigation.Uri.EndsWith("/") ||
+    Navigation.Uri.Contains("/pin");
 
    
 }

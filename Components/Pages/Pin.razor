@@ -1,0 +1,178 @@
+﻿@page "/"
+@page "/pin"
+
+@using Microsoft.Maui.Storage
+@using MudBlazor
+
+@inject NavigationManager Navigation
+
+<MudContainer MaxWidth="MaxWidth.ExtraSmall" Class="mt-12">
+
+    <MudPaper Elevation="6" Class="pa-6">
+
+        <MudText Typo="Typo.h5" Align="Align.Center" Class="mb-4">
+            @Title
+        </MudText>
+
+        @if (isLoading)
+        {
+            <MudProgressCircular Indeterminate />
+        }
+        else if (isSettingPin)
+        {
+            <!-- SET PIN -->
+            <MudTextField @bind-Value="username"
+                          Label="Username"
+                          Variant="Variant.Outlined"
+                          Required />
+
+            <MudTextField @bind-Value="pin"
+                          Label="Set PIN"
+                          InputType="InputType.Password"
+                          Variant="Variant.Outlined"
+                          Class="mt-3"
+                          Required />
+
+            <MudTextField @bind-Value="confirmPin"
+                          Label="Confirm PIN"
+                          InputType="InputType.Password"
+                          Variant="Variant.Outlined"
+                          Class="mt-3"
+                          Required />
+
+            <MudButton Color="Color.Primary"
+                       Variant="Variant.Filled"
+                       Class="mt-4"
+                       FullWidth
+                       OnClick="SetPin">
+                Save PIN
+            </MudButton>
+        }
+        else
+        {
+            <!-- ENTER PIN -->
+            <MudTextField @bind-Value="pin"
+                          Label="Enter PIN"
+                          InputType="InputType.Password"
+                          Variant="Variant.Outlined"
+                          Required />
+
+            <MudButton Color="Color.Success"
+                       Variant="Variant.Filled"
+                       Class="mt-4"
+                       FullWidth
+                       OnClick="VerifyPin">
+                Unlock
+            </MudButton>
+
+            <MudButton Color="Color.Error"
+                       Variant="Variant.Text"
+                       Class="mt-2"
+                       FullWidth
+                       OnClick="ResetPin">
+                Reset PIN
+            </MudButton>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(error))
+        {
+            <MudAlert Severity="Severity.Error" Class="mt-4">
+                @error
+            </MudAlert>
+        }
+
+    </MudPaper>
+
+</MudContainer>
+
+@code {
+
+    string Title = "";
+    string username = "";
+    string pin = "";
+    string confirmPin = "";
+    string error = "";
+
+    bool isSettingPin;
+    bool isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        username = Preferences.Get("username", "");
+        var storedPin = await SecureStorage.GetAsync("user_pin");
+
+        if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(storedPin))
+        {
+            isSettingPin = true;
+            Title = "Set PIN";
+        }
+        else
+        {
+            isSettingPin = false;
+            Title = "Enter PIN";
+        }
+
+        isLoading = false;
+    }
+
+    async Task SetPin()
+    {
+        error = "";
+
+        if (string.IsNullOrWhiteSpace(username))
+        {
+            error = "Username is required";
+            return;
+        }
+
+        if (pin.Length < 4)
+        {
+            error = "PIN must be at least 4 digits";
+            return;
+        }
+
+        if (pin != confirmPin)
+        {
+            error = "PIN does not match";
+            return;
+        }
+
+        Preferences.Set("username", username);
+        await SecureStorage.SetAsync("user_pin", pin);
+
+        Navigation.NavigateTo("/dashboard", true);
+    }
+
+    async Task VerifyPin()
+    {
+        error = "";
+
+        var storedPin = await SecureStorage.GetAsync("user_pin");
+
+        if (pin == storedPin)
+        {
+            Navigation.NavigateTo("/dashboard", true);
+        }
+        else
+        {
+            error = "Invalid PIN";
+        }
+    }
+
+    void ResetPin()
+    {
+        // Remove stored credentials
+        Preferences.Remove("username");
+        SecureStorage.Remove("user_pin");
+
+        // Clear local state
+        username = "";
+        pin = "";
+        confirmPin = "";
+        error = "";
+
+        // Switch UI to Set PIN mode
+        isSettingPin = true;
+        Title = "Set PIN";
+    }
+}

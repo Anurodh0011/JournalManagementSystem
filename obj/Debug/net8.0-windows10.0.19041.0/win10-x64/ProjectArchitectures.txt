@@ -1,1 +1,1 @@
-C:\Users\anuro\OneDrive\Desktop\AD Coursework\JournalManagementSystem\JournalManagementSystem.csproj;x64
+C:\Users\anuro\OneDrive\Desktop\Coursework\AD Coursework\JournalManagementSystem\JournalManagementSystem.csproj;x64
