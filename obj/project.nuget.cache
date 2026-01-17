@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "hkGYNuwOKkg=",
+  "dgSpecHash": "U1UW+1yZ8EE=",
   "success": true,
-  "projectFilePath": "C:\\Users\\anuro\\OneDrive\\Desktop\\Coursework\\AD Coursework\\JournalManagementSystem\\JournalManagementSystem.csproj",
+  "projectFilePath": "C:\\Users\\anuro\\OneDrive\\Desktop\\NewJMS\\JournalManagementSystem\\JournalManagementSystem.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\anuro\\.nuget\\packages\\googlegson\\2.10.1.4\\googlegson.2.10.1.4.nupkg.sha512",
     "C:\\Users\\anuro\\.nuget\\packages\\microsoft.aspnetcore.authorization\\8.0.12\\microsoft.aspnetcore.authorization.8.0.12.nupkg.sha512",

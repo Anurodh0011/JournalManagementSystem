@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\anuro\\OneDrive\\Desktop\\Coursework\\AD Coursework\\JournalManagementSystem\\JournalManagementSystem.csproj": {}
+    "C:\\Users\\anuro\\OneDrive\\Desktop\\NewJMS\\JournalManagementSystem\\JournalManagementSystem.csproj": {}
   },
   "projects": {
-    "C:\\Users\\anuro\\OneDrive\\Desktop\\Coursework\\AD Coursework\\JournalManagementSystem\\JournalManagementSystem.csproj": {
+    "C:\\Users\\anuro\\OneDrive\\Desktop\\NewJMS\\JournalManagementSystem\\JournalManagementSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\anuro\\OneDrive\\Desktop\\Coursework\\AD Coursework\\JournalManagementSystem\\JournalManagementSystem.csproj",
+        "projectUniqueName": "C:\\Users\\anuro\\OneDrive\\Desktop\\NewJMS\\JournalManagementSystem\\JournalManagementSystem.csproj",
         "projectName": "JournalManagementSystem",
-        "projectPath": "C:\\Users\\anuro\\OneDrive\\Desktop\\Coursework\\AD Coursework\\JournalManagementSystem\\JournalManagementSystem.csproj",
+        "projectPath": "C:\\Users\\anuro\\OneDrive\\Desktop\\NewJMS\\JournalManagementSystem\\JournalManagementSystem.csproj",
         "packagesPath": "C:\\Users\\anuro\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\anuro\\OneDrive\\Desktop\\Coursework\\AD Coursework\\JournalManagementSystem\\obj\\",
+        "outputPath": "C:\\Users\\anuro\\OneDrive\\Desktop\\NewJMS\\JournalManagementSystem\\obj\\",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "fallbackFolders": [

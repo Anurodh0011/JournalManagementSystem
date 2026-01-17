@@ -14,55 +14,71 @@
                    Color="Color.Primary"
                    StartIcon="@Icons.Material.Filled.Add"
                    OnClick="OpenCreateDialog">
-            Create Journal
+            New Entry
         </MudButton>
     </MudStack>
 </MudStack>
 
-<!-- Search & Filters -->
+<!-- Filters -->
 <MudPaper Class="pa-4 mb-4" Elevation="1">
     <MudGrid Spacing="2">
         <MudItem xs="12" md="4">
-            <MudTextField @bind-Value="Search" Label="Search" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Secondary" />
-        </MudItem>
-        <MudItem xs="12" md="4">
-            <MudDateRangePicker Label="Date Range" />
+            <MudTextField @bind-Value="Search"
+                          Label="Search title or tag"
+                          Variant="Variant.Outlined"
+                          Adornment="Adornment.End"
+                          AdornmentIcon="@Icons.Material.Filled.Search" />
         </MudItem>
 
-        @* <MudItem xs="12" md="4">
-            <MudSelect Label="Mood" Variant="Variant.Outlined" MultiSelection="true">
-                <MudSelectItem Value="Happy">Happy</MudSelectItem>
-                <MudSelectItem Value="Calm">Calm</MudSelectItem>
-                <MudSelectItem Value="Sad">Sad</MudSelectItem>
-            </MudSelect>
-        </MudItem> *@
+        <MudItem xs="12" md="4">
+            <MudDateRangePicker @bind-DateRange="_dateRange"
+                                Label="Date Range"
+                                Variant="Variant.Outlined" />
+        </MudItem>
+
+        <MudItem xs="12" md="4">
+            <MudSelect T="string"
+           Label="Mood"
+           Variant="Variant.Outlined"
+           MultiSelection="true"
+           SelectedValues="_selectedMoods"
+           SelectedValuesChanged="OnMoodsChanged">
+    @foreach (var mood in _allMoods)
+    {
+        <MudSelectItem Value="@mood">@mood</MudSelectItem>
+    }
+</MudSelect>
+        </MudItem>
     </MudGrid>
 </MudPaper>
 
 @if (_isTableView)
 {
     <!-- TABLE VIEW -->
-    <MudTable Items="_journals" Hover="true" Elevation="1">
+    <MudTable Items="FilteredJournals" Hover="true" Elevation="1">
         <HeaderContent>
             <MudTh>Title</MudTh>
             <MudTh>Date</MudTh>
-            <MudTh>Primary Mood</MudTh>
+            <MudTh>Mood</MudTh>
             <MudTh>Tags</MudTh>
-            <MudTh>Actions</MudTh>
+            <MudTh></MudTh>
         </HeaderContent>
+
         <RowTemplate>
             <MudTd>@context.Title</MudTd>
-            <MudTd>@context.CreatedAt.ToShortDateString()</MudTd>
+            <MudTd>@context.CreatedAt.ToString("dd MMM yyyy")</MudTd>
             <MudTd>
-                <MudChip T="string" Color="Color.Success">@context.PrimaryMood</MudChip>
+                <MudChip T="string" Color="Color.Success" Size="Size.Small">
+                    @context.PrimaryMood
+                </MudChip>
             </MudTd>
             <MudTd>
                 @foreach (var tag in context.Tags)
                 {
-                    <MudChip T="string" Size="Size.Small">@tag</MudChip>
+                    <MudChip T="string" Size="Size.Small" Class="me-1">@tag</MudChip>
                 }
             </MudTd>
-            <MudTd>
+            <MudTd Align="Align.Right">
                 <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Primary" />
                 <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" />
                 <MudIconButton Icon="@Icons.Material.Filled.PictureAsPdf" />
@@ -74,15 +90,22 @@ else
 {
     <!-- CARD VIEW -->
     <MudGrid Spacing="3">
-        @foreach (var journal in _journals)
+        @foreach (var journal in FilteredJournals)
         {
             <MudItem xs="12" sm="6" md="4">
                 <MudCard>
                     <MudCardContent>
                         <MudText Typo="Typo.h6">@journal.Title</MudText>
-                        <MudText Typo="Typo.caption">@journal.CreatedAt.ToShortDateString()</MudText>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary">
+                            @journal.CreatedAt.ToString("dd MMM yyyy")
+                        </MudText>
+
                         <MudDivider Class="my-2" />
-                        <MudChip T="string" Color="Color.Success">@journal.PrimaryMood</MudChip>
+
+                        <MudChip T="string" Color="Color.Success" Size="Size.Small">
+                            @journal.PrimaryMood
+                        </MudChip>
+
                         <MudStack Row="true" Spacing="1" Class="mt-2">
                             @foreach (var tag in journal.Tags)
                             {
@@ -90,7 +113,8 @@ else
                             }
                         </MudStack>
                     </MudCardContent>
-                    <MudCardActions>
+
+                    <MudCardActions Class="justify-end">
                         <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Primary" />
                         <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" />
                         <MudIconButton Icon="@Icons.Material.Filled.PictureAsPdf" />
@@ -102,40 +126,78 @@ else
 }
 
 @code {
-    [Inject] IDialogService DialogService { get; set; }
-    public string Search { get; set; }
+	[Inject] IDialogService DialogService { get; set; }
 
-    private bool _isTableView = true;
+	private bool _isTableView = true;
+	private string Search;
+	private DateRange _dateRange;
+	private HashSet<string> _selectedMoods = new();
 
-    private List<JournalVm> _journals = new()
+	private readonly List<string> _allMoods = new()
     {
-        new JournalVm
+        "Happy", "Calm", "Sad", "Stressed", "Excited"
+    };
+
+	private readonly List<JournalVm> _journals = new()
+    {
+        new()
         {
             Title = "A Productive Day",
             CreatedAt = DateTime.Today,
             PrimaryMood = "Happy",
-            Tags = new List<string>{"Work", "Planning"}
+            Tags = new() { "Work", "Planning" }
         },
-        new JournalVm
+        new()
         {
             Title = "Evening Reflection",
             CreatedAt = DateTime.Today.AddDays(-1),
             PrimaryMood = "Calm",
-            Tags = new List<string>{"Personal", "Reflection"}
+            Tags = new() { "Personal", "Reflection" }
+        },
+        new()
+        {
+            Title = "Stressful Meeting",
+            CreatedAt = DateTime.Today.AddDays(-3),
+            PrimaryMood = "Stressed",
+            Tags = new() { "Work" }
         }
     };
 
-    private async Task OpenCreateDialog()
-    {
-        var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Medium, FullWidth = true };
-        // await DialogService.ShowAsync<CreateJournalDialog>("Create Journal", options);
-    }
+	private IEnumerable<JournalVm> FilteredJournals =>
+		_journals
+			.Where(j =>
+				string.IsNullOrWhiteSpace(Search) ||
+				j.Title.Contains(Search, StringComparison.OrdinalIgnoreCase) ||
+				j.Tags.Any(t => t.Contains(Search, StringComparison.OrdinalIgnoreCase)))
+			.Where(j =>
+				_dateRange?.Start == null || j.CreatedAt.Date >= _dateRange.Start.Value.Date)
+			.Where(j =>
+				_dateRange?.End == null || j.CreatedAt.Date <= _dateRange.End.Value.Date)
+			.Where(j =>
+				!_selectedMoods.Any() || _selectedMoods.Contains(j.PrimaryMood))
+			.OrderByDescending(j => j.CreatedAt);
 
-    public class JournalVm
-    {
-        public string Title { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public string PrimaryMood { get; set; }
-        public List<string> Tags { get; set; }
-    }
+	private async Task OpenCreateDialog()
+	{
+		var options = new DialogOptions
+        {
+            CloseButton = true,
+            MaxWidth = MaxWidth.Medium,
+            FullWidth = true
+        };
+
+		await DialogService.ShowAsync<CreateJournalDialog>("Create Journal", options);
+	}
+
+	public class JournalVm
+	{
+		public string Title { get; set; }
+		public DateTime CreatedAt { get; set; }
+		public string PrimaryMood { get; set; }
+		public List<string> Tags { get; set; }
+	}
+	private void OnMoodsChanged(IEnumerable<string> args)
+	{
+		throw new NotImplementedException();
+	}
 }

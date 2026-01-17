@@ -1,23 +1,23 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\anuro\\OneDrive\\Desktop\\Coursework\\AD Coursework\\JournalManagementSystem\\wwwroot\\css\\app.css",
+      "Id": "C:\\Users\\anuro\\OneDrive\\Desktop\\NewJMS\\JournalManagementSystem\\wwwroot\\css\\app.css",
       "PackagePath": "staticwebassets\\css\\app.css"
     },
     {
-      "Id": "C:\\Users\\anuro\\OneDrive\\Desktop\\Coursework\\AD Coursework\\JournalManagementSystem\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "Id": "C:\\Users\\anuro\\OneDrive\\Desktop\\NewJMS\\JournalManagementSystem\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Id": "C:\\Users\\anuro\\OneDrive\\Desktop\\Coursework\\AD Coursework\\JournalManagementSystem\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "Id": "C:\\Users\\anuro\\OneDrive\\Desktop\\NewJMS\\JournalManagementSystem\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Id": "C:\\Users\\anuro\\OneDrive\\Desktop\\Coursework\\AD Coursework\\JournalManagementSystem\\wwwroot\\favicon.png",
+      "Id": "C:\\Users\\anuro\\OneDrive\\Desktop\\NewJMS\\JournalManagementSystem\\wwwroot\\favicon.png",
       "PackagePath": "staticwebassets\\favicon.png"
     },
     {
-      "Id": "C:\\Users\\anuro\\OneDrive\\Desktop\\Coursework\\AD Coursework\\JournalManagementSystem\\wwwroot\\index.html",
+      "Id": "C:\\Users\\anuro\\OneDrive\\Desktop\\NewJMS\\JournalManagementSystem\\wwwroot\\index.html",
       "PackagePath": "staticwebassets\\index.html"
     },
     {
