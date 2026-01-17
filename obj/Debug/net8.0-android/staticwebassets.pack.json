@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "C:\\Users\\anuro\\OneDrive\\Desktop\\NewJMS\\JournalManagementSystem\\wwwroot\\JS\\quill.js",
+      "PackagePath": "staticwebassets\\JS\\quill.js"
+    },
+    {
       "Id": "C:\\Users\\anuro\\OneDrive\\Desktop\\NewJMS\\JournalManagementSystem\\wwwroot\\css\\app.css",
       "PackagePath": "staticwebassets\\css\\app.css"
     },

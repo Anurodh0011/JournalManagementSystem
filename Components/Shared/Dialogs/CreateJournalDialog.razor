@@ -1,0 +1,58 @@
+﻿@using JournalManagementSystem.Components.Shared.Dialogs
+@inherits CreateJournalDialogBase
+
+<MudDialog>
+    <DialogContent>
+        <MudForm @ref="_form">
+            <MudTextField @bind-Value="_model.Title"
+                          Label="Title"
+                          Required="true"
+                          RequiredError="Title is required" />
+
+            <MudText Typo="Typo.subtitle2" Class="mt-4 mb-1">
+                Description
+            </MudText>
+            <div id="@EditorId"
+                 style="height:200px; background:white; border:1px solid #ccc; border-radius:4px">
+            </div>
+
+            <MudSelect T="string"
+                       Label="Primary Mood"
+                       Required="true"
+                       RequiredError="Primary mood is required"
+                       @bind-Value="_model.PrimaryMood"
+                       Class="mt-4">
+                @foreach (var mood in PrimaryMoods)
+                {
+                    <MudSelectItem T="string" Value="@mood">@mood</MudSelectItem>
+                }
+            </MudSelect>
+
+            <MudSelect T="string"
+                       Label="Secondary Moods (max 2)"
+                       MultiSelection="true"
+                       SelectedValues="_secondaryMoods"
+                       SelectedValuesChanged="OnSecondaryMoodsChanged"
+                       Class="mt-4">
+                @foreach (var mood in SecondaryMoods)
+                {
+                    <MudSelectItem T="string" Value="@mood">@mood</MudSelectItem>
+                }
+            </MudSelect>
+
+            @* <MudSelect T="string"
+                       Label="Tags"
+                       MultiSelection="true"
+                       @bind-SelectedValues="_model.Tags">
+                @foreach (var tag in Tags)
+                {
+                    <MudSelectItem T="string" Value="@tag">@tag</MudSelectItem>
+                }
+            </MudSelect> *@
+        </MudForm>
+    </DialogContent>
+    <DialogActions>
+        @* <MudButton OnClick="Cancel">Cancel</MudButton> *@
+        <MudButton Color="Color.Primary" OnClick="Save">Save</MudButton>
+    </DialogActions>
+</MudDialog>

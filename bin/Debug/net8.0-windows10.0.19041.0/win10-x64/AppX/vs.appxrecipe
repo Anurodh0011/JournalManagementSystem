@@ -30,13 +30,13 @@
     <AppXManifest Include="C:\Users\anuro\OneDrive\Desktop\NewJMS\JournalManagementSystem\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2026-01-17T09:21:18.771</Modified>
+      <Modified>2026-01-17T11:20:10.893</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\NewJMS\JournalManagementSystem\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2026-01-17T08:14:41.377</Modified>
+      <Modified>2026-01-17T11:05:18.226</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\NewJMS\JournalManagementSystem\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\JournalManagementSystem.runtimeconfig.json">
       <PackagePath>JournalManagementSystem.runtimeconfig.json</PackagePath>
@@ -44,11 +44,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\NewJMS\JournalManagementSystem\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\JournalManagementSystem.dll">
       <PackagePath>JournalManagementSystem.dll</PackagePath>
-      <Modified>2026-01-17T09:21:17.668</Modified>
+      <Modified>2026-01-17T11:20:10.596</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\NewJMS\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\apphost.exe">
       <PackagePath>JournalManagementSystem.exe</PackagePath>
-      <Modified>2026-01-17T09:21:17.691</Modified>
+      <Modified>2026-01-17T11:20:10.596</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\NewJMS\JournalManagementSystem\Resources\Raw\AboutAssets.txt">
       <PackagePath>AboutAssets.txt</PackagePath>
@@ -72,7 +72,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\NewJMS\JournalManagementSystem\wwwroot\index.html">
       <PackagePath>wwwroot\index.html</PackagePath>
-      <Modified>2026-01-17T08:08:22.765</Modified>
+      <Modified>2026-01-17T09:35:46.279</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\NewJMS\JournalManagementSystem\wwwroot\JS\quill.js">
+      <PackagePath>wwwroot\JS\quill.js</PackagePath>
+      <Modified>2026-01-17T09:34:14.707</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\NewJMS\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-100.png">
       <PackagePath>splashSplashScreen.scale-100.png</PackagePath>
@@ -304,7 +308,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\NewJMS\JournalManagementSystem\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\JournalManagementSystem.deps.json">
       <PackagePath>JournalManagementSystem.deps.json</PackagePath>
-      <Modified>2026-01-17T08:14:40.772</Modified>
+      <Modified>2026-01-17T11:05:17.923</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\.nuget\packages\microsoft.windows.sdk.net.ref\10.0.19041.57\lib\net8.0\Microsoft.Windows.SDK.NET.dll">
       <PackagePath>Microsoft.Windows.SDK.NET.dll</PackagePath>
@@ -692,7 +696,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\NewJMS\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\staticwebassets.build.endpoints.json">
       <PackagePath>JournalManagementSystem.staticwebassets.endpoints.json</PackagePath>
-      <Modified>2026-01-17T08:14:06.412</Modified>
+      <Modified>2026-01-17T09:38:46.660</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\.nuget\packages\microsoft.maui.controls.compatibility\8.0.100\lib\net8.0-windows10.0.19041\Microsoft.Maui.Controls.Compatibility.pri">
       <PackagePath>Microsoft.Maui.Controls.Compatibility.pri</PackagePath>

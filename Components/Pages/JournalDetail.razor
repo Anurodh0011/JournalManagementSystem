@@ -1,0 +1,98 @@
+﻿@page "/journals/{id:guid}"
+@inject IJournalService JournalService
+@inject NavigationManager Navigation
+
+<MudContainer MaxWidth="MaxWidth.Medium" Class="mt-4">
+    @if (_journal == null)
+    {
+        <MudText Typo="Typo.h5">Journal not found</MudText>
+        <MudButton OnClick="GoBack" Class="mt-4">Go Back</MudButton>
+    }
+    else
+    {
+        <MudButton OnClick="GoBack" 
+                   StartIcon="@Icons.Material.Filled.ArrowBack"
+                   Variant="Variant.Text"
+                   Class="mb-4">
+            Back to Journals
+        </MudButton>
+
+        <MudPaper Class="pa-4">
+            <MudText Typo="Typo.h4" Class="mb-2">@_journal.Title</MudText>
+            
+            <MudText Typo="Typo.caption" Class="mb-4">
+                Created: @_journal.CreatedAt.ToString("MMMM dd, yyyy 'at' hh:mm tt")
+                @if (_journal.UpdatedAt.HasValue)
+                {
+                    <text> | Updated: @_journal.UpdatedAt.Value.ToString("MMMM dd, yyyy 'at' hh:mm tt")</text>
+                }
+            </MudText>
+
+            <MudDivider Class="mb-4" />
+
+            <MudText Typo="Typo.subtitle2" Class="mb-2">Primary Mood</MudText>
+            <MudChip T="string" Color="Color.Primary" Size="Size.Medium" Class="mb-4">
+                @_journal.PrimaryMood
+            </MudChip>
+
+            @if (_journal.SecondaryMoods.Any())
+            {
+                <MudText Typo="Typo.subtitle2" Class="mb-2">Secondary Moods</MudText>
+                <div class="mb-4">
+                    @foreach (var mood in _journal.SecondaryMoods)
+                    {
+                        <MudChip T="string" Color="Color.Secondary" Size="Size.Medium">
+                            @mood
+                        </MudChip>
+                    }
+                </div>
+            }
+
+            @if (_journal.Tags.Any())
+            {
+                <MudText Typo="Typo.subtitle2" Class="mb-2">Tags</MudText>
+                <div class="mb-4">
+                    @foreach (var tag in _journal.Tags)
+                    {
+                        <MudChip T="string" Color="Color.Info" Size="Size.Small" Variant="Variant.Outlined">
+                            @tag
+                        </MudChip>
+                    }
+                </div>
+            }
+
+            <MudDivider Class="mb-4" />
+
+            <MudText Typo="Typo.subtitle2" Class="mb-2">Description</MudText>
+            <div class="journal-content">
+                @((MarkupString)_journal.DescriptionHtml)
+            </div>
+        </MudPaper>
+    }
+</MudContainer>
+
+@code {
+    [Parameter]
+    public Guid Id { get; set; }
+
+    private Journal? _journal;
+
+    protected override void OnInitialized()
+    {
+        _journal = JournalService.GetJournalById(Id);
+    }
+
+    private void GoBack()
+    {
+        Navigation.NavigateTo("/journals");
+    }
+}
+
+<style>
+    .journal-content {
+        padding: 16px;
+        background-color: #f5f5f5;
+        border-radius: 4px;
+        min-height: 200px;
+    }
+</style>

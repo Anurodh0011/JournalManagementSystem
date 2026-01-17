@@ -1,203 +1,118 @@
 ﻿@page "/journals"
-@using MudBlazor
+@using JournalManagementSystem.Models
+@using JournalManagementSystem.Services
+@inject IDialogService DialogService
+@inject IJournalService JournalService
+@inject NavigationManager Navigation
 
-<MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center" Class="mb-4">
-    <MudText Typo="Typo.h4">Journals</MudText>
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-4">
+    <MudText Typo="Typo.h4" Class="mb-4">My Journals</MudText>
 
-    <MudStack Row="true" Spacing="2">
-        <MudToggleIconButton @bind-Toggled="_isTableView"
-                             ToggledIcon="@Icons.Material.Filled.TableRows"
-                             UntoggledIcon="@Icons.Material.Filled.ViewModule"
-                             Color="Color.Primary" />
+    <MudButton Variant="Variant.Filled"
+               Color="Color.Primary"
+               OnClick="OpenCreateDialog"
+               StartIcon="@Icons.Material.Filled.Add"
+               Class="mb-4">
+        Create New Journal
+    </MudButton>
 
-        <MudButton Variant="Variant.Filled"
-                   Color="Color.Primary"
-                   StartIcon="@Icons.Material.Filled.Add"
-                   OnClick="OpenCreateDialog">
-            New Entry
-        </MudButton>
-    </MudStack>
-</MudStack>
-
-<!-- Filters -->
-<MudPaper Class="pa-4 mb-4" Elevation="1">
-    <MudGrid Spacing="2">
-        <MudItem xs="12" md="4">
-            <MudTextField @bind-Value="Search"
-                          Label="Search title or tag"
-                          Variant="Variant.Outlined"
-                          Adornment="Adornment.End"
-                          AdornmentIcon="@Icons.Material.Filled.Search" />
-        </MudItem>
-
-        <MudItem xs="12" md="4">
-            <MudDateRangePicker @bind-DateRange="_dateRange"
-                                Label="Date Range"
-                                Variant="Variant.Outlined" />
-        </MudItem>
-
-        <MudItem xs="12" md="4">
-            <MudSelect T="string"
-           Label="Mood"
-           Variant="Variant.Outlined"
-           MultiSelection="true"
-           SelectedValues="_selectedMoods"
-           SelectedValuesChanged="OnMoodsChanged">
-    @foreach (var mood in _allMoods)
+    @if (!_journals.Any())
     {
-        <MudSelectItem Value="@mood">@mood</MudSelectItem>
+        <MudPaper Class="pa-4 mt-4">
+            <MudText Typo="Typo.body1" Align="Align.Center">
+                No journals yet. Create your first journal to get started!
+            </MudText>
+        </MudPaper>
     }
-</MudSelect>
-        </MudItem>
-    </MudGrid>
-</MudPaper>
-
-@if (_isTableView)
-{
-    <!-- TABLE VIEW -->
-    <MudTable Items="FilteredJournals" Hover="true" Elevation="1">
-        <HeaderContent>
-            <MudTh>Title</MudTh>
-            <MudTh>Date</MudTh>
-            <MudTh>Mood</MudTh>
-            <MudTh>Tags</MudTh>
-            <MudTh></MudTh>
-        </HeaderContent>
-
-        <RowTemplate>
-            <MudTd>@context.Title</MudTd>
-            <MudTd>@context.CreatedAt.ToString("dd MMM yyyy")</MudTd>
-            <MudTd>
-                <MudChip T="string" Color="Color.Success" Size="Size.Small">
-                    @context.PrimaryMood
-                </MudChip>
-            </MudTd>
-            <MudTd>
-                @foreach (var tag in context.Tags)
-                {
-                    <MudChip T="string" Size="Size.Small" Class="me-1">@tag</MudChip>
-                }
-            </MudTd>
-            <MudTd Align="Align.Right">
-                <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Primary" />
-                <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" />
-                <MudIconButton Icon="@Icons.Material.Filled.PictureAsPdf" />
-            </MudTd>
-        </RowTemplate>
-    </MudTable>
-}
-else
-{
-    <!-- CARD VIEW -->
-    <MudGrid Spacing="3">
-        @foreach (var journal in FilteredJournals)
-        {
-            <MudItem xs="12" sm="6" md="4">
-                <MudCard>
-                    <MudCardContent>
-                        <MudText Typo="Typo.h6">@journal.Title</MudText>
-                        <MudText Typo="Typo.caption" Color="Color.Secondary">
-                            @journal.CreatedAt.ToString("dd MMM yyyy")
-                        </MudText>
-
-                        <MudDivider Class="my-2" />
-
-                        <MudChip T="string" Color="Color.Success" Size="Size.Small">
-                            @journal.PrimaryMood
-                        </MudChip>
-
-                        <MudStack Row="true" Spacing="1" Class="mt-2">
-                            @foreach (var tag in journal.Tags)
+    else
+    {
+        <MudGrid>
+            @foreach (var journal in _journals)
+            {
+                <MudItem xs="12" sm="6" md="4">
+                    <MudCard Class="cursor-pointer" @onclick="@(() => ViewJournal(journal.Id))">
+                        <MudCardContent>
+                            <MudText Typo="Typo.h6">@journal.Title</MudText>
+                            <MudText Typo="Typo.body2" Class="mt-2">
+                                @((MarkupString)TruncateHtml(journal.DescriptionHtml, 100))
+                            </MudText>
+                            <MudChip T="string" Size="Size.Small" Color="Color.Primary" Class="mt-2">
+                                @journal.PrimaryMood
+                            </MudChip>
+                            @foreach (var mood in journal.SecondaryMoods)
                             {
-                                <MudChip T="string" Size="Size.Small">@tag</MudChip>
+                                <MudChip T="string" Size="Size.Small" Color="Color.Secondary">
+                                    @mood
+                                </MudChip>
                             }
-                        </MudStack>
-                    </MudCardContent>
-
-                    <MudCardActions Class="justify-end">
-                        <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Primary" />
-                        <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" />
-                        <MudIconButton Icon="@Icons.Material.Filled.PictureAsPdf" />
-                    </MudCardActions>
-                </MudCard>
-            </MudItem>
-        }
-    </MudGrid>
-}
+                        </MudCardContent>
+                        <MudCardActions>
+                            <MudText Typo="Typo.caption" Class="ml-2">
+                                @journal.CreatedAt.ToString("MMM dd, yyyy")
+                            </MudText>
+                        </MudCardActions>
+                    </MudCard>
+                </MudItem>
+            }
+        </MudGrid>
+    }
+</MudContainer>
 
 @code {
-	[Inject] IDialogService DialogService { get; set; }
+    private List<Journal> _journals = new();
 
-	private bool _isTableView = true;
-	private string Search;
-	private DateRange _dateRange;
-	private HashSet<string> _selectedMoods = new();
-
-	private readonly List<string> _allMoods = new()
+    protected override void OnInitialized()
     {
-        "Happy", "Calm", "Sad", "Stressed", "Excited"
-    };
+        LoadJournals();
+    }
 
-	private readonly List<JournalVm> _journals = new()
+    private void LoadJournals()
     {
-        new()
-        {
-            Title = "A Productive Day",
-            CreatedAt = DateTime.Today,
-            PrimaryMood = "Happy",
-            Tags = new() { "Work", "Planning" }
-        },
-        new()
-        {
-            Title = "Evening Reflection",
-            CreatedAt = DateTime.Today.AddDays(-1),
-            PrimaryMood = "Calm",
-            Tags = new() { "Personal", "Reflection" }
-        },
-        new()
-        {
-            Title = "Stressful Meeting",
-            CreatedAt = DateTime.Today.AddDays(-3),
-            PrimaryMood = "Stressed",
-            Tags = new() { "Work" }
-        }
-    };
+        _journals = JournalService.GetAllJournals();
+    }
 
-	private IEnumerable<JournalVm> FilteredJournals =>
-		_journals
-			.Where(j =>
-				string.IsNullOrWhiteSpace(Search) ||
-				j.Title.Contains(Search, StringComparison.OrdinalIgnoreCase) ||
-				j.Tags.Any(t => t.Contains(Search, StringComparison.OrdinalIgnoreCase)))
-			.Where(j =>
-				_dateRange?.Start == null || j.CreatedAt.Date >= _dateRange.Start.Value.Date)
-			.Where(j =>
-				_dateRange?.End == null || j.CreatedAt.Date <= _dateRange.End.Value.Date)
-			.Where(j =>
-				!_selectedMoods.Any() || _selectedMoods.Contains(j.PrimaryMood))
-			.OrderByDescending(j => j.CreatedAt);
-
-	private async Task OpenCreateDialog()
-	{
-		var options = new DialogOptions
+    private async Task OpenCreateDialog()
+    {
+        var options = new DialogOptions
         {
-            CloseButton = true,
+            CloseOnEscapeKey = true,
             MaxWidth = MaxWidth.Medium,
             FullWidth = true
         };
 
-		await DialogService.ShowAsync<CreateJournalDialog>("Create Journal", options);
-	}
+        var dialog = await DialogService.ShowAsync<CreateJournalDialog>("Create New Journal", options);
+        var result = await dialog.Result;
 
-	public class JournalVm
-	{
-		public string Title { get; set; }
-		public DateTime CreatedAt { get; set; }
-		public string PrimaryMood { get; set; }
-		public List<string> Tags { get; set; }
-	}
-	private void OnMoodsChanged(IEnumerable<string> args)
-	{
-		throw new NotImplementedException();
-	}
+        if (!result.Canceled && result.Data is Journal model)
+        {
+            JournalService.CreateJournal(model);
+            LoadJournals();
+        }
+    }
+
+    private void ViewJournal(Guid id)
+    {
+        Navigation.NavigateTo($"/journals/{id}");
+    }
+
+    private string TruncateHtml(string html, int maxLength)
+    {
+        var text = System.Text.RegularExpressions.Regex.Replace(html, "<.*?>", string.Empty);
+        if (text.Length <= maxLength)
+            return text;
+
+        return text.Substring(0, maxLength) + "...";
+    }
 }
+
+<style>
+    .cursor-pointer {
+        cursor: pointer;
+    }
+
+        .cursor-pointer:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+</style>
