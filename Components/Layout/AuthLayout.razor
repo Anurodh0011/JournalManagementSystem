@@ -2,7 +2,7 @@
 @using MudBlazor
 @inject NavigationManager Navigation
 
-<MudThemeProvider Theme="_authTheme" IsDarkMode="_isDarkMode" />
+<MudThemeProvider Theme="_myCustomTheme" IsDarkMode="_isDarkMode"/>
 <MudDialogProvider />
 <MudSnackbarProvider />
 <MudPopoverProvider />
@@ -42,8 +42,8 @@
     </MudAppBar>
 
     <!-- Main Content -->
-    <MudMainContent Style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; display:flex; justify-content:center; align-items:center;">
-        <div style="width:100%; max-width:400px; padding:2rem;">
+    <MudMainContent >
+        <div >
             @Body
         </div>
     </MudMainContent>
@@ -53,7 +53,7 @@
               Square="true"
               Elevation="0"
               Style="background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-top: 1px solid rgba(0, 121, 107, 0.1);">
-        <MudText Typo="Typo.body2" Color="Color.Secondary">
+        <MudText Typo="Typo.body2" Color="Color.Primary">
             © @DateTime.Now.Year Journal Management System. All rights reserved.
         </MudText>
     </MudPaper>
@@ -85,42 +85,71 @@ Navigation.LocationChanged += OnLocationChanged;
     private void NavigateToLogin() => Navigation.NavigateTo("/login");
     private void NavigateToSignup() => Navigation.NavigateTo("/register");
 
-    private void ToggleTheme() => _isDarkMode = !_isDarkMode;
+    void ToggleTheme() => _isDarkMode = !_isDarkMode;
 
     public void Dispose() => Navigation.LocationChanged -= OnLocationChanged;
 
-    private MudTheme _authTheme = new MudTheme()
-    {
+   private MudTheme _myCustomTheme = new MudTheme()
+    {   
         PaletteLight = new PaletteLight()
         {
-            Primary = Colors.Teal.Darken3,
-            Secondary = Colors.Pink.Default,
-            Background = Colors.Gray.Lighten5,
-            Surface = Colors.Shades.White,
-            AppbarBackground = "transparent",
-            AppbarText = Colors.Teal.Darken3,
+            // Brand colors
+            Primary = Colors.Teal.Darken3,        // Main brand / Appbar / Active
+            Secondary = Colors.Pink.Default,     // Accents / Hover
+
+            // App Backgrounds
+            Background = Colors.Gray.Lighten5,   
+            Surface = Colors.Shades.White,        // Cards, drawers
+
+            // AppBar
+            AppbarBackground = Colors.Teal.Darken3,
+            AppbarText = Colors.Shades.White,
+
+            // Drawer
+            DrawerBackground = Colors.Shades.White,
+            DrawerText = Colors.Teal.Darken3,
+            DrawerIcon = Colors.Teal.Darken3,
+
+            // Text
             TextPrimary = Colors.Teal.Darken4,
             TextSecondary = Colors.Teal.Darken1,
+
+            // States (IMPORTANT for NavMenu)
+            ActionDefault = Colors.Teal.Darken2,  // Normal menu text
+
+            // Feedback
             Success = Colors.Green.Darken2,
             Warning = Colors.Orange.Darken2,
             Error = Colors.Red.Darken2,
             Info = Colors.Blue.Darken2,
+
         },
+
         PaletteDark = new PaletteDark()
         {
             Primary = Colors.Teal.Lighten3,
             Secondary = Colors.Pink.Default,
-            Background = "#0F172A",
-            Surface = "#1E293B",
-            AppbarBackground = "transparent",
-            AppbarText = Colors.Teal.Lighten3,
+
+            Background = "#111827",
+            Surface = "#1F2937", // cards
+
+            AppbarBackground = Colors.Teal.Darken3,
+            AppbarText = Colors.Shades.White,
+
+            DrawerBackground = "#1F2937",
+            DrawerText = Colors.Teal.Lighten5,
+            DrawerIcon = Colors.Teal.Lighten5,
+
             TextPrimary = Colors.Teal.Lighten2,
-            TextSecondary = Colors.Gray.Lighten1,
+
+            ActionDefault = Colors.Teal.Lighten2,
+
             Success = Colors.Green.Lighten2,
             Warning = Colors.Orange.Lighten2,
             Error = Colors.Red.Lighten2,
             Info = Colors.Blue.Lighten2,
         },
+
         LayoutProperties = new LayoutProperties
         {
             DefaultBorderRadius = "8px"

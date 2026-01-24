@@ -1,4 +1,6 @@
 ﻿@page "/settings/security"
+@layout MainLayout
+
 
 <MudContainer MaxWidth="MaxWidth.Medium" Class="mt-4">
     <MudText Typo="Typo.h4" Class="mb-4">Security Settings</MudText>
@@ -25,7 +27,6 @@
                           Required="true"
                           RequiredError="New password is required"
                           Validation="@(new Func<string, string>(ValidateNewPassword))"
-                          HelperText="8+ chars with uppercase, lowercase, number & special char"
                           Class="mb-4"
                           Adornment="Adornment.End"
                           AdornmentIcon="@_newPasswordIcon"
