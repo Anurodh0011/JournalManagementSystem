@@ -1,45 +1,284 @@
 ﻿@page "/calendar"
-@using MudBlazor
+@using JournalManagementSystem.Entities
+@using JournalManagementSystem.Services
+@inject IJournalService JournalService
+@inject IDialogService DialogService
+@inject NavigationManager Navigation
+@inject ISnackbar Snackbar
 
-<MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center" Class="mb-4">
+<MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center" Class="">
     <MudText Typo="Typo.h4">Calendar</MudText>
-    <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add">
-        Create Today’s Journal
+    <MudButton Variant="Variant.Filled"
+               Color="Color.Primary"
+               StartIcon="@Icons.Material.Filled.Add"
+               OnClick="CreateTodayJournal"
+               Disabled="@_hasTodayJournal">
+        @(_hasTodayJournal ? "Today's Journal Created" : "Create Today's Journal")
     </MudButton>
 </MudStack>
 
+<MudGrid Class="my-4">
+    <MudItem xs="12" sm="4">
+        <MudPaper Elevation="1" Class="pa-4">
+            <MudText Typo="Typo.subtitle1" Class="mb-2">Current Streak</MudText>
+            <MudText Typo="Typo.h5" Color="Color.Primary">@_currentStreak days 🔥</MudText>
+        </MudPaper>
+    </MudItem>
+
+    <MudItem xs="12" sm="4">
+        <MudPaper Elevation="1" Class="pa-4">
+            <MudText Typo="Typo.subtitle1" Class="mb-2">Longest Streak</MudText>
+            <MudText Typo="Typo.h5" Color="Color.Secondary">@_longestStreak days 🏆</MudText>
+        </MudPaper>
+    </MudItem>
+
+    <MudItem xs="12" sm="4">
+        <MudPaper Elevation="1" Class="pa-4">
+            <MudText Typo="Typo.subtitle1" Class="mb-2">This Month</MudText>
+            <MudText Typo="Typo.h5" Color="Color.Info">@_journalsThisMonth entries 📝</MudText>
+        </MudPaper>
+    </MudItem>
+</MudGrid>
+
 <MudPaper Elevation="2" Class="pa-4">
-    <MudCalendar PickerMonth="@_currentMonth"
-                 OnDayClicked="OnDayClicked"
-                 ShowWeekNumbers="false">
-        <DayTemplate>
-            <MudStack AlignItems="AlignItems.Center">
-                <MudText>Day</MudText>
-                
+    <MudGrid>
+        <MudItem xs="12">
+            <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center" Class="mb-2">
+                <MudIconButton Icon="@Icons.Material.Filled.ChevronLeft"
+                               OnClick="PreviousMonth"
+                               Color="Color.Primary" />
+                <MudText Typo="Typo.h6">@_currentMonth.ToString("MMMM yyyy")</MudText>
+                <MudIconButton Icon="@Icons.Material.Filled.ChevronRight"
+                               OnClick="NextMonth"
+                               Color="Color.Primary" />
             </MudStack>
-        </DayTemplate>
-    </MudCalendar>
+        </MudItem>
+
+        <MudItem xs="12">
+            <div class="calendar-grid">
+                @* day headers *@
+                @foreach (var day in new[] { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" })
+                {
+                    <div class="calendar-header">@day</div>
+                }
+
+                <!-- Empty cells before first day of month -->
+                @for (int i = 0; i < (int)new DateTime(_currentMonth.Year, _currentMonth.Month, 1).DayOfWeek; i++)
+                {
+                    <div class="calendar-cell empty"></div>
+                }
+
+                 @* Days of the month *@
+                @for (int day = 1; day <= DateTime.DaysInMonth(_currentMonth.Year, _currentMonth.Month); day++)
+                {
+                    var date = new DateTime(_currentMonth.Year, _currentMonth.Month, day);
+                    var hasJournal = HasJournalForDate(date);
+                    var isToday = date.Date == DateTime.Today;
+                    var isFuture = date.Date > DateTime.Today;
+                    var dayNumber = day;
+
+                    <div class="calendar-cell @(hasJournal ? "has-journal" : "") @(isToday ? "today" : "") @(isFuture ? "future" : "")"
+                         @onclick="@(() => OnDayClicked(date))"
+                         style="@(isFuture ? "cursor: not-allowed; opacity: 0.5;" : "cursor: pointer;")">
+                        <div class="day-number">@dayNumber</div>
+                        @if (hasJournal)
+                        {
+                            <MudIcon Icon="@Icons.Material.Filled.CheckCircle"
+                                     Size="Size.Small"
+                                     Color="Color.Success"
+                                     Class="journal-indicator" />
+                        }
+                    </div>
+                }
+            </div>
+        </MudItem>
+    </MudGrid>
 </MudPaper>
 
-<MudPaper Elevation="1" Class="pa-4 mt-4">
-    <MudText Typo="Typo.subtitle1">Current Streak</MudText>
-    <MudText Typo="Typo.h5" Color="Color.Primary">@CurrentStreak 🔥</MudText>
-</MudPaper>
+
 
 @code {
     private DateTime _currentMonth = DateTime.Today;
+    private bool _hasTodayJournal;
+    private int _currentStreak;
+    private int _longestStreak;
+    private int _journalsThisMonth;
+    private HashSet<DateTime> _journalDates = new();
 
-    // Placeholder values
-    private int CurrentStreak = 3;
-
-    private bool HasJournal(DateTime date)
+    protected override void OnInitialized()
     {
-        // TODO: Replace with DB lookup
-        return date.Day % 2 == 0;
+        LoadCalendarData();
     }
 
-    private void OnDayClicked(DateTime date)
+    private void LoadCalendarData()
     {
-        // TODO: Navigate to journal detail page for selected date
+        _hasTodayJournal = JournalService.HasJournalForDate(DateTime.Today);
+        _currentStreak = JournalService.GetCurrentStreak();
+        _longestStreak = JournalService.GetLongestStreak();
+
+        // Get all journal dates for the current month
+        var journals = JournalService.GetAllJournals();
+        _journalDates = journals.Select(j => j.Date.Date).ToHashSet();
+
+        _journalsThisMonth = journals.Count(j =>
+            j.Date.Year == _currentMonth.Year &&
+            j.Date.Month == _currentMonth.Month);
+    }
+
+    private bool HasJournalForDate(DateTime date)
+    {
+        return _journalDates.Contains(date.Date);
+    }
+
+    private async Task OnDayClicked(DateTime date)
+    {
+        // Don't allow clicking on future dates
+        if (date.Date > DateTime.Today)
+        {
+            Snackbar.Add("You cannot create journal entries for future dates.", Severity.Warning);
+            return;
+        }
+
+        var journal = JournalService.GetJournalByDate(date);
+
+        if (journal != null)
+        {
+            // Navigate to journal detail page
+            Navigation.NavigateTo($"/journals/{journal.Id}");
+        }
+        else
+        {
+            // Ask user if they want to create a journal for this date
+            var result = await DialogService.ShowMessageBox(
+                "No Journal Entry",
+                $"No journal entry exists for {date:MMMM dd, yyyy}. Would you like to create one?",
+                yesText: "Create",
+                cancelText: "Cancel");
+
+            if (result == true)
+            {
+                await OpenCreateDialogForDate(date);
+            }
+        }
+    }
+
+    private async Task CreateTodayJournal()
+    {
+        await OpenCreateDialogForDate(DateTime.Today);
+    }
+
+    private async Task OpenCreateDialogForDate(DateTime date)
+    {
+        var options = new DialogOptions
+        {
+            CloseOnEscapeKey = true,
+            MaxWidth = MaxWidth.Medium,
+            FullWidth = true
+        };
+
+        var parameters = new DialogParameters<CreateJournalDialog>
+        {
+            { x => x.SelectedDate, date }
+        };
+
+        var dialog = await DialogService.ShowAsync<CreateJournalDialog>(
+            $"Create Journal for {date:MMMM dd, yyyy}",
+            parameters,
+            options);
+        var result = await dialog.Result;
+
+        if (!result.Canceled && result.Data is Journal model)
+        {
+            try
+            {
+                JournalService.CreateJournal(model);
+                LoadCalendarData();
+                Snackbar.Add("Journal entry created successfully!", Severity.Success);
+            }
+            catch (InvalidOperationException ex)
+            {
+                Snackbar.Add(ex.Message, Severity.Error);
+            }
+        }
+    }
+
+    private void PreviousMonth()
+    {
+        _currentMonth = _currentMonth.AddMonths(-1);
+        LoadCalendarData();
+    }
+
+    private void NextMonth()
+    {
+        _currentMonth = _currentMonth.AddMonths(1);
+        LoadCalendarData();
     }
 }
+
+<style>
+    .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 8px;
+    }
+
+    .calendar-header {
+        text-align: center;
+        font-weight: bold;
+        padding: 12px;
+        background-color: var(--mud-palette-primary);
+        color: white;
+        border-radius: 4px;
+    }
+
+    .calendar-cell {
+        aspect-ratio: 1;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        transition: all 0.2s ease;
+        background-color: white;
+    }
+
+        .calendar-cell:not(.empty):not(.future):hover {
+            background-color: #f5f5f5;
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .calendar-cell.empty {
+            background-color: transparent;
+            border: none;
+        }
+
+        .calendar-cell.today {
+            border: 2px solid var(--mud-palette-primary);
+            background-color: #e3f2fd;
+        }
+
+        .calendar-cell.has-journal {
+            background-color: #e8f5e9;
+            border-color: var(--mud-palette-success);
+        }
+
+        .calendar-cell.future {
+            background-color: #fafafa;
+            color: #bdbdbd;
+        }
+
+    .day-number {
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+
+    .journal-indicator {
+        position: absolute;
+        bottom: 4px;
+        right: 4px;
+    }
+</style>

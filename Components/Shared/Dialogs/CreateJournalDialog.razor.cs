@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using MudBlazor;
-using JournalManagementSystem.Models;
-using MudBlazor.Services;
+using JournalManagementSystem.Entities;
 
 namespace JournalManagementSystem.Components.Shared.Dialogs;
 
@@ -13,6 +12,9 @@ public class CreateJournalDialogBase : ComponentBase
 
     [Inject]
     public IJSRuntime JS { get; set; } = null!;
+
+    [Parameter]
+    public DateTime SelectedDate { get; set; } = DateTime.Today;
 
     protected MudForm? _form;
     protected Journal _model = new();

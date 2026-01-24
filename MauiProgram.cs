@@ -1,4 +1,5 @@
-﻿using JournalManagementSystem.Services;
+﻿using JournalManagementSystem.Data;
+using JournalManagementSystem.Services;
 using Microsoft.Extensions.Logging;
 using MudBlazor.Services;
 
@@ -19,11 +20,22 @@ namespace JournalManagementSystem
             builder.Services.AddMauiBlazorWebView();
 
 #if DEBUG
-    		builder.Services.AddBlazorWebViewDeveloperTools();
-    		builder.Logging.AddDebug();
+            builder.Services.AddBlazorWebViewDeveloperTools();
+            builder.Logging.AddDebug();
             builder.Services.AddMudServices();
             builder.Services.AddSingleton<IJournalService, JournalService>();
+            builder.Services.AddSingleton<IUserPreferencesService, UserPreferencesService>();
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddDbContext<AppDbContext>();
+
+            var app = builder.Build();
+
+            using var scope = app.Services.CreateScope();
+            var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+            db.Database.EnsureCreated();
+
 #endif
+
 
             return builder.Build();
         }

@@ -1,4 +1,6 @@
 ﻿@page "/journals/{id:guid}"
+@using JournalManagementSystem.Entities
+@using JournalManagementSystem.Services
 @inject IJournalService JournalService
 @inject NavigationManager Navigation
 
@@ -6,22 +8,34 @@
     @if (_journal == null)
     {
         <MudText Typo="Typo.h5">Journal not found</MudText>
-        <MudButton OnClick="GoBack" Class="mt-4">Go Back</MudButton>
+        <MudButton OnClick="@(() => Navigation.NavigateTo("/calendar"))" Class="mt-4">
+            Go to Calendar
+        </MudButton>
     }
     else
     {
-        <MudButton OnClick="GoBack" 
-                   StartIcon="@Icons.Material.Filled.ArrowBack"
-                   Variant="Variant.Text"
-                   Class="mb-4">
-            Back to Journals
-        </MudButton>
+        <MudStack Row="true" Justify="Justify.SpaceBetween" Class="mb-4">
+            <MudButton OnClick="@(() => Navigation.NavigateTo("/calendar"))"
+                       StartIcon="@Icons.Material.Filled.CalendarToday"
+                       Variant="Variant.Text">
+                Back to Calendar
+            </MudButton>
+            <MudButton OnClick="@(() => Navigation.NavigateTo("/journals"))"
+                       StartIcon="@Icons.Material.Filled.List"
+                       Variant="Variant.Text">
+                All Journals
+            </MudButton>
+        </MudStack>
 
         <MudPaper Class="pa-4">
             <MudText Typo="Typo.h4" Class="mb-2">@_journal.Title</MudText>
-            
+
+            <MudText Typo="Typo.h6" Color="Color.Primary" Class="mb-2">
+                @_journal.Date.ToString("dddd, MMMM dd, yyyy")
+            </MudText>
+
             <MudText Typo="Typo.caption" Class="mb-4">
-                Created: @_journal.CreatedAt.ToString("MMMM dd, yyyy 'at' hh:mm tt")
+                Created: @_journal.CreatedAt.ToString("hh:mm tt")
                 @if (_journal.UpdatedAt.HasValue)
                 {
                     <text> | Updated: @_journal.UpdatedAt.Value.ToString("MMMM dd, yyyy 'at' hh:mm tt")</text>
@@ -80,11 +94,6 @@
     protected override void OnInitialized()
     {
         _journal = JournalService.GetJournalById(Id);
-    }
-
-    private void GoBack()
-    {
-        Navigation.NavigateTo("/journals");
     }
 }
 

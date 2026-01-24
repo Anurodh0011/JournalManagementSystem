@@ -12,12 +12,12 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>3r8b2a0bt1</Fingerprint>
-      <Integrity>8ZRc1sGeVrPBx4lD717BgRaQekyh78QKV9SKsdt638U=</Integrity>
+      <Fingerprint>c20ap9mlsx</Fingerprint>
+      <Integrity>1Dvu8Ch99qguVptRJBcQaDCymG2S7V/Vjp+k/TuXgMk=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <FileLength>3</FileLength>
-      <LastWriteTime>Sat, 17 Jan 2026 08:08:22 GMT</LastWriteTime>
+      <FileLength>606</FileLength>
+      <LastWriteTime>Sat, 17 Jan 2026 12:36:38 GMT</LastWriteTime>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\app.css'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\bootstrap\bootstrap.min.css'))">
@@ -92,12 +92,12 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>vv12s903h2</Fingerprint>
-      <Integrity>C5Zi3JC2dVUCUyyArB0NAFArlkVVAKQAivtBcUhw+mY=</Integrity>
+      <Fingerprint>r4bgl9kaul</Fingerprint>
+      <Integrity>paoMzxE61aLaYTuhD9T+4a05Cl7lgQzU0zGwaT2HiwM=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <FileLength>1705</FileLength>
-      <LastWriteTime>Sat, 17 Jan 2026 09:35:46 GMT</LastWriteTime>
+      <FileLength>2015</FileLength>
+      <LastWriteTime>Sat, 17 Jan 2026 12:33:53 GMT</LastWriteTime>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\index.html'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\JS\quill.js'))">

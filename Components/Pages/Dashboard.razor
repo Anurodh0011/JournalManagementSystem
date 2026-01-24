@@ -1,8 +1,15 @@
 ﻿@page "/dashboard"
 @layout MainLayout
 @using MudBlazor
+@inject NavigationManager Nav
+
 
 <MudGrid Spacing="3">
+    <MudButton Variant="Variant.Filled"
+           Color="Color.Primary"
+           OnClick="@(() => Nav.NavigateTo("/login"))">
+    Go to Login
+</MudButton>
 
     @* stats card *@
     <MudItem xs="12" md="3">

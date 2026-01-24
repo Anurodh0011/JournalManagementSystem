@@ -1,0 +1,178 @@
+﻿@page "/settings/security"
+
+<MudContainer MaxWidth="MaxWidth.Medium" Class="mt-4">
+    <MudText Typo="Typo.h4" Class="mb-4">Security Settings</MudText>
+
+    <MudPaper Class="pa-4">
+        <MudForm @ref="_form" @bind-IsValid="@_isValid">
+            <MudText Typo="Typo.h6" Class="mb-4">Change Password</MudText>
+
+            <MudTextField @bind-Value="_currentPassword"
+                          Label="Current Password"
+                          InputType="@_currentPasswordInputType"
+                          Variant="Variant.Outlined"
+                          Required="true"
+                          RequiredError="Current password is required"
+                          Class="mb-4"
+                          Adornment="Adornment.End"
+                          AdornmentIcon="@_currentPasswordIcon"
+                          OnAdornmentClick="ToggleCurrentPasswordVisibility" />
+
+            <MudTextField @bind-Value="_newPassword"
+                          Label="New Password"
+                          InputType="@_newPasswordInputType"
+                          Variant="Variant.Outlined"
+                          Required="true"
+                          RequiredError="New password is required"
+                          Validation="@(new Func<string, string>(ValidateNewPassword))"
+                          HelperText="8+ chars with uppercase, lowercase, number & special char"
+                          Class="mb-4"
+                          Adornment="Adornment.End"
+                          AdornmentIcon="@_newPasswordIcon"
+                          OnAdornmentClick="ToggleNewPasswordVisibility" />
+
+            <MudTextField @bind-Value="_confirmNewPassword"
+                          Label="Confirm New Password"
+                          InputType="@_confirmPasswordInputType"
+                          Variant="Variant.Outlined"
+                          Required="true"
+                          RequiredError="Please confirm your new password"
+                          Validation="@(new Func<string, string>(ValidateConfirmPassword))"
+                          Class="mb-4"
+                          Adornment="Adornment.End"
+                          AdornmentIcon="@_confirmPasswordIcon"
+                          OnAdornmentClick="ToggleConfirmPasswordVisibility" />
+
+            <MudStack Row="true" Justify="Justify.FlexEnd" Spacing="2">
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Default"
+                           OnClick="Cancel">
+                    Cancel
+                </MudButton>
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           OnClick="ChangePassword"
+                           Disabled="@(!_isValid || _isSaving)">
+                    @if (_isSaving)
+                    {
+                        <MudProgressCircular Size="Size.Small" Indeterminate="true" />
+                        <MudText Class="ml-2">Updating...</MudText>
+                    }
+                    else
+                    {
+                        <text>Update Password</text>
+                    }
+                </MudButton>
+            </MudStack>
+        </MudForm>
+    </MudPaper>
+</MudContainer>
+
+@code {
+    private MudForm _form = null!;
+    private bool _isValid;
+    private bool _isSaving;
+    private string _currentPassword = "";
+    private string _newPassword = "";
+    private string _confirmNewPassword = "";
+
+    private bool _currentPasswordVisible;
+    private InputType _currentPasswordInputType = InputType.Password;
+    private string _currentPasswordIcon = Icons.Material.Filled.VisibilityOff;
+
+    private bool _newPasswordVisible;
+    private InputType _newPasswordInputType = InputType.Password;
+    private string _newPasswordIcon = Icons.Material.Filled.VisibilityOff;
+
+    private bool _confirmPasswordVisible;
+    private InputType _confirmPasswordInputType = InputType.Password;
+    private string _confirmPasswordIcon = Icons.Material.Filled.VisibilityOff;
+
+    private void ToggleCurrentPasswordVisibility()
+    {
+        _currentPasswordVisible = !_currentPasswordVisible;
+        _currentPasswordInputType = _currentPasswordVisible ? InputType.Text : InputType.Password;
+        _currentPasswordIcon = _currentPasswordVisible ? Icons.Material.Filled.Visibility : Icons.Material.Filled.VisibilityOff;
+    }
+
+    private void ToggleNewPasswordVisibility()
+    {
+        _newPasswordVisible = !_newPasswordVisible;
+        _newPasswordInputType = _newPasswordVisible ? InputType.Text : InputType.Password;
+        _newPasswordIcon = _newPasswordVisible ? Icons.Material.Filled.Visibility : Icons.Material.Filled.VisibilityOff;
+    }
+
+    private void ToggleConfirmPasswordVisibility()
+    {
+        _confirmPasswordVisible = !_confirmPasswordVisible;
+        _confirmPasswordInputType = _confirmPasswordVisible ? InputType.Text : InputType.Password;
+        _confirmPasswordIcon = _confirmPasswordVisible ? Icons.Material.Filled.Visibility : Icons.Material.Filled.VisibilityOff;
+    }
+
+    private string? ValidateNewPassword(string password)
+    {
+        if (string.IsNullOrWhiteSpace(password))
+        {
+            return "New password is required";
+        }
+
+        var passwordRegex = @"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$";
+        if (!System.Text.RegularExpressions.Regex.IsMatch(password, passwordRegex))
+        {
+            return "Password must be 8+ chars with uppercase, lowercase, number & special char";
+        }
+
+        if (password == _currentPassword)
+        {
+            return "New password must be different from current password";
+        }
+
+        return null;
+    }
+
+    private string? ValidateConfirmPassword(string confirmPassword)
+    {
+        if (string.IsNullOrWhiteSpace(confirmPassword))
+        {
+            return "Please confirm your new password";
+        }
+
+        if (confirmPassword != _newPassword)
+        {
+            return "Passwords do not match";
+        }
+
+        return null;
+    }
+
+    private async Task ChangePassword()
+    {
+        await _form.Validate();
+
+        if (!_isValid)
+            return;
+
+        _isSaving = true;
+        StateHasChanged();
+
+        // Simulate a brief delay for better UX
+        await Task.Delay(1000);
+
+        _isSaving = false;
+        StateHasChanged();
+
+        // Clear form
+        _currentPassword = "";
+        _newPassword = "";
+        _confirmNewPassword = "";
+
+        // TODO: Implement password change logic
+    }
+
+    private void Cancel()
+    {
+        _currentPassword = "";
+        _newPassword = "";
+        _confirmNewPassword = "";
+    }
+}

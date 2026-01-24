@@ -1,7 +1,10 @@
 ﻿@inherits LayoutComponentBase
 @using MudBlazor
+@using JournalManagementSystem.Services
 @inject NavigationManager Navigation
 @inject IJSRuntime JS
+@inject IUserPreferencesService UserPreferences
+@implements IDisposable
 
 <MudThemeProvider Theme="_myCustomTheme" IsDarkMode="_isDarkMode" />
 <MudDialogProvider />
@@ -14,8 +17,7 @@
     <MudDrawer @bind-Open="_drawerOpen"
                Variant="DrawerVariant.Mini"
                MiniVariantWidth="72px"
-               Elevation="1"
-               Disabled="IsLocked">
+               Elevation="1">
 
         <!-- USER SUMMARY -->
         <MudPaper Class="mx-2 pa-3 my-2" Elevation="0">
@@ -24,24 +26,23 @@
                 @if (_drawerOpen)
                 {
                     <MudText Typo="Typo.subtitle2">
-                        ANURODH PRASAIN
+                        @_currentUsername.ToUpper()
                     </MudText>
-
                 }
             </MudStack>
         </MudPaper>
         <div class="w-75 mx-auto" style="height:4px; background-color:#00796B;"></div>
+        
         @* dynamic menu *@
         <MudNavMenu Class="mt-2">
-
             @foreach (var item in _navItems)
             {
                 @if (item.Children != null && item.Children.Count > 0)
                 {
-                    <MudNavGroup Title="@(_drawerOpen? item.Title: null)" Icon="@item.Icon" Expanded="true" Disabled="IsLocked">
+                    <MudNavGroup Title="@(_drawerOpen? item.Title: null)" Icon="@item.Icon" Expanded="true">
                         @foreach (var child in item.Children)
                         {
-                            <MudNavLink Href="@child.Href" Match="NavLinkMatch.Prefix" Icon="@child.Icon" Disabled="child.Disabled || IsLocked">
+                            <MudNavLink Href="@child.Href" Match="NavLinkMatch.Prefix" Icon="@child.Icon" Disabled="child.Disabled">
                                 @if (_drawerOpen)
                                 {
                                     <span>@child.Title</span>
@@ -52,7 +53,7 @@
                 }
                 else
                 {
-                    <MudNavLink Href="@item.Href" Match="NavLinkMatch.Prefix" Icon="@item.Icon" Disabled="item.Disabled || IsLocked">
+                    <MudNavLink Href="@item.Href" Match="NavLinkMatch.Prefix" Icon="@item.Icon" Disabled="item.Disabled">
                         @if (_drawerOpen)
                         {
                             <span>@item.Title</span>
@@ -68,9 +69,10 @@
         @if (_drawerOpen)
         {
             <MudText Typo="Typo.caption" Class="pa-3 text-center">
-                “Small steps every day.”
+                "Small steps every day."
             </MudText>
         }
+        
         @* footer *@
         @if (_drawerOpen)
         {
@@ -78,7 +80,7 @@
                       Square="true"
                       Style="@($"background:{Colors.Teal.Darken3}; color:white;")"
                       Elevation="0">
-                © @DateTime.Now.Year Anurodh Prasain
+                © @DateTime.Now.Year @_currentUsername
             </MudPaper>
         }
 
@@ -90,18 +92,14 @@
         <MudIconButton Icon="@Icons.Material.Filled.ArrowBack"
                        Edge="Edge.Start"
                        Color="Color.Inherit"
-                       Disabled = "IsLocked"
                        OnClick="GoBack" />
         <MudIconButton Icon="@Icons.Material.Filled.ArrowForward"
                        Edge="Edge.Start"
-                       Disabled= "IsLocked"
                        Color="Color.Inherit"
                        OnClick="GoNext" />
 
-
         <MudIconButton Icon="@Icons.Material.Filled.Menu"
                        Edge="Edge.Start"
-                       Disabled="IsLocked"
                        Color="Color.Inherit"
                        OnClick="ToggleDrawer" />
 
@@ -112,8 +110,8 @@
         <MudSpacer />
 
         <MudButton Variant="Variant.Filled"
+                   OnClick="OpenCreateDialog"
                    Color="Color.Secondary"
-                   Disabled="IsLocked"
                    StartIcon="@Icons.Material.Filled.Add">
             New Entry
         </MudButton>
@@ -122,17 +120,17 @@
                        Color="Color.Inherit"
                        OnClick="ToggleTheme" />
 
-        <MudMenu AnchorOrigin="Origin.BottomRight" Disabled="IsLocked">
+        <MudMenu AnchorOrigin="Origin.BottomRight">
             <ActivatorContent>
                 <MudButton Variant="Variant.Text"
                            Color="Color.Inherit"
                            EndIcon="@Icons.Material.Filled.KeyboardArrowDown">
                     <MudAvatar Icon="@Icons.Material.Filled.Person" Size="Size.Small" Class="mr-2" />
-                    ANURODH PRASAIN
+                    @_currentUsername.ToUpper()
                 </MudButton>
             </ActivatorContent>
             <ChildContent>
-                <MudMenuItem Color="Color.Error">Logout</MudMenuItem>
+                <MudMenuItem Color="Color.Error" OnClick="Logout">Logout</MudMenuItem>
             </ChildContent>
         </MudMenu>
 
@@ -147,6 +145,24 @@
 @code {
     private bool _drawerOpen = true;
     private bool _isDarkMode = false;
+    private string _currentUsername = "";
+
+    protected override void OnInitialized()
+    {
+        _currentUsername = UserPreferences.GetUsername();
+        UserPreferences.OnUsernameChanged += OnUsernameChanged;
+    }
+
+    private void OnUsernameChanged()
+    {
+        _currentUsername = UserPreferences.GetUsername();
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        UserPreferences.OnUsernameChanged -= OnUsernameChanged;
+    }
 
     private MudTheme _myCustomTheme = new MudTheme()
     {   
@@ -235,8 +251,8 @@
             Icon = Icons.Material.Filled.Settings,
             Children = new List<NavItem>
             {
-                new NavItem { Title = "Users", Href = "/users", Icon = Icons.Material.Filled.Person },
-                new NavItem { Title = "Security", Href = "/security", Icon = Icons.Material.Filled.Security }
+                new NavItem { Title = "Profile", Href = "/settings/users", Icon = Icons.Material.Filled.Person },
+                new NavItem { Title = "Security", Href = "/settings/security", Icon = Icons.Material.Filled.Security }
             }
         }
     };
@@ -248,14 +264,35 @@
     {
         await JS.InvokeVoidAsync("history.back");
     }
+    
     private async Task GoNext()
     {
         await JS.InvokeVoidAsync("history.forward");
     }
 
-    private bool IsLocked =>
-    Navigation.Uri.EndsWith("/") ||
-    Navigation.Uri.Contains("/pin");
+    private async Task OpenCreateDialog()
+    {
+        var options = new DialogOptions
+        {
+            CloseOnEscapeKey = true,
+            MaxWidth = MaxWidth.Medium,
+            FullWidth = true
+        };
 
-   
+        // var dialog = await DialogService.ShowAsync<CreateJournalDialog>("Create New Journal", options);
+        // var result = await dialog.Result;
+
+        // if (!result.Canceled && result.Data is Journal model)
+        // {
+        //     JournalService.CreateJournal(model);
+        //     LoadJournals();
+        // }
+    }
+
+    private void Logout()
+    {
+        // TODO: Implement logout logic
+        // Clear user session/preferences
+        Navigation.NavigateTo("/login", true);
+    }
 }

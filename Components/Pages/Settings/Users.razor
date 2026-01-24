@@ -1,0 +1,161 @@
+﻿@page "/settings/users"
+
+<MudContainer MaxWidth="MaxWidth.Medium" Class="mt-4">
+    <MudText Typo="Typo.h4" Class="mb-4">Profile Settings</MudText>
+
+    <MudPaper Class="pa-4">
+        <MudForm @ref="_form" @bind-IsValid="@_isValid">
+            <MudText Typo="Typo.h6" Class="mb-4">Update Your Profile</MudText>
+
+            <MudTextField @bind-Value="_fullName"
+                          Label="Full Name"
+                          Variant="Variant.Outlined"
+                          Required="true"
+                          RequiredError="Full name is required"
+                          Validation="@(new Func<string, string>(ValidateFullName))"
+                          Class="mb-4"
+                          Adornment="Adornment.Start"
+                          AdornmentIcon="@Icons.Material.Filled.Person" />
+
+            <MudTextField @bind-Value="_username"
+                          Label="Username"
+                          Variant="Variant.Outlined"
+                          Required="true"
+                          RequiredError="Username is required"
+                          Validation="@(new Func<string, string>(ValidateUsername))"
+                          Class="mb-4"
+                          Adornment="Adornment.Start"
+                          AdornmentIcon="@Icons.Material.Filled.AccountCircle" />
+
+            <MudTextField @bind-Value="_email"
+                          Label="Email"
+                          Variant="Variant.Outlined"
+                          Required="true"
+                          RequiredError="Email is required"
+                          Validation="@(new Func<string, string>(ValidateEmail))"
+                          InputType="InputType.Email"
+                          Class="mb-4"
+                          Adornment="Adornment.Start"
+                          AdornmentIcon="@Icons.Material.Filled.Email" />
+
+            <MudStack Row="true" Justify="Justify.FlexEnd" Spacing="2">
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Default"
+                           OnClick="Cancel">
+                    Cancel
+                </MudButton>
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           OnClick="SaveProfile"
+                           Disabled="@(!_isValid || _isSaving)">
+                    @if (_isSaving)
+                    {
+                        <MudProgressCircular Size="Size.Small" Indeterminate="true" />
+                        <MudText Class="ml-2">Saving...</MudText>
+                    }
+                    else
+                    {
+                        <text>Save Changes</text>
+                    }
+                </MudButton>
+            </MudStack>
+        </MudForm>
+    </MudPaper>
+</MudContainer>
+
+@code {
+    private MudForm _form = null!;
+    private bool _isValid;
+    private bool _isSaving;
+    private string _fullName = "John Doe";
+    private string _username = "johndoe";
+    private string _email = "john.doe@example.com";
+
+    private string? ValidateFullName(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            return "Full name is required";
+        }
+
+        if (name.Length < 5)
+        {
+            return "Full name must be at least 5 characters long";
+        }
+
+        if (name.Length > 50)
+        {
+            return "Full name must be less than 50 characters";
+        }
+
+        if (!System.Text.RegularExpressions.Regex.IsMatch(name, @"^[a-zA-Z\s]+$"))
+        {
+            return "Full name can contain only letters and spaces";
+        }
+
+        return null;
+    }
+
+    private string? ValidateUsername(string username)
+    {
+        if (string.IsNullOrWhiteSpace(username))
+        {
+            return "Username is required";
+        }
+
+        if (username.Length < 3)
+        {
+            return "Username must be at least 3 characters long";
+        }
+
+        if (username.Length > 20)
+        {
+            return "Username must be less than 20 characters";
+        }
+
+        return null;
+    }
+
+    private string? ValidateEmail(string email)
+    {
+        if (string.IsNullOrWhiteSpace(email))
+        {
+            return "Email is required";
+        }
+
+        var emailRegex = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+        if (!System.Text.RegularExpressions.Regex.IsMatch(email, emailRegex))
+        {
+            return "Please enter a valid email address";
+        }
+
+        return null;
+    }
+
+    private async Task SaveProfile()
+    {
+        await _form.Validate();
+
+        if (!_isValid)
+            return;
+
+        _isSaving = true;
+        StateHasChanged();
+
+        // Simulate a brief delay for better UX
+        await Task.Delay(1000);
+
+        _isSaving = false;
+        StateHasChanged();
+
+        // TODO: Implement save logic
+    }
+
+    private void Cancel()
+    {
+        // Reset to original values
+        _fullName = "John Doe";
+        _username = "johndoe";
+        _email = "john.doe@example.com";
+    }
+}
