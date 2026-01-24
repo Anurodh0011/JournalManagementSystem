@@ -120,19 +120,25 @@
                        Color="Color.Inherit"
                        OnClick="ToggleTheme" />
 
-        <MudMenu AnchorOrigin="Origin.BottomRight">
-            <ActivatorContent>
-                <MudButton Variant="Variant.Text"
-                           Color="Color.Inherit"
-                           EndIcon="@Icons.Material.Filled.KeyboardArrowDown">
-                    <MudAvatar Icon="@Icons.Material.Filled.Person" Size="Size.Small" Class="mr-2" />
-                    @_currentUsername.ToUpper()
-                </MudButton>
-            </ActivatorContent>
-            <ChildContent>
-                <MudMenuItem Color="Color.Error" OnClick="Logout">Logout</MudMenuItem>
-            </ChildContent>
-        </MudMenu>
+        <MudMenu AnchorOrigin="Origin.BottomRight"
+         TransformOrigin="Origin.TopRight">
+    <ActivatorContent>
+        <MudButton Variant="Variant.Text"
+                   Color="Color.Inherit"
+                   EndIcon="@Icons.Material.Filled.KeyboardArrowDown">
+            <MudAvatar Icon="@Icons.Material.Filled.Person"
+                       Size="Size.Small"
+                       Class="mr-2" />
+            @_currentUsername.ToUpper()
+        </MudButton>
+    </ActivatorContent>
+
+    <ChildContent>
+        <MudMenuItem Color="Color.Error" OnClick="Logout">
+            Logout
+        </MudMenuItem>
+    </ChildContent>
+</MudMenu>
 
     </MudAppBar>
 
