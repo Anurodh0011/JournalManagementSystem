@@ -30,7 +30,7 @@
     <AppXManifest Include="C:\Users\anuro\OneDrive\Desktop\NewJMS\JournalManagementSystem\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2026-01-24T14:29:05.418</Modified>
+      <Modified>2026-01-24T15:02:56.266</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
@@ -44,11 +44,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\NewJMS\JournalManagementSystem\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\JournalManagementSystem.dll">
       <PackagePath>JournalManagementSystem.dll</PackagePath>
-      <Modified>2026-01-24T14:29:05.024</Modified>
+      <Modified>2026-01-24T15:02:55.850</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\NewJMS\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\apphost.exe">
       <PackagePath>JournalManagementSystem.exe</PackagePath>
-      <Modified>2026-01-24T14:29:05.038</Modified>
+      <Modified>2026-01-24T15:02:55.855</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\NewJMS\JournalManagementSystem\Resources\Raw\AboutAssets.txt">
       <PackagePath>AboutAssets.txt</PackagePath>

@@ -8,7 +8,6 @@ public interface IUserPreferencesService
     void SetUsername(string username);
     event Action? OnUsernameChanged;
 }
-
 public class UserPreferencesService : IUserPreferencesService
 {
     public event Action? OnUsernameChanged;
