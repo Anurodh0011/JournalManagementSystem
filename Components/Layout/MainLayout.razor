@@ -1,10 +1,10 @@
 ﻿@inherits LayoutComponentBase
+@using JournalManagementSystem.Model
 @using MudBlazor
 @using JournalManagementSystem.Services
 @inject NavigationManager Navigation
 @inject IJSRuntime JS
-@inject IUserPreferencesService UserPreferences
-@implements IDisposable
+@inject UserSessionService Session
 
 <MudThemeProvider Theme="_myCustomTheme" IsDarkMode="_isDarkMode" />
 <MudDialogProvider />
@@ -151,23 +151,14 @@
 @code {
     private bool _drawerOpen = true;
     private bool _isDarkMode = false;
-    private string _currentUsername = "";
+
+    private UserDisplayModel? CurrentUser;
+    private string _currentUsername;
 
     protected override void OnInitialized()
     {
-        _currentUsername = UserPreferences.GetUsername();
-        UserPreferences.OnUsernameChanged += OnUsernameChanged;
-    }
-
-    private void OnUsernameChanged()
-    {
-        _currentUsername = UserPreferences.GetUsername();
-        StateHasChanged();
-    }
-
-    public void Dispose()
-    {
-        UserPreferences.OnUsernameChanged -= OnUsernameChanged;
+        CurrentUser = Session.GetCurrentUser();
+        _currentUsername = CurrentUser?.Name;
     }
 
     private MudTheme _myCustomTheme = new MudTheme()
@@ -251,6 +242,7 @@
         new NavItem { Title = "Dashboard", Href = "/dashboard", Icon = Icons.Material.Filled.Dashboard },
         new NavItem { Title = "Journals", Href = "/journals", Icon = Icons.Material.Filled.MenuBook },
         new NavItem { Title = "Calendar", Href = "/calendar", Icon = Icons.Material.Filled.CalendarMonth },
+        new NavItem { Title = "Calendar", Href = "/add", Icon = Icons.Material.Filled.CalendarMonth },
         new NavItem
         {
             Title = "Settings",

@@ -2,118 +2,213 @@
 @layout MainLayout
 @using JournalManagementSystem.Entities
 @using JournalManagementSystem.Services
-@inject IDialogService DialogService
+@using JournalManagementSystem.Model
 @inject IJournalService JournalService
+@inject UserSessionService UserSession
 @inject NavigationManager Navigation
+@inject ISnackbar Snackbar
 
-<MudContainer MaxWidth="MaxWidth.Large" Class="mt-4">
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4">
     <MudText Typo="Typo.h4" Class="mb-4">My Journals</MudText>
 
-    <MudButton Variant="Variant.Filled"
-               Color="Color.Primary"
-               OnClick="OpenCreateDialog"
-               StartIcon="@Icons.Material.Filled.Add"
-               Class="mb-4">
-        Create New Journal
-    </MudButton>
-
-    @if (!_journals.Any())
+    @if (!UserSession.IsLoggedIn)
     {
         <MudPaper Class="pa-4 mt-4">
             <MudText Typo="Typo.body1" Align="Align.Center">
-                No journals yet. Create your first journal to get started!
+                Please login to view your journals.
             </MudText>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@(() => Navigation.NavigateTo("/login"))" Class="mt-2">
+                Login
+            </MudButton>
         </MudPaper>
     }
     else
     {
-        <MudGrid>
-            @foreach (var journal in _journals)
-            {
-                <MudItem xs="12" sm="6" md="4">
-                    <MudCard Class="cursor-pointer" @onclick="@(() => ViewJournal(journal.Id))">
-                        <MudCardContent>
-                            <MudText Typo="Typo.h6">@journal.Title</MudText>
-                            <MudText Typo="Typo.body2" Class="mt-2">
-                                @((MarkupString)TruncateHtml(journal.DescriptionHtml, 100))
-                            </MudText>
-                            <MudChip T="string" Size="Size.Small" Color="Color.Primary" Class="mt-2">
-                                @journal.PrimaryMood
-                            </MudChip>
-                            @foreach (var mood in journal.SecondaryMoods)
+        <MudButton Variant="Variant.Filled"
+                   Color="Color.Primary"
+                   OnClick="@(() => Navigation.NavigateTo("/add"))"
+                   StartIcon="@Icons.Material.Filled.Add"
+                   Class="mb-4">
+            Create New Journal
+        </MudButton>
+
+        @if (!_journals.Any())
+        {
+            <MudPaper Class="pa-4 mt-4">
+                <MudText Typo="Typo.body1" Align="Align.Center">
+                    No journals yet. Create your first journal to get started!
+                </MudText>
+            </MudPaper>
+        }
+        else
+        {
+            <MudTable Items="_journals" Hover="true" Breakpoint="Breakpoint.Sm" Dense="true">
+                <HeaderContent>
+                    <MudTh>Title</MudTh>
+                    <MudTh>Created Date</MudTh>
+                    <MudTh>Primary Mood</MudTh>
+                    <MudTh>Secondary Moods</MudTh>
+                    <MudTh>Tags</MudTh>
+                    <MudTh>Word Count</MudTh>
+                    <MudTh>Actions</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Title">@context.Title</MudTd>
+                    <MudTd DataLabel="Created Date">@context.CreatedAt.ToString("MMM dd, yyyy")</MudTd>
+                    <MudTd DataLabel="Primary Mood">
+                        <MudChip T="string" Size="Size.Small" Color="Color.Primary">
+                            @context.PrimaryMood
+                        </MudChip>
+                    </MudTd>
+                    <MudTd DataLabel="Secondary Moods">
+                        @if (context.SecondaryMoods != null && context.SecondaryMoods.Any())
+                        {
+                            @foreach (var mood in context.SecondaryMoods)
                             {
-                                <MudChip T="string" Size="Size.Small" Color="Color.Secondary">
+                                <MudChip T="string" Size="Size.Small" Color="Color.Secondary" Class="mr-1">
                                     @mood
                                 </MudChip>
                             }
-                        </MudCardContent>
-                        <MudCardActions>
-                            <MudText Typo="Typo.caption" Class="ml-2">
-                                @journal.CreatedAt.ToString("MMM dd, yyyy")
-                            </MudText>
-                        </MudCardActions>
-                    </MudCard>
-                </MudItem>
-            }
-        </MudGrid>
+                        }
+                        else
+                        {
+                            <MudText Typo="Typo.caption">-</MudText>
+                        }
+                    </MudTd>
+                    <MudTd DataLabel="Tags">
+                        @if (context.Tags != null && context.Tags.Any())
+                        {
+                            @foreach (var tag in context.Tags)
+                            {
+                                <MudChip T="string" Size="Size.Small" Color="Color.Info" Variant="Variant.Outlined" Class="mr-1">
+                                    @tag
+                                </MudChip>
+                            }
+                        }
+                        else
+                        {
+                            <MudText Typo="Typo.caption">-</MudText>
+                        }
+                    </MudTd>
+                    <MudTd DataLabel="Word Count">@context.WordCount</MudTd>
+                    <MudTd DataLabel="Actions">
+                        <MudIconButton Icon="@Icons.Material.Filled.Visibility"
+                                       Color="Color.Info"
+                                       Size="Size.Small"
+                                       OnClick="@(() => ViewJournal(context.JournalId))"
+                                       Title="View" />
+                        <MudIconButton Icon="@Icons.Material.Filled.Edit"
+                                       Color="Color.Warning"
+                                       Size="Size.Small"
+                                       OnClick="@(() => EditJournal(context.JournalId))"
+                                       Title="Edit" />
+                        <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                       Color="Color.Error"
+                                       Size="Size.Small"
+                                       OnClick="@(() => DeleteJournal(context.JournalId))"
+                                       Title="Delete" />
+                    </MudTd>
+                </RowTemplate>
+            </MudTable>
+        }
     }
 </MudContainer>
 
-@code {
-    private List<Journal> _journals = new();
-
-    protected override void OnInitialized()
-    {
-        LoadJournals();
-    }
-
-    private void LoadJournals()
-    {
-        _journals = JournalService.GetAllJournals();
-    }
-
-    private async Task OpenCreateDialog()
-    {
-        var options = new DialogOptions
-        {
-            CloseOnEscapeKey = true,
-            MaxWidth = MaxWidth.Medium,
-            FullWidth = true
-        };
-
-        var dialog = await DialogService.ShowAsync<CreateJournalDialog>("Create New Journal", options);
-        var result = await dialog.Result;
-
-        if (!result.Canceled && result.Data is Journal model)
-        {
-            JournalService.CreateJournal(model);
-            LoadJournals();
-        }
-    }
-
-    private void ViewJournal(Guid id)
-    {
-        Navigation.NavigateTo($"/journals/{id}");
-    }
-
-    private string TruncateHtml(string html, int maxLength)
-    {
-        var text = System.Text.RegularExpressions.Regex.Replace(html, "<.*?>", string.Empty);
-        if (text.Length <= maxLength)
-            return text;
-
-        return text.Substring(0, maxLength) + "...";
-    }
+@* Delete Confirmation Dialog *@
+@if (showDeleteConfirm)
+{
+    <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 9999;">
+        <MudPaper Class="pa-6" Style="max-width: 500px; width: 90%;">
+            <MudStack Spacing="3" AlignItems="AlignItems.Center">
+                <MudIcon Icon="@Icons.Material.Filled.Warning"
+                         Color="Color.Error"
+                         Size="Size.Large"
+                         Style="font-size: 4rem;" />
+                <MudText Typo="Typo.h6" Align="Align.Center">
+                    Are you sure?
+                </MudText>
+                <MudText Typo="Typo.body1" Align="Align.Center">
+                    Do you really want to delete this journal?
+                </MudText>
+                <MudText Typo="Typo.body2" Align="Align.Center" Color="Color.Error">
+                    This action cannot be undone.
+                </MudText>
+                <MudStack Row="true" Spacing="2" Class="mt-4">
+                    <MudButton OnClick="CancelDelete"
+                               Variant="Variant.Outlined"
+                               Color="Color.Default">
+                        Cancel
+                    </MudButton>
+                    <MudButton Color="Color.Error"
+                               Variant="Variant.Filled"
+                               OnClick="ConfirmDelete"
+                               StartIcon="@Icons.Material.Filled.Delete">
+                        Delete
+                    </MudButton>
+                </MudStack>
+            </MudStack>
+        </MudPaper>
+    </div>
 }
 
-<style>
-    .cursor-pointer {
-        cursor: pointer;
+@code {
+    private List<JournalDisplayModel> _journals = new();
+    private bool showDeleteConfirm = false;
+    private int journalToDeleteId = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (UserSession.IsLoggedIn)
+        {
+            await LoadJournalsAsync();
+        }
     }
 
-        .cursor-pointer:hover {
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            transform: translateY(-2px);
-            transition: all 0.3s ease;
+    private async Task LoadJournalsAsync()
+    {
+        var userId = UserSession.CurrentUser!.Id;
+        var result = await JournalService.GetAllJournalsByUserAsync(userId, 1, 1000);
+        _journals = result.Journals;
+    }
+
+    private void ViewJournal(int journalId)
+    {
+        Navigation.NavigateTo($"/journals/{journalId}");
+    }
+
+    private void EditJournal(int journalId)
+    {
+        Navigation.NavigateTo($"/edit/{journalId}");
+    }
+
+    private void DeleteJournal(int journalId)
+    {
+        journalToDeleteId = journalId;
+        showDeleteConfirm = true;
+    }
+
+    private void CancelDelete()
+    {
+        showDeleteConfirm = false;
+        journalToDeleteId = 0;
+    }
+
+    private async Task ConfirmDelete()
+    {
+        var userId = UserSession.CurrentUser!.Id;
+        var success = await JournalService.DeleteJournalAsync(userId, journalToDeleteId);
+
+        if (success)
+        {
+            Snackbar.Add("Journal deleted successfully", Severity.Success);
+            await LoadJournalsAsync();
         }
-</style>
+        else
+        {
+            Snackbar.Add("Failed to delete journal", Severity.Error);
+        }
+
+        showDeleteConfirm = false;
+        journalToDeleteId = 0;
+    }
+}

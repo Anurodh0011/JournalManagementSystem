@@ -1,8 +1,11 @@
-﻿@page "/journals/{id:guid}"
+﻿@page "/journals/{Id:int}"
 @layout MainLayout
-@using JournalManagementSystem.Entities
+
+@using JournalManagementSystem.Model
 @using JournalManagementSystem.Services
+
 @inject IJournalService JournalService
+@inject UserSessionService Session
 @inject NavigationManager Navigation
 
 <MudContainer MaxWidth="MaxWidth.Medium" Class="mt-4">
@@ -16,31 +19,18 @@
     else
     {
         <MudStack Row="true" Justify="Justify.SpaceBetween" Class="mb-4">
-            <MudButton OnClick="@(() => Navigation.NavigateTo("/calendar"))"
-                       StartIcon="@Icons.Material.Filled.CalendarToday"
-                       Variant="Variant.Text">
+            <MudButton OnClick="@(() => Navigation.NavigateTo("/calendar"))" StartIcon="@Icons.Material.Filled.CalendarToday" Variant="Variant.Text">
                 Back to Calendar
             </MudButton>
-            <MudButton OnClick="@(() => Navigation.NavigateTo("/journals"))"
-                       StartIcon="@Icons.Material.Filled.List"
-                       Variant="Variant.Text">
+            <MudButton OnClick="@(() => Navigation.NavigateTo("/journals"))" StartIcon="@Icons.Material.Filled.List" Variant="Variant.Text">
                 All Journals
             </MudButton>
         </MudStack>
 
         <MudPaper Class="pa-4">
             <MudText Typo="Typo.h4" Class="mb-2">@_journal.Title</MudText>
-
             <MudText Typo="Typo.h6" Color="Color.Primary" Class="mb-2">
-                @_journal.Date.ToString("dddd, MMMM dd, yyyy")
-            </MudText>
-
-            <MudText Typo="Typo.caption" Class="mb-4">
-                Created: @_journal.CreatedAt.ToString("hh:mm tt")
-                @if (_journal.UpdatedAt.HasValue)
-                {
-                    <text> | Updated: @_journal.UpdatedAt.Value.ToString("MMMM dd, yyyy 'at' hh:mm tt")</text>
-                }
+                @_journal.CreatedAt.ToString("dddd, MMMM dd, yyyy")
             </MudText>
 
             <MudDivider Class="mb-4" />
@@ -50,7 +40,7 @@
                 @_journal.PrimaryMood
             </MudChip>
 
-            @if (_journal.SecondaryMoods.Any())
+            @if (_journal.SecondaryMoods != null && _journal.SecondaryMoods.Any())
             {
                 <MudText Typo="Typo.subtitle2" Class="mb-2">Secondary Moods</MudText>
                 <div class="mb-4">
@@ -63,7 +53,7 @@
                 </div>
             }
 
-            @if (_journal.Tags.Any())
+            @if (_journal.Tags != null && _journal.Tags.Any())
             {
                 <MudText Typo="Typo.subtitle2" Class="mb-2">Tags</MudText>
                 <div class="mb-4">
@@ -80,21 +70,27 @@
 
             <MudText Typo="Typo.subtitle2" Class="mb-2">Description</MudText>
             <div class="journal-content">
-                @((MarkupString)_journal.DescriptionHtml)
+                @((MarkupString)_journal.Description)
             </div>
         </MudPaper>
     }
 </MudContainer>
 
 @code {
-    [Parameter]
-    public Guid Id { get; set; }
+    [Parameter] public int Id { get; set; }
+    private JournalDisplayModel? _journal;
 
-    private Journal? _journal;
-
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        _journal = JournalService.GetJournalById(Id);
+        if (Session.CurrentUser == null)
+        {
+            Navigation.NavigateTo("/login");
+            return;
+        }
+
+        // Fetch the journal by Id for the current user
+        var (journals, _) = await JournalService.GetAllJournalsByUserAsync(Session.CurrentUser.Id, 1, 1000);
+        _journal = journals.FirstOrDefault(j => j.JournalId == Id);
     }
 }
 
