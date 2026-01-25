@@ -1,8 +1,7 @@
-﻿using JournalApplicaton.Common;
+﻿using JournalManagementSystem.Common;
 using JournalManagementSystem.Model;
 
 namespace JournalManagementSystem.Services;
-
 public interface IUserService
 {
     Task<ServiceResult<UserDisplayModel>> RegisterUserAsync(UserViewModel viewModel);

@@ -20,7 +20,7 @@ public class UserViewModel
     [Required(ErrorMessage = "Password is required")]
     [RegularExpression(
         @"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$",
-        ErrorMessage = "Password must be 8+ chars with uppercase, lowercase, number & special char"
+        ErrorMessage = "Password must be atleast 8 characters with an uppercase, a lowercase, a number & a special character"
     )]
     public string Password { get; set; } = string.Empty;
 

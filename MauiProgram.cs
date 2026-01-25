@@ -23,10 +23,10 @@ namespace JournalManagementSystem
             builder.Services.AddBlazorWebViewDeveloperTools();
             builder.Logging.AddDebug();
             builder.Services.AddMudServices();
-            builder.Services.AddSingleton<IJournalService, JournalService>();
-            builder.Services.AddSingleton<IUserPreferencesService, UserPreferencesService>();
+            builder.Services.AddScoped<IJournalService, JournalService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddDbContext<AppDbContext>();
+            builder.Services.AddSingleton<UserSessionService>();
 
             var app = builder.Build();
 

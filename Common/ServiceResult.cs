@@ -1,4 +1,4 @@
-﻿namespace JournalApplicaton.Common;
+﻿namespace JournalManagementSystem.Common;
 public class ServiceResult<T>
 {
     public bool Success { get; set; }

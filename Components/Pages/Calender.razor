@@ -1,10 +1,12 @@
 ﻿@page "/calendar"
 @layout MainLayout
 @using JournalManagementSystem.Entities
+@using JournalManagementSystem.Model
 @using JournalManagementSystem.Services
 @inject IJournalService JournalService
 @inject IDialogService DialogService
 @inject NavigationManager Navigation
+@inject UserSessionService UserSession
 @inject ISnackbar Snackbar
 
 <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center" Class="">
@@ -13,8 +15,8 @@
                Color="Color.Primary"
                StartIcon="@Icons.Material.Filled.Add"
                OnClick="CreateTodayJournal"
-               Disabled="@_hasTodayJournal">
-        @(_hasTodayJournal ? "Today's Journal Created" : "Create Today's Journal")
+               Disabled="@_journalDates.Contains(DateTime.Today)">
+        @(_journalDates.Contains(DateTime.Today) ? "Today's Journal Created" : "Create Today's Journal")
     </MudButton>
 </MudStack>
 
@@ -22,21 +24,21 @@
     <MudItem xs="12" sm="4">
         <MudPaper Elevation="1" Class="pa-4">
             <MudText Typo="Typo.subtitle1" Class="mb-2">Current Streak</MudText>
-            <MudText Typo="Typo.h5" Color="Color.Primary">@_currentStreak days 🔥</MudText>
+            <MudText Typo="Typo.h5" Color="Color.Primary">2 🔥</MudText>
         </MudPaper>
     </MudItem>
 
     <MudItem xs="12" sm="4">
         <MudPaper Elevation="1" Class="pa-4">
             <MudText Typo="Typo.subtitle1" Class="mb-2">Longest Streak</MudText>
-            <MudText Typo="Typo.h5" Color="Color.Secondary">@_longestStreak days 🏆</MudText>
+            <MudText Typo="Typo.h5" Color="Color.Secondary">5🏆</MudText>
         </MudPaper>
     </MudItem>
 
     <MudItem xs="12" sm="4">
         <MudPaper Elevation="1" Class="pa-4">
             <MudText Typo="Typo.subtitle1" Class="mb-2">This Month</MudText>
-            <MudText Typo="Typo.h5" Color="Color.Info">@_journalsThisMonth entries 📝</MudText>
+            <MudText Typo="Typo.h5" Color="Color.Info">10 📝</MudText>
         </MudPaper>
     </MudItem>
 </MudGrid>
@@ -57,31 +59,30 @@
 
         <MudItem xs="12">
             <div class="calendar-grid">
-                @* day headers *@
+                @* Day headers *@
                 @foreach (var day in new[] { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" })
                 {
                     <div class="calendar-header">@day</div>
                 }
 
-                <!-- Empty cells before first day of month -->
+                @* Empty cells before first day of month *@
                 @for (int i = 0; i < (int)new DateTime(_currentMonth.Year, _currentMonth.Month, 1).DayOfWeek; i++)
                 {
                     <div class="calendar-cell empty"></div>
                 }
 
-                 @* Days of the month *@
+                @* Days of the month *@
                 @for (int day = 1; day <= DateTime.DaysInMonth(_currentMonth.Year, _currentMonth.Month); day++)
                 {
                     var date = new DateTime(_currentMonth.Year, _currentMonth.Month, day);
-                    var hasJournal = HasJournalForDate(date);
+                    var hasJournal = _journalDates.Contains(date.Date);
                     var isToday = date.Date == DateTime.Today;
                     var isFuture = date.Date > DateTime.Today;
-                    var dayNumber = day;
 
                     <div class="calendar-cell @(hasJournal ? "has-journal" : "") @(isToday ? "today" : "") @(isFuture ? "future" : "")"
                          @onclick="@(() => OnDayClicked(date))"
                          style="@(isFuture ? "cursor: not-allowed; opacity: 0.5;" : "cursor: pointer;")">
-                        <div class="day-number">@dayNumber</div>
+                        <div class="day-number">@day</div>
                         @if (hasJournal)
                         {
                             <MudIcon Icon="@Icons.Material.Filled.CheckCircle"
@@ -96,123 +97,218 @@
     </MudGrid>
 </MudPaper>
 
+@* Modal for creating/editing journal *@
+<MudDialog @bind-IsVisible="showJournalModal" Options="dialogOptions">
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            @(selectedDate.Date == DateTime.Today ? "Today's Journal" : $"Journal for {selectedDate.ToString("MMMM dd, yyyy")}")
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudForm>
+            <MudTextField @bind-Value="journalTitle"
+                          Label="Title"
+                          Required="true"
+                          Variant="Variant.Outlined"
+                          Class="mb-3" />
 
+            <MudTextField @bind-Value="journalContent"
+                          Label="Content"
+                          Required="true"
+                          Lines="5"
+                          Variant="Variant.Outlined"
+                          Class="mb-3" />
+
+            <MudSelect @bind-Value="journalPrimaryMood"
+                       Label="Primary Mood"
+                       Required="true"
+                       Variant="Variant.Outlined"
+                       Class="mb-3">
+                <MudSelectItem Value="@("Happy")">Happy</MudSelectItem>
+                <MudSelectItem Value="@("Sad")">Sad</MudSelectItem>
+                <MudSelectItem Value="@("Anxious")">Anxious</MudSelectItem>
+                <MudSelectItem Value="@("Calm")">Calm</MudSelectItem>
+                <MudSelectItem Value="@("Excited")">Excited</MudSelectItem>
+                <MudSelectItem Value="@("Angry")">Angry</MudSelectItem>
+                <MudSelectItem Value="@("Grateful")">Grateful</MudSelectItem>
+                <MudSelectItem Value="@("Stressed")">Stressed</MudSelectItem>
+            </MudSelect>
+
+            <MudTextField @bind-Value="secondaryMoodInput"
+                          Label="Secondary Moods (comma-separated, max 2)"
+                          Variant="Variant.Outlined"
+                          Class="mb-3" />
+
+            <MudTextField @bind-Value="tagsInput"
+                          Label="Tags (comma-separated)"
+                          Variant="Variant.Outlined"
+                          Class="mb-3" />
+
+            @if (!string.IsNullOrEmpty(formMessage))
+            {
+                <MudAlert Severity="@(formMessageType == "success" ? Severity.Success : Severity.Error)" Class="mb-3">
+                    @formMessage
+                </MudAlert>
+            }
+        </MudForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="CloseModal" Color="Color.Default">Cancel</MudButton>
+        <MudButton OnClick="SaveJournal" Color="Color.Primary" Variant="Variant.Filled">Save</MudButton>
+    </DialogActions>
+</MudDialog>
 
 @code {
     private DateTime _currentMonth = DateTime.Today;
-    private bool _hasTodayJournal;
-    private int _currentStreak;
-    private int _longestStreak;
-    private int _journalsThisMonth;
+    private DateTime selectedDate;
+    private bool showJournalModal = false;
+
+    private string journalTitle = "";
+    private string journalContent = "";
+    private string journalPrimaryMood = "";
+
+    private List<string> journalSecondaryMoods = new();
+    private List<string> journalTags = new();
+
+    private string secondaryMoodInput = "";
+    private string tagsInput = "";
+
+    private string formMessage = "";
+    private string formMessageType = "danger";
+
     private HashSet<DateTime> _journalDates = new();
+    private Dictionary<DateTime, int> _journalIdMap = new();
 
-    protected override void OnInitialized()
+    private DialogOptions dialogOptions = new DialogOptions()
     {
-        LoadCalendarData();
+        MaxWidth = MaxWidth.Medium,
+        FullWidth = true,
+        CloseButton = true,
+        BackdropClick = false
+    };
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!UserSession.IsLoggedIn)
+        {
+            Navigation.NavigateTo("/login");
+            return;
+        }
+
+        await LoadCalendarData();
     }
 
-    private void LoadCalendarData()
+    private async Task LoadCalendarData()
     {
-        _hasTodayJournal = JournalService.HasJournalForDate(DateTime.Today);
-        _currentStreak = JournalService.GetCurrentStreak();
-        _longestStreak = JournalService.GetLongestStreak();
-
-        // Get all journal dates for the current month
-        var journals = JournalService.GetAllJournals();
-        _journalDates = journals.Select(j => j.Date.Date).ToHashSet();
-
-        _journalsThisMonth = journals.Count(j =>
-            j.Date.Year == _currentMonth.Year &&
-            j.Date.Month == _currentMonth.Month);
-    }
-
-    private bool HasJournalForDate(DateTime date)
-    {
-        return _journalDates.Contains(date.Date);
+        var allJournals = await JournalService.GetAllJournalsByUserAsync(UserSession.CurrentUser!.Id, 1, 10000);
+        _journalDates = allJournals.Journals.Select(j => j.CreatedAt.Date).ToHashSet();
+        _journalIdMap = allJournals.Journals.ToDictionary(j => j.CreatedAt.Date, j => j.JournalId);
     }
 
     private async Task OnDayClicked(DateTime date)
     {
-        // Don't allow clicking on future dates
         if (date.Date > DateTime.Today)
         {
-            Snackbar.Add("You cannot create journal entries for future dates.", Severity.Warning);
+            Snackbar.Add("Cannot create journal for future dates.", Severity.Warning);
             return;
         }
 
-        var journal = JournalService.GetJournalByDate(date);
-
-        if (journal != null)
+        // If journal exists for this date, redirect to detail page
+        if (_journalDates.Contains(date.Date))
         {
-            // Navigate to journal detail page
-            Navigation.NavigateTo($"/journals/{journal.Id}");
-        }
-        else
-        {
-            // Ask user if they want to create a journal for this date
-            var result = await DialogService.ShowMessageBox(
-                "No Journal Entry",
-                $"No journal entry exists for {date:MMMM dd, yyyy}. Would you like to create one?",
-                yesText: "Create",
-                cancelText: "Cancel");
-
-            if (result == true)
+            if (_journalIdMap.TryGetValue(date.Date, out int journalId))
             {
-                await OpenCreateDialogForDate(date);
+                Navigation.NavigateTo($"/journals/{journalId}");
             }
+            return;
         }
+
+        // If no journal exists, open modal to create one
+        selectedDate = date;
+
+        journalTitle = "";
+        journalContent = "";
+        journalPrimaryMood = "";
+        journalSecondaryMoods = new();
+        journalTags = new();
+        secondaryMoodInput = "";
+        tagsInput = "";
+        formMessage = "";
+
+        showJournalModal = true;
     }
 
-    private async Task CreateTodayJournal()
+    private void CloseModal()
     {
-        await OpenCreateDialogForDate(DateTime.Today);
+        showJournalModal = false;
+        formMessage = "";
     }
 
-    private async Task OpenCreateDialogForDate(DateTime date)
+    private async Task SaveJournal()
     {
-        var options = new DialogOptions
+        if (string.IsNullOrWhiteSpace(journalTitle) || string.IsNullOrWhiteSpace(journalContent))
         {
-            CloseOnEscapeKey = true,
-            MaxWidth = MaxWidth.Medium,
-            FullWidth = true
-        };
-
-        var parameters = new DialogParameters<CreateJournalDialog>
-        {
-            { x => x.SelectedDate, date }
-        };
-
-        var dialog = await DialogService.ShowAsync<CreateJournalDialog>(
-            $"Create Journal for {date:MMMM dd, yyyy}",
-            parameters,
-            options);
-        var result = await dialog.Result;
-
-        if (!result.Canceled && result.Data is Journal model)
-        {
-            try
-            {
-                JournalService.CreateJournal(model);
-                LoadCalendarData();
-                Snackbar.Add("Journal entry created successfully!", Severity.Success);
-            }
-            catch (InvalidOperationException ex)
-            {
-                Snackbar.Add(ex.Message, Severity.Error);
-            }
+            formMessage = "Title and content are required.";
+            formMessageType = "danger";
+            return;
         }
+
+        if (string.IsNullOrWhiteSpace(journalPrimaryMood))
+        {
+            formMessage = "Primary mood is required.";
+            formMessageType = "danger";
+            return;
+        }
+
+        journalSecondaryMoods = secondaryMoodInput
+            .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            .Take(2)
+            .ToList();
+
+        journalTags = tagsInput
+            .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            .ToList();
+
+        var model = new JournalViewModel
+        {
+            CreatedAt = selectedDate,
+            Title = journalTitle,
+            Description = journalContent,
+            PrimaryMood = journalPrimaryMood,
+            SecondaryMoods = journalSecondaryMoods,
+            Tags = journalTags
+        };
+
+        var result = await JournalService.AddOrUpdateJournalAsync(UserSession.CurrentUser!.Id, model);
+
+        if (!result.Success)
+        {
+            formMessage = result.ErrorMessage!;
+            formMessageType = "danger";
+            return;
+        }
+
+        Snackbar.Add("Journal saved successfully!", Severity.Success);
+
+        // Reload calendar data to update the UI
+        await LoadCalendarData();
+
+        CloseModal();
+    }
+
+    private void CreateTodayJournal()
+    {
+        Navigation.NavigateTo("/add");
     }
 
     private void PreviousMonth()
     {
         _currentMonth = _currentMonth.AddMonths(-1);
-        LoadCalendarData();
     }
 
     private void NextMonth()
     {
         _currentMonth = _currentMonth.AddMonths(1);
-        LoadCalendarData();
     }
 }
 

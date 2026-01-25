@@ -2,8 +2,7 @@
 using JournalManagementSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using JournalManagementSystem.Entities;
-using JournalApplicaton.Common;
-
+using JournalManagementSystem.Common;
 namespace JournalManagementSystem.Services;
 
 public class UserService : IUserService
@@ -29,7 +28,7 @@ public class UserService : IUserService
     {
         try
         {
-            // 🔹 Check duplicate email
+            // check duplicate email
             bool emailExists = await _context.Users
                 .AnyAsync(u => u.Email == viewModel.Email);
 
@@ -39,7 +38,7 @@ public class UserService : IUserService
                     .FailureResult("Email already registered");
             }
 
-            // 🔹 Check duplicate username
+            // check duplicate username
             bool usernameExists = await _context.Users
                 .AnyAsync(u => u.Username == viewModel.Username);
 
@@ -49,10 +48,10 @@ public class UserService : IUserService
                     .FailureResult("Username already taken");
             }
 
-            // 🔹 Hash password using BCrypt
+            // hash password using BCrypt
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(viewModel.Password);
 
-            // 🔹 Map ViewModel → Entity
+            // map ViewModel to Entity
             var user = new User
             {
                 FullName = viewModel.Name,
@@ -64,7 +63,7 @@ public class UserService : IUserService
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            // 🔹 Map Entity → Display Model
+            // map Entity to Display Model
             var displayModel = new UserDisplayModel
             {
                 Id = user.Id,
@@ -109,7 +108,7 @@ public class UserService : IUserService
         {
             var users = await _context.Users.ToListAsync();
 
-            // ✅ Map entities to display models
+            // map entities to display models
             var displayModels = users.Select(MapToDisplayModel).ToList();
 
             return ServiceResult<List<UserDisplayModel>>.SuccessResult(displayModels);

@@ -1,170 +1,135 @@
-﻿using JournalManagementSystem.Entities;
+﻿using JournalManagementSystem.Data;
+using JournalManagementSystem.Entities;
+using JournalManagementSystem.Model;
+using JournalManagementSystem.Common;
+using Microsoft.EntityFrameworkCore;
 
 namespace JournalManagementSystem.Services;
 
-public interface IJournalService
-{
-    List<Journal> GetAllJournals();
-    Journal? GetJournalById(Guid id);
-    Journal? GetJournalByDate(DateTime date);
-    bool HasJournalForDate(DateTime date);
-    Journal CreateJournal(Journal model);
-    void UpdateJournal(Journal journal);
-    void DeleteJournal(Guid id);
-    int GetCurrentStreak();
-    int GetLongestStreak();
-    List<DateTime> GetMissedDays(DateTime startDate, DateTime endDate);
-}
-
 public class JournalService : IJournalService
 {
-    private readonly List<Journal> _journals = new();
+    private readonly AppDbContext _context;
 
-    public List<Journal> GetAllJournals()
+    public JournalService(AppDbContext context)
     {
-        return _journals.OrderByDescending(j => j.CreatedAt).ToList();
+        _context = context;
     }
 
-    public Journal? GetJournalById(Guid id)
+    public async Task<ServiceResult<Journal>> AddOrUpdateJournalAsync(int userId, JournalViewModel model)
     {
-        return _journals.FirstOrDefault(j => j.Id == id);
-    }
-
-    public Journal? GetJournalByDate(DateTime date)
-    {
-        var dateOnly = date.Date;
-        return _journals.FirstOrDefault(j => j.Date.Date == dateOnly);
-    }
-
-    public bool HasJournalForDate(DateTime date)
-    {
-        var dateOnly = date.Date;
-        return _journals.Any(j => j.Date.Date == dateOnly);
-    }
-
-    public Journal CreateJournal(Journal model)
-    {
-        var today = DateTime.Today;
-        // check if journal already exists for today
-        var existingJournal = GetJournalByDate(today);
-        if (existingJournal != null)
+        try
         {
-            throw new InvalidOperationException("A journal entry already exists for today. You can only create one journal per day.");
-        }
-        var journal = new Journal
-        {
-            Id = Guid.NewGuid(),
-            Title = model.Title,
-            DescriptionHtml = model.DescriptionHtml,
-            PrimaryMood = model.PrimaryMood,
-            SecondaryMoods = model.SecondaryMoods,
-            Tags = model.Tags,
-            Date = today,
-            CreatedAt = DateTime.Now
-        };
+            // Prevent future date
+            if (model.CreatedAt > DateTime.Today)
+                return ServiceResult<Journal>.FailureResult("Cannot create journal for future dates");
 
-        _journals.Add(journal);
-        return journal;
-    }
+            // Check if journal exists for this user & date
+            var journal = await _context.Journals
+                .FirstOrDefaultAsync(j => j.UserId == userId && j.CreatedAt.Date == model.CreatedAt.Date);
 
-    public void UpdateJournal(Journal journal)
-    {
-        var existingJournal = _journals.FirstOrDefault(j => j.Id == journal.Id);
-        if (existingJournal != null)
-        {
-            existingJournal.Title = journal.Title;
-            existingJournal.DescriptionHtml = journal.DescriptionHtml;
-            existingJournal.PrimaryMood = journal.PrimaryMood;
-            existingJournal.SecondaryMoods = journal.SecondaryMoods;
-            existingJournal.Tags = journal.Tags;
-            existingJournal.UpdatedAt = DateTime.Now;
-        }
-    }
-
-    public void DeleteJournal(Guid id)
-    {
-        var journal = _journals.FirstOrDefault(j => j.Id == id);
-        if (journal != null)
-        {
-            _journals.Remove(journal);
-        }
-    }
-
-    public int GetCurrentStreak()
-    {
-        if (!_journals.Any())
-            return 0;
-
-        var orderedJournals = _journals
-            .OrderByDescending(j => j.Date)
-            .Select(j => j.Date.Date)
-            .Distinct()
-            .ToList();
-
-        var today = DateTime.Today;
-        var streak = 0;
-
-        // check if there's a journal for today or yesterday
-        var currentDate = orderedJournals.Contains(today) ? today : today.AddDays(-1);
-
-        if (!orderedJournals.Contains(currentDate))
-            return 0;
-
-        while (orderedJournals.Contains(currentDate))
-        {
-            streak++;
-            currentDate = currentDate.AddDays(-1);
-        }
-
-        return streak;
-    }
-
-    public int GetLongestStreak()
-    {
-        if (!_journals.Any())
-            return 0;
-
-        var journalDates = _journals
-            .Select(j => j.Date.Date)
-            .Distinct()
-            .OrderBy(d => d)
-            .ToList();
-
-        int longestStreak = 1;
-        int currentStreak = 1;
-
-        for (int i = 1; i < journalDates.Count; i++)
-        {
-            if ((journalDates[i] - journalDates[i - 1]).TotalDays == 1)
+            if (journal == null)
             {
-                currentStreak++;
-                longestStreak = Math.Max(longestStreak, currentStreak);
+                // Create new
+                journal = new Journal
+                {
+                    UserId = userId,
+                    Title = model.Title,
+                    Description = model.Description,
+                    CreatedAt = model.CreatedAt.Date,
+                    PrimaryMood = model.PrimaryMood,
+                    SecondaryMoods = model.SecondaryMoods,
+                    Tags = model.Tags,
+                    WordCount = CountWords(model.Description),
+                    UpdatedAt = DateTime.Now
+                };
+
+                _context.Journals.Add(journal);
             }
             else
             {
-                currentStreak = 1;
+                // Update existing
+                journal.Title = model.Title;
+                journal.Description = model.Description;
+                journal.PrimaryMood = model.PrimaryMood;
+                journal.SecondaryMoods = model.SecondaryMoods;
+                journal.Tags = model.Tags;
+                journal.WordCount = CountWords(model.Description);
+                journal.UpdatedAt = DateTime.Now;
             }
-        }
 
-        return longestStreak;
+            await _context.SaveChangesAsync();
+            return ServiceResult<Journal>.SuccessResult(journal);
+        }
+        catch (Exception ex)
+        {
+            return ServiceResult<Journal>.FailureResult($"Error saving journal: {ex.Message}");
+        }
     }
 
-    public List<DateTime> GetMissedDays(DateTime startDate, DateTime endDate)
+    public async Task<Journal?> GetJournalByDateAsync(int userId, DateTime date)
     {
-        var journalDates = _journals
-            .Where(j => j.Date.Date >= startDate.Date && j.Date.Date <= endDate.Date)
-            .Select(j => j.Date.Date)
-            .ToHashSet();
+        return await _context.Journals
+            .FirstOrDefaultAsync(j => j.UserId == userId && j.CreatedAt.Date == date.Date);
+    }
 
-        var missedDays = new List<DateTime>();
-        for (var date = startDate.Date; date <= endDate.Date; date = date.AddDays(1))
-        {
-            if (!journalDates.Contains(date))
+    private int CountWords(string content)
+    {
+        if (string.IsNullOrWhiteSpace(content))
+            return 0;
+
+        var words = content.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        return words.Length;
+    }
+
+    public async Task<(List<JournalDisplayModel> Journals, int TotalCount)> GetAllJournalsByUserAsync(
+    int userId, int page = 1, int pageSize = 10)
+    {
+        // Only fetch journals of this user
+        var query = _context.Journals
+            .Where(j => j.UserId == userId)
+            .OrderByDescending(j => j.CreatedAt);
+
+        // Get total count for pagination
+        int totalCount = await query.CountAsync();
+
+        // Apply pagination
+        var journals = await query
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .Select(j => new JournalDisplayModel
             {
-                missedDays.Add(date);
-            }
-        }
+                JournalId = j.JournalId,
+                CreatedAt = j.CreatedAt,
+                Title = j.Title,
+                Description = j.Description,
+                PrimaryMood = j.PrimaryMood,
+                SecondaryMoods = j.SecondaryMoods,
+                Tags = j.Tags,
+                WordCount = j.WordCount
+            })
+            .ToListAsync();
 
-        return missedDays;
+        return (journals, totalCount);
+    }
+
+    public async Task<bool> DeleteJournalAsync(int userId, int journalId)
+    {
+        var journal = await _context.Journals
+            .FirstOrDefaultAsync(j => j.JournalId == journalId && j.UserId == userId);
+
+        if (journal == null)
+            return false;
+
+        _context.Journals.Remove(journal);
+        await _context.SaveChangesAsync();
+
+        return true;
+    }
+
+    public async Task<bool> HasJournalForTodayAsync(int userId)
+    {
+        return await _context.Journals.AnyAsync(j =>
+            j.UserId == userId &&
+            j.CreatedAt.Date == DateTime.Today);
     }
 }

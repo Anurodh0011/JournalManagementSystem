@@ -15,9 +15,17 @@ window.initQuill = (editorId) => {
 };
 
 window.getQuillHtml = () => {
-    return quill.root.innerHTML;
+    return quill ? quill.root.innerHTML : "";
 };
 
 window.setQuillHtml = (html) => {
-    quill.root.innerHTML = html;
+    if (quill) {
+        quill.root.innerHTML = html;
+    }
+};
+
+window.clearQuillEditor = () => {
+    if (quill) {
+        quill.setText("");
+    }
 };

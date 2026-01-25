@@ -6,11 +6,8 @@
 @using JournalManagementSystem.Services
 @inject IUserService UserService
 @inject NavigationManager Navigation
+@inject UserSessionService Session
 
-@* <MudThemeProvider Theme="_myCustomTheme" />
-<MudDialogProvider />
-<MudSnackbarProvider />
-<MudPopoverProvider /> *@
 <MudContainer MaxWidth="MaxWidth.Large" Class="d-flex align-center justify-center" Style="min-height: 100vh;">
     <MudPaper Class="pa-8" Elevation="3" Style="width: 100%; max-width: 400px;">
         <MudStack Spacing="4">
@@ -92,72 +89,49 @@
     private string _passwordIcon = Icons.Material.Filled.VisibilityOff;
 
     private MudTheme _myCustomTheme = new MudTheme()
-    {   
+    {
         PaletteLight = new PaletteLight()
         {
-            // Brand colors
-            Primary = Colors.Teal.Darken3,        // Main brand / Appbar / Active
-            Secondary = Colors.Pink.Default,     // Accents / Hover
-
-            // App Backgrounds
-            Background = Colors.Gray.Lighten5,   
-            Surface = Colors.Shades.White,        // Cards, drawers
-
-            // AppBar
+            Primary = Colors.Teal.Darken3,
+            Secondary = Colors.Pink.Default,
+            Background = Colors.Gray.Lighten5,
+            Surface = Colors.Shades.White,
             AppbarBackground = Colors.Teal.Darken3,
             AppbarText = Colors.Shades.White,
-
-            // Drawer
             DrawerBackground = Colors.Shades.White,
             DrawerText = Colors.Teal.Darken3,
             DrawerIcon = Colors.Teal.Darken3,
-
-            // Text
             TextPrimary = Colors.Teal.Darken4,
             TextSecondary = Colors.Teal.Darken1,
-
-            // States (IMPORTANT for NavMenu)
-            ActionDefault = Colors.Teal.Darken2,  // Normal menu text
-
-            // Feedback
+            ActionDefault = Colors.Teal.Darken2,
             Success = Colors.Green.Darken2,
             Warning = Colors.Orange.Darken2,
             Error = Colors.Red.Darken2,
             Info = Colors.Blue.Darken2,
-
         },
-
         PaletteDark = new PaletteDark()
         {
             Primary = Colors.Teal.Lighten3,
             Secondary = Colors.Pink.Default,
-
             Background = "#111827",
-            Surface = "#1F2937", // cards
-
+            Surface = "#1F2937",
             AppbarBackground = Colors.Teal.Darken3,
             AppbarText = Colors.Shades.White,
-
             DrawerBackground = "#1F2937",
             DrawerText = Colors.Teal.Lighten5,
             DrawerIcon = Colors.Teal.Lighten5,
-
             TextPrimary = Colors.Teal.Lighten2,
-
             ActionDefault = Colors.Teal.Lighten2,
-
             Success = Colors.Green.Lighten2,
             Warning = Colors.Orange.Lighten2,
             Error = Colors.Red.Lighten2,
             Info = Colors.Blue.Lighten2,
         },
-
         LayoutProperties = new LayoutProperties
         {
             DefaultBorderRadius = "8px"
         }
     };
-    
 
     private void TogglePasswordVisibility()
     {
@@ -180,11 +154,14 @@
 
             if (result.Success)
             {
+                // ✅ Set the current user in session
+                Session.SetCurrentUser(result.Data);
+
                 _message = "Login successful! Redirecting...";
                 _messageSeverity = Severity.Success;
 
-                // await Task.Delay(1000);
-                Navigation.NavigateTo("/dashboard"); // redirect to home page
+                await Task.Delay(500); // optional small delay for UX
+                Navigation.NavigateTo("/dashboard");
             }
             else
             {
