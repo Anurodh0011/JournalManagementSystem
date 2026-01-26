@@ -97,7 +97,7 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <FileLength>1822</FileLength>
-      <LastWriteTime>Sun, 25 Jan 2026 17:32:20 GMT</LastWriteTime>
+      <LastWriteTime>Mon, 26 Jan 2026 06:09:39 GMT</LastWriteTime>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\index.html'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\JS\quill.js'))">
@@ -117,7 +117,7 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <FileLength>666</FileLength>
-      <LastWriteTime>Sun, 25 Jan 2026 18:32:55 GMT</LastWriteTime>
+      <LastWriteTime>Mon, 26 Jan 2026 06:09:39 GMT</LastWriteTime>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\JS\quill.js'))</OriginalItemSpec>
     </StaticWebAsset>
   </ItemGroup>

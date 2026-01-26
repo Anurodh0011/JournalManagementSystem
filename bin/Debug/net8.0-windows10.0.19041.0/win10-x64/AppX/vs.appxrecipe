@@ -30,7 +30,7 @@
     <AppXManifest Include="C:\Users\anuro\OneDrive\Desktop\NewJMS\JournalManagementSystem\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2026-01-25T20:52:10.011</Modified>
+      <Modified>2026-01-26T06:09:56.520</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
@@ -44,11 +44,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\NewJMS\JournalManagementSystem\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\JournalManagementSystem.dll">
       <PackagePath>JournalManagementSystem.dll</PackagePath>
-      <Modified>2026-01-25T20:52:09.610</Modified>
+      <Modified>2026-01-26T06:09:55.506</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\NewJMS\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\apphost.exe">
       <PackagePath>JournalManagementSystem.exe</PackagePath>
-      <Modified>2026-01-25T20:52:09.622</Modified>
+      <Modified>2026-01-26T06:09:55.569</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\NewJMS\JournalManagementSystem\Resources\Raw\AboutAssets.txt">
       <PackagePath>AboutAssets.txt</PackagePath>
@@ -72,11 +72,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\NewJMS\JournalManagementSystem\wwwroot\index.html">
       <PackagePath>wwwroot\index.html</PackagePath>
-      <Modified>2026-01-25T17:32:20.312</Modified>
+      <Modified>2026-01-26T06:09:39.646</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\NewJMS\JournalManagementSystem\wwwroot\JS\quill.js">
       <PackagePath>wwwroot\JS\quill.js</PackagePath>
-      <Modified>2026-01-25T18:32:55.126</Modified>
+      <Modified>2026-01-26T06:09:39.639</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\NewJMS\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-100.png">
       <PackagePath>splashSplashScreen.scale-100.png</PackagePath>
@@ -1072,7 +1072,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\OneDrive\Desktop\NewJMS\JournalManagementSystem\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\staticwebassets.build.endpoints.json">
       <PackagePath>JournalManagementSystem.staticwebassets.endpoints.json</PackagePath>
-      <Modified>2026-01-25T18:32:57.579</Modified>
+      <Modified>2026-01-26T06:09:53.289</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\anuro\.nuget\packages\microsoft.maui.controls.compatibility\8.0.100\lib\net8.0-windows10.0.19041\Microsoft.Maui.Controls.Compatibility.pri">
       <PackagePath>Microsoft.Maui.Controls.Compatibility.pri</PackagePath>
