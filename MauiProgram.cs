@@ -24,9 +24,12 @@ namespace JournalManagementSystem
             builder.Logging.AddDebug();
             builder.Services.AddMudServices();
             builder.Services.AddScoped<IJournalService, JournalService>();
+            builder.Services.AddScoped<IAnalyticService, AnalyticService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddDbContext<AppDbContext>();
             builder.Services.AddSingleton<UserSessionService>();
+
+            QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
 
             var app = builder.Build();
 

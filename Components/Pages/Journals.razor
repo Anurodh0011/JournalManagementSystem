@@ -6,6 +6,7 @@
 @inject IJournalService JournalService
 @inject UserSessionService UserSession
 @inject NavigationManager Navigation
+@inject IAnalyticService AnalyticService
 @inject ISnackbar Snackbar
 
 <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4">
@@ -114,6 +115,34 @@
     }
 </MudContainer>
 
+<MudCard Class="pa-4 mb-4">
+    <MudText Typo="Typo.h6">Export Journal PDF</MudText>
+
+    <MudGrid Class="mt-2">
+        <MudItem xs="12" md="4">
+            <MudDatePicker Label="From Date"
+                           @bind-Date="pdfFromDate"
+                           MaxDate="DateTime.Today" />
+        </MudItem>
+
+        <MudItem xs="12" md="4">
+            <MudDatePicker Label="To Date"
+                           @bind-Date="pdfToDate"
+                           MaxDate="DateTime.Today" />
+        </MudItem>
+
+        <MudItem xs="12" md="4" Class="d-flex align-center">
+            <MudButton Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       StartIcon="@Icons.Material.Filled.PictureAsPdf"
+                       Disabled="@(pdfFromDate == null || pdfToDate == null)"
+                       OnClick="GeneratePdf">
+                Export PDF
+            </MudButton>
+        </MudItem>
+    </MudGrid>
+</MudCard>
+
 @* Delete Confirmation Dialog *@
 @if (showDeleteConfirm)
 {
@@ -211,4 +240,39 @@
         showDeleteConfirm = false;
         journalToDeleteId = 0;
     }
+
+    DateTime? pdfFromDate;
+    DateTime? pdfToDate;
+
+    private async Task GeneratePdf()
+    {
+        if (!pdfFromDate.HasValue || !pdfToDate.HasValue)
+            return;
+
+        var bytes = await AnalyticService.GenerateJournalPdfAsync(
+            UserSession.CurrentUser!.Id,
+            pdfFromDate.Value,
+            pdfToDate.Value
+        );
+
+        var base64 = Convert.ToBase64String(bytes);
+
+        await JSRuntime.InvokeVoidAsync(
+            "downloadFileFromBase64",
+            $"journals_{pdfFromDate:yyyyMMdd}_{pdfToDate:yyyyMMdd}.pdf",
+            base64
+        );
+    }
+
+    [Inject] IJSRuntime JSRuntime { get; set; } = default!;
+}
+
+<script>
+        window.downloadFileFromBase64 = (fileName, base64) => {
+        const link = document.createElement("a");
+        link.href = "data:application/pdf;base64," + base64;
+        link.download = fileName;
+        link.click();
+    };
+</script>
 }
