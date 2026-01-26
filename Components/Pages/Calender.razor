@@ -8,6 +8,7 @@
 @inject NavigationManager Navigation
 @inject UserSessionService UserSession
 @inject ISnackbar Snackbar
+@inject IAnalyticService AnalyticService
 
 <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center" Class="">
     <MudText Typo="Typo.h4">Calendar</MudText>
@@ -24,24 +25,31 @@
     <MudItem xs="12" sm="4">
         <MudPaper Elevation="1" Class="pa-4">
             <MudText Typo="Typo.subtitle1" Class="mb-2">Current Streak</MudText>
-            <MudText Typo="Typo.h5" Color="Color.Primary">2 🔥</MudText>
+            <MudText Typo="Typo.h5" Color="Color.Primary">
+                @_currentStreak 🔥
+            </MudText>
         </MudPaper>
     </MudItem>
 
     <MudItem xs="12" sm="4">
         <MudPaper Elevation="1" Class="pa-4">
             <MudText Typo="Typo.subtitle1" Class="mb-2">Longest Streak</MudText>
-            <MudText Typo="Typo.h5" Color="Color.Secondary">5🏆</MudText>
+            <MudText Typo="Typo.h5" Color="Color.Secondary">
+                @_longestStreak 🏆
+            </MudText>
         </MudPaper>
     </MudItem>
 
     <MudItem xs="12" sm="4">
         <MudPaper Elevation="1" Class="pa-4">
-            <MudText Typo="Typo.subtitle1" Class="mb-2">This Month</MudText>
-            <MudText Typo="Typo.h5" Color="Color.Info">10 📝</MudText>
+            <MudText Typo="Typo.subtitle1" Class="mb-2">Missed Days</MudText>
+            <MudText Typo="Typo.h5" Color="Color.Error">
+                @_missedDays ❌
+            </MudText>
         </MudPaper>
     </MudItem>
 </MudGrid>
+
 
 <MudPaper Elevation="2" Class="pa-4">
     <MudGrid>
@@ -179,6 +187,10 @@
     private HashSet<DateTime> _journalDates = new();
     private Dictionary<DateTime, int> _journalIdMap = new();
 
+    private int _currentStreak;
+    private int _longestStreak;
+    private int _missedDays;
+
     private DialogOptions dialogOptions = new DialogOptions()
     {
         MaxWidth = MaxWidth.Medium,
@@ -200,10 +212,28 @@
 
     private async Task LoadCalendarData()
     {
-        var allJournals = await JournalService.GetAllJournalsByUserAsync(UserSession.CurrentUser!.Id, 1, 10000);
-        _journalDates = allJournals.Journals.Select(j => j.CreatedAt.Date).ToHashSet();
-        _journalIdMap = allJournals.Journals.ToDictionary(j => j.CreatedAt.Date, j => j.JournalId);
+        var allJournals = await JournalService
+            .GetAllJournalsByUserAsync(UserSession.CurrentUser!.Id, 1, 10000);
+
+        _journalDates = allJournals.Journals
+            .Select(j => j.CreatedAt.Date)
+            .ToHashSet();
+
+        _journalIdMap = allJournals.Journals
+            .ToDictionary(j => j.CreatedAt.Date, j => j.JournalId);
+
+        // 🔥 STREAK ANALYTICS
+        var dates = _journalDates.ToList();
+
+        var streakResult = AnalyticService.CalculateStreaks(dates);
+
+        _currentStreak = streakResult.CurrentStreak;
+        _longestStreak = streakResult.LongestStreak;
+
+        _missedDays = streakResult.MissedDays;
+
     }
+
 
     private async Task OnDayClicked(DateTime date)
     {

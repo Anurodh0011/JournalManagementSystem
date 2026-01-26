@@ -69,16 +69,7 @@
     </MudForm>
 </MudPaper>
 
-<MudButton OnClick="ShowDbPath">Show DB Path</MudButton>
-
 @code {
-    private void ShowDbPath()
-    {
-        var folder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-        var dbPath = Path.Combine(folder, "app.db");
-        JS.InvokeVoidAsync("alert", dbPath);
-    }
-    
     private MudForm? _form;
     private JournalViewModel _model = new();
     private HashSet<string> _secondaryMoods = new();

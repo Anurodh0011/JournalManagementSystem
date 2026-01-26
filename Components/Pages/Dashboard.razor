@@ -1,131 +1,177 @@
 ﻿@page "/dashboard"
 @layout MainLayout
+
+@using JournalManagementSystem.Model
+@using JournalManagementSystem.Services
 @using MudBlazor
-@inject NavigationManager Nav
 
+@inject IAnalyticService AnalyticService
+@inject UserSessionService Session
+@inject IJSRuntime JS
 
-<MudGrid Spacing="3">
-@*     <MudButton Variant="Variant.Filled"
-           Color="Color.Primary"
-           OnClick="@(() => Nav.NavigateTo("/login"))">
-    Go to Login
-</MudButton> *@
+<MudGrid Spacing="3" Class="mb-4">
 
-    @* stats card *@
-    <MudItem xs="12" md="3">
-        <MudCard Elevation="2">
-            <MudCardContent>
-                <MudStack Row="true" Spacing="2">
-                    <MudIcon Icon="@Icons.Material.Filled.MenuBook"
-                             Color="Color.Info"
-                             Size="Size.Large" />
-                    <div>
-                        <MudText Typo="Typo.caption">Total Entries</MudText>
-                        <MudText Typo="Typo.h4">48</MudText>
-                    </div>
-                </MudStack>
-            </MudCardContent>
-        </MudCard>
-    </MudItem>
-    <MudItem xs="12" md="3">
-        <MudCard Elevation="2">
-            <MudCardContent>
-                <MudStack Row="true" Spacing="2">
-                    <MudIcon Icon="@Icons.Material.Filled.LocalFireDepartment"
-                             Color="Color.Error"
-                             Size="Size.Large" />
-                    <div>
-                        <MudText Typo="Typo.caption">Current Streak</MudText>
-                        <MudText Typo="Typo.h4">5 days</MudText>
-                    </div>
-                </MudStack>
-            </MudCardContent>
-        </MudCard>
-    </MudItem>
-    <MudItem xs="12" md="3">
-        <MudCard Elevation="2">
-            <MudCardContent>
-                <MudStack Row="true" Spacing="2">
-                    <MudIcon Icon="@Icons.Material.Filled.Timeline"
-                             Color="Color.Primary"
-                             Size="Size.Large" />
-                    <div>
-                        <MudText Typo="Typo.caption">Longest Streak</MudText>
-                        <MudText Typo="Typo.h4">12 days</MudText>
-                    </div>
-                </MudStack>
-            </MudCardContent>
-        </MudCard>
-    </MudItem>
- 
-    <MudItem xs="12" md="3">
-        <MudCard Elevation="2">
-            <MudCardContent>
-                <MudStack Row="true" Spacing="2">
-                    <MudIcon Icon="@Icons.Material.Filled.Mood"
-                             Color="Color.Success"
-                             Size="Size.Large" />
-                    <div>
-                        <MudText Typo="Typo.caption">Most Frequent Mood</MudText>
-                        <MudChip T="string" Color="Color.Success">Happy</MudChip>
-                    </div>
-                </MudStack>
-            </MudCardContent>
-        </MudCard>
-    </MudItem>
-
-    <!-- CHART PLACEHOLDERS -->
     <MudItem xs="12" md="4">
-        <MudCard Elevation="1" Class="pa-4">
-            <MudText Typo="Typo.h6">Mood Distribution</MudText>
-            <MudText Typo="Typo.caption" Color="Color.Secondary">
-                Chart will be added later
-            </MudText>
+        <MudCard Class="pa-4">
+            <MudStack Row="true" Spacing="2">
+                <MudIcon Icon="@Icons.Material.Filled.MenuBook"
+                         Color="Color.Primary"
+                         Size="Size.Large" />
+                <div>
+                    <MudText Typo="Typo.caption">Total Entries</MudText>
+                    <MudText Typo="Typo.h5">@summary?.TotalEntries</MudText>
+                </div>
+            </MudStack>
         </MudCard>
     </MudItem>
 
     <MudItem xs="12" md="4">
-        <MudCard Elevation="1" Class="pa-4">
-            <MudText Typo="Typo.h6">Weekly Entries</MudText>
-            <MudText Typo="Typo.caption" Color="Color.Secondary">
-                Chart will be added later
-            </MudText>
+        <MudCard Class="pa-4">
+            <MudStack Row="true" Spacing="2">
+                <MudIcon Icon="@Icons.Material.Filled.Mood"
+                         Color="Color.Success"
+                         Size="Size.Large" />
+                <div>
+                    <MudText Typo="Typo.caption">Most Frequent Mood</MudText>
+                    <MudChip T = "string" Color="Color.Success">
+                        @summary?.MostFrequentMood
+                    </MudChip>
+                </div>
+            </MudStack>
         </MudCard>
     </MudItem>
 
     <MudItem xs="12" md="4">
-        <MudCard Elevation="1" Class="pa-4">
-            <MudText Typo="Typo.h6">Word Count Trend</MudText>
-            <MudText Typo="Typo.caption" Color="Color.Secondary">
-                Chart will be added later
-            </MudText>
-        </MudCard>
-    </MudItem>
-
-    <!-- RECENT JOURNALS -->
-    <MudItem xs="12">
-        <MudCard Elevation="2">
-            <MudCardHeader>
-                <MudText Typo="Typo.h6">Recent Journal Entries</MudText>
-            </MudCardHeader>
-
-            <MudList T="string" Dense="true">
-                <MudListItem>
-                    <MudText>Today — Feeling productive and focused</MudText>
-                    <MudChip Color="Color.Success" Size="Size.Small">Happy</MudChip>
-                </MudListItem>
-
-                <MudListItem>
-                    <MudText>Yesterday — Calm but tired</MudText>
-                    <MudChip Color="Color.Warning" Size="Size.Small">Neutral</MudChip>
-                </MudListItem>
-
-                <MudListItem>
-                    <MudText>2 days ago — Stressful meetings</MudText>
-                    <MudChip Color="Color.Error" Size="Size.Small">Stressed</MudChip>
-                </MudListItem>
-            </MudList>
+        <MudCard Class="pa-4">
+            <MudStack Row="true" Spacing="2">
+                <MudIcon Icon="@Icons.Material.Filled.Label"
+                         Color="Color.Info"
+                         Size="Size.Large" />
+                <div>
+                    <MudText Typo="Typo.caption">Most Used Tag</MudText>
+                    <MudChip T="string" Color="Color.Info">
+                        @summary?.MostUsedTag
+                    </MudChip>
+                </div>
+            </MudStack>
         </MudCard>
     </MudItem>
 
 </MudGrid>
+
+
+<MudGrid Spacing="3">
+
+    <MudItem xs="12" md="4">
+        <MudCard Class="pa-4">
+            <MudText Typo="Typo.h6">Mood Distribution</MudText>
+            <canvas id="moodChart" width="300" height="250"></canvas>
+        </MudCard>
+    </MudItem>
+
+    <MudItem xs="12" md="4">
+        <MudCard Class="pa-4">
+            <MudText Typo="Typo.h6">Tag Distribution</MudText>
+            <canvas id="tagChart" width="300" height="250"></canvas>
+        </MudCard>
+    </MudItem>
+
+    <MudItem xs="12" md="12">
+        <MudCard Class="pa-4">
+            <MudText Typo="Typo.h6">Word Count Trend</MudText>
+            <canvas id="wordTrendChart" width="800" height="300"></canvas>
+        </MudCard>
+    </MudItem>
+
+</MudGrid>
+
+@code {
+    private AnalyticDisplayModel? analytics;
+    private DashboardSummaryModel? summary;
+    private bool chartsRendered;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            summary = await AnalyticService
+                .GetDashboardSummaryAsync(Session.CurrentUser!.Id);
+
+            analytics = await AnalyticService
+                .GetAnalyticsAsync(Session.CurrentUser!.Id);
+
+            StateHasChanged();
+            return;
+        }
+
+
+        if (analytics != null && !chartsRendered)
+        {
+            chartsRendered = true;
+
+            await JS.InvokeVoidAsync(
+                "renderDashboardCharts",
+                analytics.MoodDistribution,
+                analytics.TagDistribution,
+                analytics.WordCountTrend
+            );
+        }
+    }
+}
+
+<script>
+    window.renderDashboardCharts = (moodData, tagData, wordData) => {
+        renderPieChart("moodChart", moodData);
+        renderPieChart("tagChart", tagData);
+        renderWordCountChart(wordData);
+    };
+
+    function renderPieChart(canvasId, data) {
+        const ctx = document.getElementById(canvasId);
+        if (!ctx) return;
+
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: Object.keys(data),
+                datasets: [{
+                    data: Object.values(data),
+                    backgroundColor: Object.keys(data).map(
+                        () => `hsl(${Math.random() * 360},70%,60%)`
+                    )
+                }]
+            },
+            options: {
+                responsive: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+    }
+
+    function renderWordCountChart(data) {
+        const ctx = document.getElementById("wordTrendChart");
+        if (!ctx) return;
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: data.map(x => new Date(x.date).toLocaleDateString()),
+                datasets: [{
+                    label: 'Word Count',
+                    data: data.map(x => x.wordCount),
+                    tension: 0.3,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: false,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    }
+</script>
+
