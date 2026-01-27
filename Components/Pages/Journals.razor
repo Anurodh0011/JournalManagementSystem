@@ -25,13 +25,7 @@
     }
     else
     {
-        <MudButton Variant="Variant.Filled"
-                   Color="Color.Primary"
-                   OnClick="@(() => Navigation.NavigateTo("/add"))"
-                   StartIcon="@Icons.Material.Filled.Add"
-                   Class="mb-4">
-            Create New Journal
-        </MudButton>
+        
 
         @if (!_journals.Any())
         {
@@ -43,82 +37,32 @@
         }
         else
         {
-            <MudTable Items="_journals" Hover="true" Breakpoint="Breakpoint.Sm" Dense="true">
-                <HeaderContent>
-                    <MudTh>Title</MudTh>
-                    <MudTh>Created Date</MudTh>
-                    <MudTh>Primary Mood</MudTh>
-                    <MudTh>Secondary Moods</MudTh>
-                    <MudTh>Tags</MudTh>
-                    <MudTh>Word Count</MudTh>
-                    <MudTh>Actions</MudTh>
-                </HeaderContent>
-                <RowTemplate>
-                    <MudTd DataLabel="Title">@context.Title</MudTd>
-                    <MudTd DataLabel="Created Date">@context.CreatedAt.ToString("MMM dd, yyyy")</MudTd>
-                    <MudTd DataLabel="Primary Mood">
-                        <MudChip T="string" Size="Size.Small" Color="Color.Primary">
-                            @context.PrimaryMood
-                        </MudChip>
-                    </MudTd>
-                    <MudTd DataLabel="Secondary Moods">
-                        @if (context.SecondaryMoods != null && context.SecondaryMoods.Any())
-                        {
-                            @foreach (var mood in context.SecondaryMoods)
-                            {
-                                <MudChip T="string" Size="Size.Small" Color="Color.Secondary" Class="mr-1">
-                                    @mood
-                                </MudChip>
-                            }
-                        }
-                        else
-                        {
-                            <MudText Typo="Typo.caption">-</MudText>
-                        }
-                    </MudTd>
-                    <MudTd DataLabel="Tags">
-                        @if (context.Tags != null && context.Tags.Any())
-                        {
-                            @foreach (var tag in context.Tags)
-                            {
-                                <MudChip T="string" Size="Size.Small" Color="Color.Info" Variant="Variant.Outlined" Class="mr-1">
-                                    @tag
-                                </MudChip>
-                            }
-                        }
-                        else
-                        {
-                            <MudText Typo="Typo.caption">-</MudText>
-                        }
-                    </MudTd>
-                    <MudTd DataLabel="Word Count">@context.WordCount</MudTd>
-                    <MudTd DataLabel="Actions">
-                        <MudIconButton Icon="@Icons.Material.Filled.Visibility"
-                                       Color="Color.Info"
-                                       Size="Size.Small"
-                                       OnClick="@(() => ViewJournal(context.JournalId))"
-                                       Title="View" />
-                        <MudIconButton Icon="@Icons.Material.Filled.Edit"
-                                       Color="Color.Warning"
-                                       Size="Size.Small"
-                                       OnClick="@(() => EditJournal(context.JournalId))"
-                                       Title="Edit" />
-                        <MudIconButton Icon="@Icons.Material.Filled.Delete"
-                                       Color="Color.Error"
-                                       Size="Size.Small"
-                                       OnClick="@(() => DeleteJournal(context.JournalId))"
-                                       Title="Delete" />
-                    </MudTd>
-                </RowTemplate>
-            </MudTable>
-        }
-    }
-</MudContainer>
+          <MudGrid Class="mb-4" Justify="Justify.SpaceBetween">
+    <MudItem xs="12" md="4">
+        <MudTextField @bind-Value="_searchText"
+                      Placeholder="Search by title or content..."
+                      Variant="Variant.Outlined"
+                      Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search"
+                      Immediate="true"
+                      Margin="Margin.Dense"
+                      FullWidth="true" />
+    </MudItem>
 
-<MudCard Class="pa-4 mb-4">
-    <MudText Typo="Typo.h6">Export Journal PDF</MudText>
+    <MudItem xs="12" md="4" Class="d-flex justify-end">
+        <MudButton Variant="Variant.Filled"
+                   Color="Color.Primary"
+                   StartIcon="@Icons.Material.Filled.Add"
+                   OnClick="@(() => Navigation.NavigateTo("/add"))"
+                   Class="w-100 w-md-auto"
+                   Style="height: 40px;">
+            Create New Journal
+        </MudButton>
+    </MudItem>
+</MudGrid>
 
-    <MudGrid Class="mt-2">
+
+            <MudGrid Class="mb-4">
         <MudItem xs="12" md="4">
             <MudDatePicker Label="From Date"
                            @bind-Date="pdfFromDate"
@@ -141,7 +85,101 @@
             </MudButton>
         </MudItem>
     </MudGrid>
-</MudCard>
+          <MudTable Items="_filteredJournals"
+          Hover="true"
+          Breakpoint="Breakpoint.Sm"
+          Dense="true"
+          RowsPerPage="10"
+          @bind-CurrentPage="_currentPage">
+
+    <HeaderContent>
+        <MudTh>Title</MudTh>
+        <MudTh>Created Date</MudTh>
+        <MudTh>Primary Mood</MudTh>
+        <MudTh>Secondary Moods</MudTh>
+        <MudTh>Tags</MudTh>
+        <MudTh>Word Count</MudTh>
+        <MudTh>Actions</MudTh>
+    </HeaderContent>
+
+    <RowTemplate>
+        <MudTd DataLabel="Title">@context.Title</MudTd>
+        <MudTd DataLabel="Created Date">@context.CreatedAt.ToString("MMM dd, yyyy")</MudTd>
+
+        <MudTd DataLabel="Primary Mood">
+            <MudChip T="string" Size="Size.Small" Color="Color.Primary">
+                @context.PrimaryMood
+            </MudChip>
+        </MudTd>
+
+        <MudTd DataLabel="Secondary Moods">
+            @if (context.SecondaryMoods?.Any() == true)
+            {
+                @foreach (var mood in context.SecondaryMoods)
+                {
+                    <MudChip T="string" Size="Size.Small"
+                             Color="Color.Secondary"
+                             Class="mr-1">
+                        @mood
+                    </MudChip>
+                }
+            }
+            else
+            {
+                <MudText Typo="Typo.caption">-</MudText>
+            }
+        </MudTd>
+
+        <MudTd DataLabel="Tags">
+            @if (context.Tags?.Any() == true)
+            {
+                @foreach (var tag in context.Tags)
+                {
+                    <MudChip T="string" Size="Size.Small"
+                             Color="Color.Info"
+                             Variant="Variant.Outlined"
+                             Class="mr-1">
+                        @tag
+                    </MudChip>
+                }
+            }
+            else
+            {
+                <MudText Typo="Typo.caption">-</MudText>
+            }
+        </MudTd>
+
+        <MudTd DataLabel="Word Count">@context.WordCount</MudTd>
+
+        <MudTd DataLabel="Actions">
+            <MudIconButton Icon="@Icons.Material.Filled.Visibility"
+                           Color="Color.Info"
+                           Size="Size.Small"
+                           OnClick="@(() => ViewJournal(context.JournalId))" />
+
+            <MudIconButton Icon="@Icons.Material.Filled.Edit"
+                           Color="Color.Warning"
+                           Size="Size.Small"
+                           OnClick="@(() => EditJournal(context.JournalId))" />
+
+            <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                           Color="Color.Error"
+                           Size="Size.Small"
+                           OnClick="@(() => DeleteJournal(context.JournalId))" />
+        </MudTd>
+    </RowTemplate>
+
+    <!-- 👇 Pagination BELOW the table -->
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+
+</MudTable>
+
+        }
+    }
+</MudContainer>
+
 
 @* Delete Confirmation Dialog *@
 @if (showDeleteConfirm)
@@ -184,6 +222,11 @@
     private List<JournalDisplayModel> _journals = new();
     private bool showDeleteConfirm = false;
     private int journalToDeleteId = 0;
+    private int _currentPage = 0;
+    private string _searchText = string.Empty;
+private List<JournalDisplayModel> _filteredJournals = new();
+
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -194,11 +237,35 @@
     }
 
     private async Task LoadJournalsAsync()
+{
+    var userId = UserSession.CurrentUser!.Id;
+    var result = await JournalService.GetAllJournalsByUserAsync(userId, 1, 1000);
+
+    _journals = result.Journals;
+    ApplySearchFilter();
+}
+
+private void ApplySearchFilter()
+{
+    if (string.IsNullOrWhiteSpace(_searchText))
     {
-        var userId = UserSession.CurrentUser!.Id;
-        var result = await JournalService.GetAllJournalsByUserAsync(userId, 1, 1000);
-        _journals = result.Journals;
+        _filteredJournals = _journals;
     }
+    else
+    {
+        _filteredJournals = _journals.Where(j =>
+            (!string.IsNullOrEmpty(j.Title) &&
+             j.Title.Contains(_searchText, StringComparison.OrdinalIgnoreCase))
+            ||
+            (!string.IsNullOrEmpty(j.Description) &&
+             j.Description.Contains(_searchText, StringComparison.OrdinalIgnoreCase))
+        ).ToList();
+    }
+
+    _currentPage = 0; // reset pagination when searching
+}
+
+
 
     private void ViewJournal(int journalId)
     {
@@ -275,4 +342,3 @@
         link.click();
     };
 </script>
-}

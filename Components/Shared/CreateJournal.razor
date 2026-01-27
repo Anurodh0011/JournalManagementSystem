@@ -27,40 +27,50 @@
             </div>
 
         <MudSelect T="string"
-                   Label="Primary Mood"
+                   Label="Primary Mood Category"
                    Required="true"
-                   RequiredError="Primary mood is required"
-                   @bind-Value="_model.PrimaryMood"
+                   RequiredError="Primary mood category is required"
+                   Value="_model.PrimaryMood"
+                   ValueChanged="OnPrimaryMoodChanged"
                    Class="mt-4">
-            @foreach (var mood in PrimaryMoods)
+
+            @foreach (var category in PrimaryMoodCategories)
             {
-                <MudSelectItem T="string" Value="@mood">@mood</MudSelectItem>
+                <MudSelectItem Value="@category">@category</MudSelectItem>
             }
         </MudSelect>
 
         <MudSelect T="string"
                    Label="Secondary Moods (max 2)"
                    MultiSelection="true"
+                   Disabled="@string.IsNullOrEmpty(_model.PrimaryMood)"
                    SelectedValues="_secondaryMoods"
                    SelectedValuesChanged="OnSecondaryMoodsChanged"
                    Class="mt-4">
-            @foreach (var mood in SecondaryMoods)
+
+            @foreach (var mood in AvailableSecondaryMoods)
             {
-                <MudSelectItem T="string" Value="@mood">@mood</MudSelectItem>
+                <MudSelectItem Value="@mood">@mood</MudSelectItem>
             }
         </MudSelect>
 
         <MudSelect T="string"
-                   Label="Tags"
-                   MultiSelection="true"
-                   SelectedValues="_selectedTags"
-                   SelectedValuesChanged="OnTagsChanged"
-                   Class="mt-4">
-            @foreach (var tag in PredefinedTags)
-            {
-                <MudSelectItem T="string" Value="@tag">@tag</MudSelectItem>
-            }
-        </MudSelect>
+           Label="Tags (Optional)"
+           MultiSelection="true"
+           SelectedValues="_selectedTags"
+           SelectedValuesChanged="OnTagsChanged"
+           AllowCustomValues="true"         
+           CustomValueAllowed="true"
+           CustomValue="OnCustomTagAdded"   
+           Class="mt-4">
+
+    @foreach (var tag in PredefinedTags)
+    {
+        <MudSelectItem Value="@tag">@tag</MudSelectItem>
+    }
+</MudSelect>
+
+
 
         <MudText Typo="Typo.caption" Class="mt-2 text-danger">@formMessage</MudText>
 
@@ -76,16 +86,27 @@
     private HashSet<string> _selectedTags = new();
     private string EditorId { get; set; } = $"quill-editor-{Guid.NewGuid()}";
     
-    private string[] PrimaryMoods = new[]
-    {
-        "Happy", "Sad", "Anxious", "Calm", "Excited",
-        "Angry", "Grateful", "Stressed", "Peaceful", "Confused"
-    };
+    private string[] PrimaryMoodCategories = new[]
+ {
+    "Positive",
+    "Neutral",
+    "Negative"
+};
     
-    private string[] SecondaryMoods = new[]
+    private Dictionary<string, string[]> SecondaryMoodMap = new()
     {
-        "Hopeful", "Tired", "Energetic", "Lonely", "Loved",
-        "Frustrated", "Inspired", "Bored", "Proud", "Ashamed"
+        ["Positive"] = new[]
+    {
+        "Happy", "Excited", "Relaxed", "Grateful", "Confident"
+    },
+        ["Neutral"] = new[]
+    {
+        "Calm", "Thoughtful", "Curious", "Nostalgic", "Bored"
+    },
+        ["Negative"] = new[]
+    {
+        "Sad", "Angry", "Stressed", "Lonely", "Anxious"
+    }
     };
 
     private string[] PredefinedTags = new[]
@@ -99,14 +120,31 @@
 
     private string formMessage = "";
 
+    private void OnPrimaryMoodChanged(string value)
+    {
+        _model.PrimaryMood = value;
+
+        // Clear secondary moods when category changes
+        _secondaryMoods.Clear();
+        _model.SecondaryMoods.Clear();
+    }
+
+
+    private IEnumerable<string> AvailableSecondaryMoods =>
+    !string.IsNullOrEmpty(_model.PrimaryMood) &&
+    SecondaryMoodMap.ContainsKey(_model.PrimaryMood)
+        ? SecondaryMoodMap[_model.PrimaryMood]
+        : Enumerable.Empty<string>();
+
     private void OnSecondaryMoodsChanged(IEnumerable<string> selectedMoods)
     {
         var moodsList = selectedMoods.ToList();
 
         if (moodsList.Count > 2)
         {
-            // Keep only the last 2 selected
-            _secondaryMoods = moodsList.Skip(moodsList.Count - 2).ToHashSet();
+            _secondaryMoods = moodsList
+                .Skip(moodsList.Count - 2)
+                .ToHashSet();
         }
         else
         {
@@ -116,11 +154,36 @@
         _model.SecondaryMoods = _secondaryMoods.ToList();
     }
 
+
     private void OnTagsChanged(IEnumerable<string> selectedTags)
     {
         _selectedTags = selectedTags.ToHashSet();
         _model.Tags = _selectedTags.ToList();
     }
+
+    private void OnCustomTagAdded(string customTag)
+    {
+        // Trim extra spaces
+        customTag = customTag.Trim();
+        if (string.IsNullOrWhiteSpace(customTag)) return;
+
+        // Add custom tag to selected tags if not already there
+        if (!_selectedTags.Contains(customTag))
+        {
+            _selectedTags.Add(customTag);
+        }
+
+        // Optional: Add it to PredefinedTags for future selection
+        if (!PredefinedTags.Contains(customTag))
+        {
+            PredefinedTags = PredefinedTags.Append(customTag).ToArray();
+        }
+
+        // Sync selected tags to model
+        _model.Tags = _selectedTags.ToList();
+    }
+
+
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -151,10 +214,8 @@
         return;
     }
 
-    // 🔥 This is the "binding"
     _model.Description = await JS.InvokeAsync<string>("getQuillHtml", EditorId);
 
-    // Ensure secondary moods & tags are synced
     _model.SecondaryMoods = _secondaryMoods.ToList();
     _model.Tags = _selectedTags.ToList();
 
