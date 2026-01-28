@@ -151,22 +151,19 @@ public class JournalService : IJournalService
         mood = mood?.ToLower() ?? "";
         tag = tag?.ToLower() ?? "";
 
-        // 🔍 TITLE
+        // title
         if (!string.IsNullOrWhiteSpace(title))
             query = query.Where(j =>
                 j.Title.ToLower().Contains(title));
 
-        // 😊 MOOD
         if (!string.IsNullOrWhiteSpace(mood))
             query = query.Where(j =>
                 j.PrimaryMood.ToLower() == mood);
 
-        // 🏷️ TAG
         if (!string.IsNullOrWhiteSpace(tag))
             query = query.Where(j =>
                 j.Tags.Any(t => t.ToLower().Contains(tag)));
 
-        // 📅 DATE FILTER
         if (fromDate.HasValue)
             query = query.Where(j => j.CreatedAt >= fromDate.Value);
 

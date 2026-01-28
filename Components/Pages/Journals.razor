@@ -108,7 +108,7 @@
         }
         else
         {
-            @* 📊 TABLE *@
+            @* table *@
             <MudPaper Elevation="2">
                 <MudTable Items="_journals"
                           Hover="true"
@@ -156,7 +156,7 @@
                 </MudTable>
             </MudPaper>
 
-            @* 🔢 PAGINATION + PDF *@
+            @* pagination and export *@
             <MudGrid Class="mt-4" AlignItems="AlignItems.Center">
                 <MudItem xs="12" md="6">
                     <MudPagination Count="@GetTotalPages()"

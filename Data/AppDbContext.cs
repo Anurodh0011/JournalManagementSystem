@@ -13,7 +13,7 @@ public class AppDbContext : DbContext
 
     public AppDbContext()
     {
-        // Path to store SQLite DB on device
+        // path to store SQLite DB on device
         var folder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         _dbPath = Path.Combine(folder, "app.db");
         Debug.WriteLine($"Database path: {_dbPath}");
