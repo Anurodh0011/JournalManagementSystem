@@ -156,18 +156,15 @@
         _isSaving = true;
         StateHasChanged();
 
-        // Simulate a brief delay for better UX
         await Task.Delay(1000);
 
         _isSaving = false;
         StateHasChanged();
 
-        // Clear form
         _currentPassword = "";
         _newPassword = "";
         _confirmNewPassword = "";
 
-        // TODO: Implement password change logic
     }
 
     private void Cancel()

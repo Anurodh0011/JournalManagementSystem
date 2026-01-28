@@ -144,18 +144,14 @@
         _isSaving = true;
         StateHasChanged();
 
-        // Simulate a brief delay for better UX
         await Task.Delay(1000);
 
         _isSaving = false;
         StateHasChanged();
-
-        // TODO: Implement save logic
     }
 
     private void Cancel()
     {
-        // Reset to original values
         _fullName = "John Doe";
         _username = "johndoe";
         _email = "john.doe@example.com";

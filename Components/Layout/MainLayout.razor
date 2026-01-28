@@ -19,7 +19,6 @@
                MiniVariantWidth="72px"
                Elevation="1">
 
-        <!-- USER SUMMARY -->
         <MudPaper Class="mx-2 pa-3 my-2" Elevation="0">
             <MudStack Spacing="1" AlignItems="AlignItems.Center">
                 <MudAvatar Icon="@Icons.Material.Filled.Person" Size="Size.Medium" />
@@ -275,21 +274,10 @@
             MaxWidth = MaxWidth.Medium,
             FullWidth = true
         };
-
-        // var dialog = await DialogService.ShowAsync<CreateJournalDialog>("Create New Journal", options);
-        // var result = await dialog.Result;
-
-        // if (!result.Canceled && result.Data is Journal model)
-        // {
-        //     JournalService.CreateJournal(model);
-        //     LoadJournals();
-        // }
     }
 
     private void Logout()
     {
-        // TODO: Implement logout logic
-        // Clear user session/preferences
         Navigation.NavigateTo("/login", true);
     }
 }

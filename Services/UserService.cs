@@ -129,7 +129,7 @@ public class UserService : IUserService
                 return ServiceResult<UserDisplayModel>.FailureResult($"User with ID {id} not found");
             }
 
-            // ✅ Map entity to display model
+            // map entity to display model
             var displayModel = MapToDisplayModel(user);
 
             return ServiceResult<UserDisplayModel>.SuccessResult(displayModel);
@@ -150,7 +150,7 @@ public class UserService : IUserService
                 return ServiceResult<UserDisplayModel>.FailureResult($"User with ID {id} not found");
             }
 
-            // Check for duplicate email (excluding current user)
+            // check for duplicate email (excluding current user)
             var duplicateEmail = await _context.Users
                 .AnyAsync(u => u.Email == viewModel.Email && u.Id != id);
 
@@ -159,13 +159,13 @@ public class UserService : IUserService
                 return ServiceResult<UserDisplayModel>.FailureResult($"Email {viewModel.Email} is already in use");
             }
 
-            // ✅ Map ViewModel to Entity
+            // map ViewModel to entity
             existingUser.FullName = viewModel.Name;
             existingUser.Email = viewModel.Email;
 
             await _context.SaveChangesAsync();
 
-            // ✅ Map entity to display model
+            // map entity to display model
             var displayModel = MapToDisplayModel(existingUser);
 
             return ServiceResult<UserDisplayModel>.SuccessResult(displayModel);
