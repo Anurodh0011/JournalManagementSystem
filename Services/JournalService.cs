@@ -132,4 +132,66 @@ public class JournalService : IJournalService
             j.UserId == userId &&
             j.CreatedAt.Date == DateTime.Today);
     }
+
+    public async Task<(List<JournalDisplayModel>, int)>
+     SearchJournalsAsync(
+         int userId,
+         string title,
+         string mood,
+         string tag,
+         DateTime? fromDate,
+         DateTime? toDate,
+         int page,
+         int pageSize)
+    {
+        var query = _context.Journals
+            .Where(j => j.UserId == userId);
+
+        title = title?.ToLower() ?? "";
+        mood = mood?.ToLower() ?? "";
+        tag = tag?.ToLower() ?? "";
+
+        // 🔍 TITLE
+        if (!string.IsNullOrWhiteSpace(title))
+            query = query.Where(j =>
+                j.Title.ToLower().Contains(title));
+
+        // 😊 MOOD
+        if (!string.IsNullOrWhiteSpace(mood))
+            query = query.Where(j =>
+                j.PrimaryMood.ToLower() == mood);
+
+        // 🏷️ TAG
+        if (!string.IsNullOrWhiteSpace(tag))
+            query = query.Where(j =>
+                j.Tags.Any(t => t.ToLower().Contains(tag)));
+
+        // 📅 DATE FILTER
+        if (fromDate.HasValue)
+            query = query.Where(j => j.CreatedAt >= fromDate.Value);
+
+        if (toDate.HasValue)
+            query = query.Where(j => j.CreatedAt <= toDate.Value);
+
+        var totalCount = await query.CountAsync();
+
+        var journals = await query
+            .OrderByDescending(j => j.CreatedAt)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .Select(j => new JournalDisplayModel
+            {
+                JournalId = j.JournalId,
+                CreatedAt = j.CreatedAt,
+                Title = j.Title,
+                Description = j.Description,
+                PrimaryMood = j.PrimaryMood,
+                SecondaryMoods = j.SecondaryMoods,
+                Tags = j.Tags,
+                WordCount = j.WordCount
+            })
+            .ToListAsync();
+
+        return (journals, totalCount);
+    }
 }

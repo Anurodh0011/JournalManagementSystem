@@ -110,9 +110,9 @@
         <MudSpacer />
 
         <MudButton Variant="Variant.Filled"
-                   OnClick="OpenCreateDialog"
                    Color="Color.Secondary"
-                   StartIcon="@Icons.Material.Filled.Add">
+                   StartIcon="@Icons.Material.Filled.Add"
+                   OnClick="@(() => Navigation.NavigateTo("/add"))">
             New Entry
         </MudButton>
 
