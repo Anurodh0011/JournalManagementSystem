@@ -29,18 +29,18 @@ public class AnalyticService : IAnalyticService
         if (!journals.Any())
             return result;
 
-        // Mood distribution
+        // mood distribution
         result.MoodDistribution = journals
             .GroupBy(j => j.PrimaryMood)
             .ToDictionary(g => g.Key, g => g.Count());
 
-        // Tag distribution
+        // tag distribution
         result.TagDistribution = journals
             .SelectMany(j => j.Tags)
             .GroupBy(t => t)
             .ToDictionary(g => g.Key, g => g.Count());
 
-        // Word count trend
+        // word count trend
         result.WordCountTrend = journals
             .Select(j => new WordCountTrend
             {
