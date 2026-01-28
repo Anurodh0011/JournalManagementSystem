@@ -100,7 +100,6 @@ public class AnalyticService : IAnalyticService
         };
     }
 
-    // ================= CURRENT STREAK =================
     private int CalculateCurrentStreak(List<DateTime> dates)
     {
         var set = dates.ToHashSet();
@@ -116,7 +115,6 @@ public class AnalyticService : IAnalyticService
         return streak;
     }
 
-    // ================= LONGEST STREAK =================
     private int CalculateLongestStreak(List<DateTime> dates)
     {
         int longest = 0;
@@ -136,7 +134,6 @@ public class AnalyticService : IAnalyticService
         return Math.Max(longest, current);
     }
 
-    // ================= MISSED DAYS =================
     private int CalculateMissedDays(List<DateTime> dates)
     {
         var firstDate = dates.Min();
@@ -146,9 +143,9 @@ public class AnalyticService : IAnalyticService
     }
 
     public async Task<byte[]> GenerateJournalPdfAsync(
-   int userId,
-   DateTime fromDate,
-   DateTime toDate)
+     int userId,
+     DateTime fromDate,
+     DateTime toDate)
     {
         var journals = await _context.Journals
             .Where(j =>
@@ -163,40 +160,89 @@ public class AnalyticService : IAnalyticService
             container.Page(page =>
             {
                 page.Size(PageSizes.A4);
-                page.Margin(30);
+                page.Margin(35);
+                page.PageColor("#FFFFFF");
                 page.DefaultTextStyle(x => x.FontSize(11));
 
-                page.Header()
-                    .Text($"Journal Report ({fromDate:dd MMM yyyy} - {toDate:dd MMM yyyy})")
-                    .SemiBold().FontSize(16).AlignCenter();
-
-                page.Content().Column(col =>
+                page.Header().Column(header =>
                 {
+                    header.Item().Text("Journal Report")
+                        .FontSize(20)
+                        .SemiBold()
+                        .AlignCenter();
+
+                    header.Item().Text(
+                        $"Period: {fromDate:dd MMM yyyy} - {toDate:dd MMM yyyy}")
+                        .FontSize(11)
+                        .AlignCenter()
+                        .FontColor("#757575");
+
+                    header.Item().PaddingTop(10)
+                        .LineHorizontal(1)
+                        .LineColor("#E0E0E0");
+                });
+
+                page.Content().PaddingTop(15).Column(col =>
+                {
+                    if (!journals.Any())
+                    {
+                        col.Item().AlignCenter().PaddingTop(50)
+                            .Text("No journal entries found for the selected period.")
+                            .Italic()
+                            .FontColor("#757575");
+                        return;
+                    }
+
                     foreach (var j in journals)
                     {
-                        col.Item().PaddingBottom(10).BorderBottom(1).Column(c =>
-                        {
-                            c.Item().Text(j.CreatedAt.ToString("dd MMM yyyy"))
-                                .SemiBold().FontSize(12);
+                        col.Item().PaddingBottom(15).Border(1)
+                            .BorderColor("#E0E0E0")
+                            .Padding(12)
+                            .Column(card =>
+                            {
+                                card.Item().Text(j.CreatedAt.ToString("dddd, dd MMM yyyy"))
+                                    .FontSize(12)
+                                    .SemiBold()
+                                    .FontColor("#1E88E5");
 
-                            c.Item().Text(j.Title).SemiBold();
-                            c.Item().Text($"Mood: {j.PrimaryMood}");
-                            c.Item().Text($"Words: {j.WordCount}");
-                            c.Item().Text(j.Description);
-                        });
+                                card.Item().PaddingTop(5)
+                                    .Text(j.Title)
+                                    .FontSize(14)
+                                    .SemiBold();
+
+                                card.Item().PaddingTop(6).Row(row =>
+                                {
+                                    row.RelativeItem().Text($"Mood: {j.PrimaryMood}")
+                                        .FontSize(10)
+                                        .FontColor("#757575");
+
+                                    row.RelativeItem().AlignRight()
+                                        .Text($"Words: {j.WordCount}")
+                                        .FontSize(10)
+                                        .FontColor("#757575");
+                                });
+
+                                card.Item().PaddingVertical(6)
+                                    .LineHorizontal(0.5f)
+                                    .LineColor("#E0E0E0");
+
+                                card.Item().Text(j.Description)
+                                    .FontSize(11)
+                                    .LineHeight(1.4f);
+                            });
                     }
                 });
 
-                page.Footer()
-                    .AlignCenter()
-                    .Text(x =>
-                    {
-                        x.Span("Generated on ");
-                        x.Span(DateTime.Now.ToString("dd MMM yyyy HH:mm"));
-                    });
+                page.Footer().AlignCenter().Text(text =>
+                {
+                    text.Span("Generated on ");
+                    text.Span(DateTime.Now.ToString("dd MMM yyyy HH:mm"))
+                        .SemiBold();
+                });
             });
         });
 
         return document.GeneratePdf();
     }
+
 }
