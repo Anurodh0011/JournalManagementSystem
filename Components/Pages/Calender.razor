@@ -67,19 +67,19 @@
 
         <MudItem xs="12">
             <div class="calendar-grid">
-                @* Day headers *@
+                @* day headers *@
                 @foreach (var day in new[] { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" })
                 {
                     <div class="calendar-header">@day</div>
                 }
 
-                @* Empty cells before first day of month *@
+                @* empty cells before first day of month *@
                 @for (int i = 0; i < (int)new DateTime(_currentMonth.Year, _currentMonth.Month, 1).DayOfWeek; i++)
                 {
                     <div class="calendar-cell empty"></div>
                 }
 
-                @* Days of the month *@
+                @* days of the month *@
                 @for (int day = 1; day <= DateTime.DaysInMonth(_currentMonth.Year, _currentMonth.Month); day++)
                 {
                     var date = new DateTime(_currentMonth.Year, _currentMonth.Month, day);
@@ -105,66 +105,6 @@
     </MudGrid>
 </MudPaper>
 
-@* Modal for creating/editing journal *@
-<MudDialog @bind-IsVisible="showJournalModal" Options="dialogOptions">
-    <TitleContent>
-        <MudText Typo="Typo.h6">
-            @(selectedDate.Date == DateTime.Today ? "Today's Journal" : $"Journal for {selectedDate.ToString("MMMM dd, yyyy")}")
-        </MudText>
-    </TitleContent>
-    <DialogContent>
-        <MudForm>
-            <MudTextField @bind-Value="journalTitle"
-                          Label="Title"
-                          Required="true"
-                          Variant="Variant.Outlined"
-                          Class="mb-3" />
-
-            <MudTextField @bind-Value="journalContent"
-                          Label="Content"
-                          Required="true"
-                          Lines="5"
-                          Variant="Variant.Outlined"
-                          Class="mb-3" />
-
-            <MudSelect @bind-Value="journalPrimaryMood"
-                       Label="Primary Mood"
-                       Required="true"
-                       Variant="Variant.Outlined"
-                       Class="mb-3">
-                <MudSelectItem Value="@("Happy")">Happy</MudSelectItem>
-                <MudSelectItem Value="@("Sad")">Sad</MudSelectItem>
-                <MudSelectItem Value="@("Anxious")">Anxious</MudSelectItem>
-                <MudSelectItem Value="@("Calm")">Calm</MudSelectItem>
-                <MudSelectItem Value="@("Excited")">Excited</MudSelectItem>
-                <MudSelectItem Value="@("Angry")">Angry</MudSelectItem>
-                <MudSelectItem Value="@("Grateful")">Grateful</MudSelectItem>
-                <MudSelectItem Value="@("Stressed")">Stressed</MudSelectItem>
-            </MudSelect>
-
-            <MudTextField @bind-Value="secondaryMoodInput"
-                          Label="Secondary Moods (comma-separated, max 2)"
-                          Variant="Variant.Outlined"
-                          Class="mb-3" />
-
-            <MudTextField @bind-Value="tagsInput"
-                          Label="Tags (comma-separated)"
-                          Variant="Variant.Outlined"
-                          Class="mb-3" />
-
-            @if (!string.IsNullOrEmpty(formMessage))
-            {
-                <MudAlert Severity="@(formMessageType == "success" ? Severity.Success : Severity.Error)" Class="mb-3">
-                    @formMessage
-                </MudAlert>
-            }
-        </MudForm>
-    </DialogContent>
-    <DialogActions>
-        <MudButton OnClick="CloseModal" Color="Color.Default">Cancel</MudButton>
-        <MudButton OnClick="SaveJournal" Color="Color.Primary" Variant="Variant.Filled">Save</MudButton>
-    </DialogActions>
-</MudDialog>
 
 @code {
     private DateTime _currentMonth = DateTime.Today;
@@ -222,7 +162,6 @@
         _journalIdMap = allJournals.Journals
             .ToDictionary(j => j.CreatedAt.Date, j => j.JournalId);
 
-        // 🔥 STREAK ANALYTICS
         var dates = _journalDates.ToList();
 
         var streakResult = AnalyticService.CalculateStreaks(dates);
@@ -243,7 +182,7 @@
             return;
         }
 
-        // If journal exists for this date, redirect to detail page
+        // if journal exists for this date, redirect to detail page
         if (_journalDates.Contains(date.Date))
         {
             if (_journalIdMap.TryGetValue(date.Date, out int journalId))
@@ -253,7 +192,7 @@
             return;
         }
 
-        // If no journal exists, open modal to create one
+        // if no journal exists, open modal to create one
         selectedDate = date;
 
         journalTitle = "";
@@ -320,7 +259,7 @@
 
         Snackbar.Add("Journal saved successfully!", Severity.Success);
 
-        // Reload calendar data to update the UI
+        // reload calendar data to update the UI
         await LoadCalendarData();
 
         CloseModal();

@@ -9,7 +9,6 @@
 
 <MudLayout>
 
-    <!-- Top App Bar -->
     <MudAppBar Elevation="0" Style="background: transparent; backdrop-filter: blur(10px); border-bottom: 1px solid rgba(0, 121, 107, 0.1);">
         <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
             <MudIcon Icon="@Icons.Material.Filled.MenuBook" Size="Size.Medium" Color="Color.Primary" />
@@ -20,7 +19,6 @@
 
         <MudSpacer />
 
-        <!-- Login/Signup Toggle Buttons -->
         <MudButton Variant="@(IsLoginPage ? Variant.Filled : Variant.Text)"
                    Color="Color.Primary"
                    OnClick="@(() => NavigateToLogin())"
@@ -35,20 +33,17 @@
             Sign Up
         </MudButton>
 
-        <!-- Dark/Light Mode -->
         <MudIconButton Icon="@(_isDarkMode ? Icons.Material.Filled.DarkMode : Icons.Material.Filled.LightMode)"
                        Color="Color.Primary"
                        OnClick="ToggleTheme" />
     </MudAppBar>
 
-    <!-- Main Content -->
     <MudMainContent >
         <div >
             @Body
         </div>
     </MudMainContent>
 
-    <!-- Footer -->
     <MudPaper Class="pa-3 text-center"
               Square="true"
               Elevation="0"
@@ -67,10 +62,8 @@
     protected override void OnInitialized()
     {
         _currentRoute = Navigation?.Uri ?? "/";
-Navigation.LocationChanged += OnLocationChanged;
+        Navigation.LocationChanged += OnLocationChanged;
 
-        // _currentRoute = Navigation.Uri;
-        // Navigation.LocationChanged += OnLocationChanged;
     }
 
     private void OnLocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
@@ -114,7 +107,6 @@ Navigation.LocationChanged += OnLocationChanged;
             TextPrimary = Colors.Teal.Darken4,
             TextSecondary = Colors.Teal.Darken1,
 
-            // States (IMPORTANT for NavMenu)
             ActionDefault = Colors.Teal.Darken2,  // Normal menu text
 
             // Feedback
