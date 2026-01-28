@@ -19,17 +19,17 @@ public class JournalService : IJournalService
     {
         try
         {
-            // Prevent future date
+            // prevent future date
             if (model.CreatedAt > DateTime.Today)
                 return ServiceResult<Journal>.FailureResult("Cannot create journal for future dates");
 
-            // Check if journal exists for this user & date
+            // check if journal exists for this user & date
             var journal = await _context.Journals
                 .FirstOrDefaultAsync(j => j.UserId == userId && j.CreatedAt.Date == model.CreatedAt.Date);
 
             if (journal == null)
             {
-                // Create new
+                // create new
                 journal = new Journal
                 {
                     UserId = userId,
@@ -47,7 +47,7 @@ public class JournalService : IJournalService
             }
             else
             {
-                // Update existing
+                // update existing
                 journal.Title = model.Title;
                 journal.Description = model.Description;
                 journal.PrimaryMood = model.PrimaryMood;
@@ -84,15 +84,15 @@ public class JournalService : IJournalService
     public async Task<(List<JournalDisplayModel> Journals, int TotalCount)> GetAllJournalsByUserAsync(
     int userId, int page = 1, int pageSize = 10)
     {
-        // Only fetch journals of this user
+        // only fetch journals of this user
         var query = _context.Journals
             .Where(j => j.UserId == userId)
             .OrderByDescending(j => j.CreatedAt);
 
-        // Get total count for pagination
+        // get total count for pagination
         int totalCount = await query.CountAsync();
 
-        // Apply pagination
+        // apply pagination
         var journals = await query
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
@@ -131,5 +131,67 @@ public class JournalService : IJournalService
         return await _context.Journals.AnyAsync(j =>
             j.UserId == userId &&
             j.CreatedAt.Date == DateTime.Today);
+    }
+
+    public async Task<(List<JournalDisplayModel>, int)>
+     SearchJournalsAsync(
+         int userId,
+         string title,
+         string mood,
+         string tag,
+         DateTime? fromDate,
+         DateTime? toDate,
+         int page,
+         int pageSize)
+    {
+        var query = _context.Journals
+            .Where(j => j.UserId == userId);
+
+        title = title?.ToLower() ?? "";
+        mood = mood?.ToLower() ?? "";
+        tag = tag?.ToLower() ?? "";
+
+        // 🔍 TITLE
+        if (!string.IsNullOrWhiteSpace(title))
+            query = query.Where(j =>
+                j.Title.ToLower().Contains(title));
+
+        // 😊 MOOD
+        if (!string.IsNullOrWhiteSpace(mood))
+            query = query.Where(j =>
+                j.PrimaryMood.ToLower() == mood);
+
+        // 🏷️ TAG
+        if (!string.IsNullOrWhiteSpace(tag))
+            query = query.Where(j =>
+                j.Tags.Any(t => t.ToLower().Contains(tag)));
+
+        // 📅 DATE FILTER
+        if (fromDate.HasValue)
+            query = query.Where(j => j.CreatedAt >= fromDate.Value);
+
+        if (toDate.HasValue)
+            query = query.Where(j => j.CreatedAt <= toDate.Value);
+
+        var totalCount = await query.CountAsync();
+
+        var journals = await query
+            .OrderByDescending(j => j.CreatedAt)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .Select(j => new JournalDisplayModel
+            {
+                JournalId = j.JournalId,
+                CreatedAt = j.CreatedAt,
+                Title = j.Title,
+                Description = j.Description,
+                PrimaryMood = j.PrimaryMood,
+                SecondaryMoods = j.SecondaryMoods,
+                Tags = j.Tags,
+                WordCount = j.WordCount
+            })
+            .ToListAsync();
+
+        return (journals, totalCount);
     }
 }
